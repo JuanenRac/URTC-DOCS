@@ -23,7 +23,7 @@ Every repository of the ecosystem, written by `tools/make_catalog.py` from the `
 
 | Repository | Version | Maturity | Role | Stack | Target | Parent | What it is |
 |---|---|---|---|---|---|---|---|
-| [URTC-DOCS](https://github.com/JuanenRac/URTC-DOCS) | 0.0.1 | Scaffolding | tool | python | user-pc | - | Architecture, interfaces, security baseline, capability matrix and generated project catalogue of the ecosystem, plus the tools that compare all repositories. |
+| [URTC-DOCS](https://github.com/JuanenRac/URTC-DOCS) | 0.0.2 | Scaffolding | tool | python | user-pc | - | Architecture, interfaces, security baseline, capability matrix and generated project catalogue of the ecosystem, plus the tools that compare all repositories. |
 | [URTC-UPDATER](https://github.com/JuanenRac/URTC-UPDATER) | 0.1.3 | Established | tool | python | user-pc | - | Finds the ecosystem repositories on a machine from their manifests and installs or updates them after an explicit confirmation. |
 
 ### URTC Tool Platform

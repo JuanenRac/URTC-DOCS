@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Format-Markdown-083fa1.svg" alt="Format">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.0.1-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.2-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
@@ -26,11 +26,11 @@
 
 | | |
 |---|---|
-| Version | `0.0.1` |
-| Maturité | Échafaudage |
-| Pile | Markdown et Python 3.10+ (bibliothèque standard uniquement) |
-| Cible | Un PC de développement (ni service ni port) |
-| Sur matériel réel | Sans objet : ce sont de la documentation et des outils ; il consigne ce que les autres dépôts ont exécuté sur du matériel |
+| Version | `0.0.2` |
+| Maturité | Ébauche |
+| Technologie | Markdown / Mermaid / Python / SVG |
+| Cible | Le PC de la personne qui l'utilise |
+| Sur matériel réel | Sans objet : rien ici ne s'exécute sur du matériel |
 
 ## 🎯 Vue d'ensemble
 
@@ -47,7 +47,7 @@ L'image ci-dessous montre les dépôts d'URTC, le bus CAN qui relie les cartes e
 * [Première tranche verticale](docs/FIRST_VERTICAL_SLICE.md): le plus petit chemin de bout en bout qui existe aujourd'hui.
 * [Duplication du protocole CAN](docs/CAN_PROTOCOL_DUPLICATION.md): le protocole est implémenté trois fois à partir d'un texte ; ce que contiendrait une spécification partagée.
 * [Catalogue des projets](docs/PROJECT_CATALOG.md): chaque dépôt de l'écosystème, écrit à partir de son propre manifeste.
-* **Outils :** `make_catalog.py` écrit le catalogue, `make_brand.py` la bannière, l'icône et la carte des familles, `make_readmes.py` les huit README de ce dépôt, `publication_check.py` cherche tout ce qui serait privé avant une publication, et `check_all.sh` lance les vérifications propres à chaque dépôt de la famille et affiche une ligne PASS, FAIL ou SKIP pour chacun.
+* **Outils :** `make_catalog.py` écrit le catalogue, `make_brand.py` la bannière, l'icône et la carte des familles, `make_readmes.py` les huit README de ce dépôt, `publication_check.py` cherche tout ce qui serait privé avant une publication, et `check_all.sh` lance les vérifications propres à chaque dépôt de la famille et affiche une ligne PASS, FAIL ou SKIP pour chacun. `make_glance.py` écrit le tableau En un coup d'œil de chaque dépôt à partir de son manifeste et de `data/glance.json` (`--check` compare, `--apply` écrit) ; après un changement de version, `python tools/make_glance.py --apply --repo NOM` met à jour le tableau de ce dépôt.
 
 ## 🧩 Rôle dans URTC
 
@@ -75,6 +75,7 @@ URTC-DOCS/
 python tools/make_catalog.py --check  # le catalogue est à jour (nécessite les dépôts à côté de celui-ci)
 python tools/make_brand.py --check    # la bannière, l'icône et la carte sont à jour
 python tools/make_readmes.py --check  # les huit README sont à jour
+python tools/make_glance.py --check   # les tableaux En un coup d'œil de la famille sont à jour (nécessite les dépôts à côté de celui-ci)
 python tools/publication_check.py     # rien de privé ne partirait avec une publication
 bash tools/check_all.sh               # les vérifications de chaque dépôt, une ligne chacun
 python -m pytest tests -q             # les tests unitaires des outils

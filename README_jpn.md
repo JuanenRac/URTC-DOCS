@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Format-Markdown-083fa1.svg" alt="Format">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.0.1-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.2-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
@@ -22,15 +22,15 @@
 
 ---
 
-## 📋 概要一覧
+## 📋 ひと目で
 
 | | |
 |---|---|
-| バージョン | `0.0.1` |
+| バージョン | `0.0.2` |
 | 成熟度 | 足場段階 |
-| スタック | Markdown と Python 3.10+（標準ライブラリのみ） |
-| 対象 | 開発用 PC（サービスもポートもなし） |
-| 実機での動作 | 対象外：ドキュメントとツールであり、他のリポジトリが実機で動かした内容を記録します |
+| 技術 | Markdown / Mermaid / Python / SVG |
+| 対象 | 利用者の PC |
+| 実機での確認 | 対象外：ここにあるものはハードウェア上では動きません |
 
 ## 🎯 概要
 
@@ -47,7 +47,7 @@
 * [最初の垂直スライス](docs/FIRST_VERTICAL_SLICE.md): 今日存在する最小のエンドツーエンド経路。
 * [CAN プロトコルの重複実装](docs/CAN_PROTOCOL_DUPLICATION.md): プロトコルは文章の説明から三回実装されています。共有仕様に含まれるはずの内容。
 * [プロジェクトカタログ](docs/PROJECT_CATALOG.md): エコシステムの全リポジトリを、それぞれのマニフェストから生成。
-* **ツール：** `make_catalog.py` はカタログを、`make_brand.py` はバナー・アイコン・ファミリーマップを、`make_readmes.py` はこのリポジトリの 8 つの README を書きます。`publication_check.py` は公開前に非公開のものを探し、`check_all.sh` はファミリーの各リポジトリ自身のチェックを実行して、1 件ごとに PASS、FAIL、SKIP の 1 行を出力します。
+* **ツール：** `make_catalog.py` はカタログを、`make_brand.py` はバナー・アイコン・ファミリーマップを、`make_readmes.py` はこのリポジトリの 8 つの README を書きます。`publication_check.py` は公開前に非公開のものを探し、`check_all.sh` はファミリーの各リポジトリ自身のチェックを実行して、1 件ごとに PASS、FAIL、SKIP の 1 行を出力します。 `make_glance.py` は各リポジトリのマニフェストと `data/glance.json` から「ひと目で」の表を書きます（`--check` は比較、`--apply` は書き込み）。バージョンを上げた後は `python tools/make_glance.py --apply --repo NAME` でそのリポジトリの表を更新します。
 
 ## 🧩 URTC での役割
 
@@ -75,6 +75,7 @@ URTC-DOCS/
 python tools/make_catalog.py --check  # カタログが最新（このリポジトリの隣に他のリポジトリが必要）
 python tools/make_brand.py --check    # バナー、アイコン、マップが最新
 python tools/make_readmes.py --check  # 8 つの README が最新
+python tools/make_glance.py --check   # ファミリー全体の「ひと目で」の表が最新（このリポジトリの隣に他のリポジトリが必要）
 python tools/publication_check.py     # 公開で非公開のものが外に出ない
 bash tools/check_all.sh               # 各リポジトリのチェックを 1 行ずつ
 python -m pytest tests -q             # ツールの単体テスト

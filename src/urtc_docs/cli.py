@@ -10,10 +10,11 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import __version__, brand, catalog, family, publication, readmes
+from . import __version__, brand, catalog, family, glance, publication, readmes
 
 REPO = Path(__file__).resolve().parents[2]
 CATALOG_FILE = REPO / "docs" / "PROJECT_CATALOG.md"
+GLANCE_FILE = REPO / "data" / "glance.json"
 
 
 def _workspace(args: argparse.Namespace) -> Path:
@@ -96,6 +97,50 @@ def make_readmes(argv: list[str] | None = None) -> int:
     return 0
 
 
+def make_glance(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(prog="make_glance.py", description="Write or check the 'At a glance' section of the eight READMEs of the repositories next to this one.")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--apply", action="store_true", help="insert the section where it is missing and rewrite it where it is stale")
+    mode.add_argument("--check", action="store_true", help="fail when a section is missing, misplaced or stale (the default)")
+    parser.add_argument("--repo", action="append", metavar="NAME", help="only this repository (repeat the option for several)")
+    parser.add_argument("--require-siblings", action="store_true", help="fail instead of skipping a listed repository that is not next to this one")
+    parser.add_argument("--workspace", help="the folder that holds the repositories (default: the parent of this repository)")
+    parser.add_argument("--data", default=str(GLANCE_FILE), help="the data file (default: data/glance.json)")
+    args = parser.parse_args(argv)
+    try:
+        entries = glance.load_data(Path(args.data))
+        workspace = _workspace(args)
+        names = args.repo or sorted(entries)
+        unknown = [name for name in names if name not in entries]
+        if unknown:
+            print("GLANCE=FAIL not in the data file: " + ", ".join(unknown), file=sys.stderr)
+            return 1
+        problems: list[str] = []
+        done = skipped = 0
+        for name in names:
+            repo = workspace / name
+            if not repo.is_dir():
+                skipped += 1
+                if args.require_siblings:
+                    problems.append(f"{name}: the repository is not next to this one")
+                continue
+            if args.apply:
+                for changed in glance.apply_repo(repo, entries[name]):
+                    print(f"WRITTEN {name}/{changed}")
+            problems += glance.check_repo(repo, entries[name])
+            done += 1
+    except (glance.GlanceError, OSError, ValueError) as error:
+        print(f"GLANCE=FAIL {error}", file=sys.stderr)
+        return 1
+    for problem in problems:
+        print(problem, file=sys.stderr)
+    if problems:
+        print(f"GLANCE=FAIL {len(problems)} problem(s) in {done} repositories", file=sys.stderr)
+        return 1
+    print(f"GLANCE=PASS {done} repositories checked, {skipped} not found next to this one")
+    return 0
+
+
 def publication_check(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="publication_check.py", description="Look for anything private in the repositories of the ecosystem before a publication.")
     parser.add_argument("repositories", nargs="*", help="names of the repositories to check (default: every one of the ecosystem next to this one)")
@@ -125,12 +170,12 @@ def publication_check(argv: list[str] | None = None) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     """`run.sh` / `run.bat`: without arguments, say what this is; with one, run that tool."""
-    commands = {"catalog": make_catalog, "brand": make_brand, "readmes": make_readmes, "publication": publication_check}
+    commands = {"catalog": make_catalog, "brand": make_brand, "readmes": make_readmes, "glance": make_glance, "publication": publication_check}
     arguments = list(sys.argv[1:] if argv is None else argv)
     if not arguments or arguments[0] in {"-h", "--help", "help"}:
         print(f"URTC-DOCS v{__version__}")
         print("Documentation and cross-repository tooling hub of the URTC ecosystem.")
-        print("usage: run.sh <catalog|brand|readmes|publication> [options]")
+        print("usage: run.sh <catalog|brand|readmes|glance|publication> [options]")
         return 0
     if arguments[0] not in commands:
         print(f"unknown command {arguments[0]!r}; expected one of: {', '.join(commands)}", file=sys.stderr)

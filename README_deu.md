@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Format-Markdown-083fa1.svg" alt="Format">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.0.1-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.2-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
@@ -26,11 +26,11 @@
 
 | | |
 |---|---|
-| Version | `0.0.1` |
+| Version | `0.0.2` |
 | Reifegrad | Gerüst |
-| Stack | Markdown und Python 3.10+ (nur Standardbibliothek) |
-| Ziel | Ein Entwicklungs-PC (kein Dienst, kein Port) |
-| Auf echter Hardware | Nicht zutreffend: es sind Dokumentation und Werkzeuge; es hält fest, was die anderen Repositories auf Hardware ausgeführt haben |
+| Technik | Markdown / Mermaid / Python / SVG |
+| Ziel | Der PC der Person, die es benutzt |
+| Auf echter Hardware | Nicht zutreffend: nichts hiervon läuft auf Hardware |
 
 ## 🎯 Überblick
 
@@ -47,7 +47,7 @@ Das Bild unten zeigt die Repositories von URTC, den CAN-Bus, der die Platinen un
 * [Erster vertikaler Schnitt](docs/FIRST_VERTICAL_SLICE.md): der kleinste durchgehende Pfad, den es heute gibt.
 * [Duplizierung des CAN-Protokolls](docs/CAN_PROTOCOL_DUPLICATION.md): das Protokoll ist dreimal aus einem Text heraus implementiert; was eine gemeinsame Spezifikation enthalten würde.
 * [Projektkatalog](docs/PROJECT_CATALOG.md): jedes Repository des Ökosystems, aus seinem eigenen Manifest geschrieben.
-* **Werkzeuge:** `make_catalog.py` schreibt den Katalog, `make_brand.py` das Banner, das Symbol und die Familienkarte, `make_readmes.py` die acht READMEs dieses Repositorys, `publication_check.py` sucht vor einer Veröffentlichung nach allem Privaten, und `check_all.sh` führt die eigenen Prüfungen jedes Repositorys der Familie aus und gibt je eine Zeile PASS, FAIL oder SKIP aus.
+* **Werkzeuge:** `make_catalog.py` schreibt den Katalog, `make_brand.py` das Banner, das Symbol und die Familienkarte, `make_readmes.py` die acht READMEs dieses Repositorys, `publication_check.py` sucht vor einer Veröffentlichung nach allem Privaten, und `check_all.sh` führt die eigenen Prüfungen jedes Repositorys der Familie aus und gibt je eine Zeile PASS, FAIL oder SKIP aus. `make_glance.py` schreibt die Tabelle Auf einen Blick jedes Repositorys aus dessen Manifest und aus `data/glance.json` (`--check` vergleicht, `--apply` schreibt); nach einer Versionserhöhung aktualisiert `python tools/make_glance.py --apply --repo NAME` die Tabelle dieses Repositorys.
 
 ## 🧩 Rolle in URTC
 
@@ -75,6 +75,7 @@ URTC-DOCS/
 python tools/make_catalog.py --check  # der Katalog ist aktuell (braucht die Repositories neben diesem)
 python tools/make_brand.py --check    # Banner, Symbol und Karte sind aktuell
 python tools/make_readmes.py --check  # die acht READMEs sind aktuell
+python tools/make_glance.py --check   # die Tabellen Auf einen Blick der Familie sind aktuell (braucht die Repositories neben diesem)
 python tools/publication_check.py     # nichts Privates würde mit einer Veröffentlichung hinausgehen
 bash tools/check_all.sh               # die Prüfungen jedes Repositorys, eine Zeile je Repository
 python -m pytest tests -q             # die Unit-Tests der Werkzeuge

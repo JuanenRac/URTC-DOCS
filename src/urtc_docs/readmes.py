@@ -15,8 +15,9 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from . import glance
 from .readme_family import FAMILY_REPOS
-from .readme_text import LANGUAGES, MATURITY, TEXT
+from .readme_text import LANGUAGES, TEXT
 
 NAME = "URTC-DOCS"
 URL = "https://github.com/JuanenRac/{name}"
@@ -34,10 +35,9 @@ def language_bar(code: str) -> str:
     return '<p align="center">' + " | ".join(items) + "</p>"
 
 
-def render(code: str, manifest: dict) -> str:
+def render(code: str, manifest: dict, entry: dict) -> str:
     text = TEXT[code]
     version, maturity = manifest["version"], manifest["maturity"]
-    maturity_label = MATURITY[code][maturity]
     tree = text["tree"]
     lines: list[str] = []
     add = lines.append
@@ -66,15 +66,7 @@ def render(code: str, manifest: dict) -> str:
     add("")
     add("---")
     add("")
-    add(f"## 📋 {text['h_glance']}")
-    add("")
-    add("| | |")
-    add("|---|---|")
-    add(f"| {text['g_version']} | `{version}` |")
-    add(f"| {text['g_maturity']} | {maturity_label} |")
-    add(f"| {text['g_stack']} | {text['g_stack_value']} |")
-    add(f"| {text['g_target']} | {text['g_target_value']} |")
-    add(f"| {text['g_hardware']} | {text['g_hardware_value']} |")
+    add(glance.render_section(code, manifest, entry).rstrip(chr(10)))
     add("")
     add(f"## 🎯 {text['h_overview']}")
     add("")
@@ -115,6 +107,7 @@ def render(code: str, manifest: dict) -> str:
         "python tools/make_catalog.py --check",
         "python tools/make_brand.py --check",
         "python tools/make_readmes.py --check",
+        "python tools/make_glance.py --check",
         "python tools/publication_check.py",
         "bash tools/check_all.sh",
         "python -m pytest tests -q",
@@ -166,4 +159,5 @@ def render(code: str, manifest: dict) -> str:
 def outputs(repo: Path) -> dict[str, str]:
     """File name -> content, for the eight languages."""
     manifest = json.loads((repo / "urtc.project.json").read_text(encoding="utf-8"))
-    return {filename: render(code, manifest) for code, (filename, _) in LANGUAGES.items()}
+    entry = glance.load_data(repo / "data" / "glance.json")[manifest["name"]]
+    return {filename: render(code, manifest, entry) for code, (filename, _) in LANGUAGES.items()}

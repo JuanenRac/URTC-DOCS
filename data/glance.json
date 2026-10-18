@@ -1,0 +1,35 @@
+{
+  "repos": {
+    "URTC": {
+      "hardware": "not_run",
+      "target": "board"
+    },
+    "URTC-DOCS": {
+      "hardware": "not_applicable"
+    },
+    "URTC-FLASHER": {
+      "hardware": "simulated",
+      "tests": {
+        "count": 214
+      }
+    },
+    "URTC-SMART-RACK": {
+      "hardware": "not_run",
+      "target": "board"
+    },
+    "URTC-TESTER": {
+      "hardware": "simulated"
+    },
+    "URTC-UPDATER": {
+      "hardware": "not_applicable"
+    },
+    "URTC-VISION-TOOL": {
+      "hardware": "not_run",
+      "target": "board"
+    },
+    "URTC-WEB-STUDIO": {
+      "hardware": "simulated",
+      "target": "browser"
+    }
+  }
+}

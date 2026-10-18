@@ -81,7 +81,6 @@ def test_every_language_has_the_same_keys_and_no_empty_text():
         assert set(block["tree"]) == set(reference["tree"]), code
         assert len(block["docs_links"]) == len(reference["docs_links"]), code
         assert [item[1] for item in block["beyond"]] == [item[1] for item in reference["beyond"]], code
-        assert set(readme_text.MATURITY[code]) == {"scaffolding", "functional", "established", "production"}, code
 
 
 def test_eight_languages_in_the_agreed_files():
@@ -148,9 +147,10 @@ def test_the_language_bar_marks_the_current_language_and_links_the_others():
 
 
 def test_the_maturity_is_translated_from_the_manifest():
-    manifest = {"version": "1.2.3", "maturity": "functional"}
-    assert "| Funcional |" in readmes.render("es", manifest)
-    assert "Maturity-functional" in readmes.render("en", manifest)
+    manifest = {"name": "X", "version": "1.2.3", "maturity": "functional", "technologies": ["Python"], "role": "tool", "deployment_target": "user-pc"}
+    entry = {"hardware": "not_applicable"}
+    assert "| Funcional |" in readmes.render("es", manifest, entry)
+    assert "Maturity-functional" in readmes.render("en", manifest, entry)
 
 
 def test_no_readme_carries_a_private_name_a_date_or_an_unfinished_marker():

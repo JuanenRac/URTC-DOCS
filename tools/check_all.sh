@@ -44,7 +44,7 @@ run() {
   local name="$1" directory="$2"
   shift 2
   if ( cd "$directory" && "$@" ) >"$LOGS/$name.log" 2>&1; then
-    report "$name" PASS "$(grep -E '(CI_VALIDATION=PASS|[0-9]+ passed|CATALOG=PASS|BRAND=PASS|READMES=PASS|PUBLICATION_CHECK=PASS)' "$LOGS/$name.log" | tail -1 | sed 's/^ *//')"
+    report "$name" PASS "$(grep -E '(CI_VALIDATION=PASS|[0-9]+ passed|CATALOG=PASS|BRAND=PASS|READMES=PASS|GLANCE=PASS|PUBLICATION_CHECK=PASS)' "$LOGS/$name.log" | tail -1 | sed 's/^ *//')"
   else
     report "$name" FAIL "see below"
     sed 's/^/    | /' "$LOGS/$name.log" | tail -15
@@ -88,6 +88,11 @@ if [[ "$checked" -gt 0 ]]; then
   run "docs: catalogue structure" "$HERE" "$PYTHON" tools/make_catalog.py --check-structure --require-siblings
 else
   report "docs: catalogue structure" SKIP "no sibling repositories to read the manifests of"
+fi
+if [[ "$checked" -gt 0 ]]; then
+  run "docs: At a glance tables" "$HERE" "$PYTHON" tools/make_glance.py --check
+else
+  report "docs: At a glance tables" SKIP "no sibling repositories to read the manifests of"
 fi
 if "$PYTHON" -c "import pytest" >/dev/null 2>&1; then
   run "docs: unit tests" "$HERE" "$PYTHON" -m pytest tests -q

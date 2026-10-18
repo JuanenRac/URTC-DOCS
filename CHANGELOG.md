@@ -5,6 +5,13 @@ version number follows this ecosystem's "odometer" scheme: PATCH +1 on
 every real build, rolling into MINOR past 9 (`0.0.9` -> `0.1.0`); MAJOR is
 bumped manually only. See `bump_version.py`.
 
+## [0.0.2] - The At a glance tables
+
+- **At a glance:** `tools/make_glance.py` inserts, or rewrites in place, the At a glance table in the README and its seven translations of every repository of the ecosystem, written from the manifest of each repository (version, maturity, stack, target) and from `data/glance.json` (test count when it is known, target, and one hardware statement chosen from a closed vocabulary that is translated once in the eight languages). It keeps the line endings of each file, never duplicates the section, and `--check` fails when a section is missing, misplaced or stale; `--repo NAME` limits it to one repository.
+- **After a version bump:** run `python tools/make_glance.py --apply --repo NAME` to refresh the Version cell of that repository.
+- **Nightly check:** the nightly workflow and `tools/check_all.sh` now compare the At a glance tables of all the sibling repositories with their manifests, so a table that was not refreshed after a version bump is reported.
+- **This README:** the table of this repository is written by the same tool, so the labels are the ones used in the other repositories.
+
 ## [0.0.1] - The documentation and tooling hub of the ecosystem
 
 - **Documents:** the architecture (boards, CAN bus, tool heads, host tools, data flows, trust boundaries), the interfaces and who owns each contract, the capability matrix (what is proven in software and what needs a board, project by project), the security baseline, the threat model, the first vertical slice and the generated project catalogue. They are written from the READMEs, manifests, changelogs and documents of the other repositories, and mark what could not be traced.

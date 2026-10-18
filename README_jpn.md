@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Format-Markdown-083fa1.svg" alt="Format">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.0.5-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.6-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
@@ -28,7 +28,7 @@
 
 | | |
 |---|---|
-| バージョン | `0.0.5` |
+| バージョン | `0.0.6` |
 | 成熟度 | 足場段階 |
 | 技術 | Markdown / Mermaid / Python / SVG |
 | 対象 | 利用者の PC |
@@ -85,7 +85,7 @@ python tools/urtc_doctor.py                      # ドクター：このマシ�
 python -m pytest tests -q                        # ツールの単体テスト
 ```
 
-`build.sh` / `build.bat` はバージョンを 1 段階上げ（エコシステムのオドメーター方式）、パッケージをインストールしてテストを実行します。`build-test.sh` / `build-test.bat` はバージョンを変えずに確認します。
+`build.sh` / `build.bat` はパッケージをインストールしてテストを実行し、`build-test.sh` / `build-test.bat` はインストールせずに確認します。どちらもバージョンは変えません。`python bump.py` がバージョンを 1 段階上げます（エコシステムのオドメーター方式）。
 
 ## 🔗 関連プロジェクト
 

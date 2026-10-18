@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Format-Markdown-083fa1.svg" alt="Format">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.0.5-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.6-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
@@ -28,7 +28,7 @@
 
 | | |
 |---|---|
-| Version | `0.0.5` |
+| Version | `0.0.6` |
 | Reifegrad | Gerüst |
 | Technik | Markdown / Mermaid / Python / SVG |
 | Ziel | Der PC der Person, die es benutzt |
@@ -85,7 +85,7 @@ python tools/urtc_doctor.py                      # der Doctor: ein Bericht über
 python -m pytest tests -q                        # die Unit-Tests der Werkzeuge
 ```
 
-`build.sh` / `build.bat` erhöhen die Version um einen Schritt (der Kilometerzähler des Ökosystems), installieren das Paket und führen die Tests aus; `build-test.sh` / `build-test.bat` prüfen, ohne eine Version zu ändern.
+`build.sh` / `build.bat` installieren das Paket und führen die Tests aus, und `build-test.sh` / `build-test.bat` prüfen, ohne zu installieren; keines ändert eine Version. `python bump.py` erhöht die Version um einen Schritt (der Kilometerzähler des Ökosystems).
 
 ## 🔗 Verwandte Projekte
 

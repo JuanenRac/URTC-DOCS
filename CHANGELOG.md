@@ -2,8 +2,13 @@
 
 All notable changes to this project will be documented in this file. The
 version number follows this ecosystem's "odometer" scheme: PATCH +1 on
-every real build, rolling into MINOR past 9 (`0.0.9` -> `0.1.0`); MAJOR is
+every explicit bump, rolling into MINOR past 9 (`0.0.9` -> `0.1.0`); MAJOR is
 bumped manually only. See `bump_version.py`.
+
+## [0.0.6] - An explicit bump command: building never changes the version
+
+- Building no longer changes the version: build.sh and build.bat only read it, and raising it is the explicit `python bump.py` step. The README sources and the eight generated READMEs say so.
+- Every licence statement and source header says GPL-3.0-or-later.
 
 ## [0.0.5] - The doctor: one report on the machine and on every repository
 

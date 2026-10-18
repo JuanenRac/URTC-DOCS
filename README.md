@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Format-Markdown-083fa1.svg" alt="Format">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.0.5-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.6-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
@@ -28,7 +28,7 @@
 
 | | |
 |---|---|
-| Version | `0.0.5` |
+| Version | `0.0.6` |
 | Maturity | Scaffolding |
 | Stack | Markdown / Mermaid / Python / SVG |
 | Target | The PC of the person using it |
@@ -85,7 +85,7 @@ python tools/urtc_doctor.py                      # the doctor: one report on thi
 python -m pytest tests -q                        # the unit tests of the tools
 ```
 
-`build.sh` / `build.bat` raise the version by one step (the ecosystem's odometer), install the package and run the tests; `build-test.sh` / `build-test.bat` check without changing any version.
+`build.sh` / `build.bat` install the package and run the tests, and `build-test.sh` / `build-test.bat` check without installing; neither changes a version. `python bump.py` raises the version by one step (the ecosystem's odometer).
 
 ## 🔗 Related Projects
 

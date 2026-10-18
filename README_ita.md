@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Format-Markdown-083fa1.svg" alt="Format">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.0.5-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.6-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
@@ -28,7 +28,7 @@
 
 | | |
 |---|---|
-| Versione | `0.0.5` |
+| Versione | `0.0.6` |
 | Maturità | Impalcatura |
 | Tecnologia | Markdown / Mermaid / Python / SVG |
 | Destinazione | Il PC di chi lo usa |
@@ -85,7 +85,7 @@ python tools/urtc_doctor.py                      # il doctor: un rapporto su que
 python -m pytest tests -q                        # i test unitari degli strumenti
 ```
 
-`build.sh` / `build.bat` alzano la versione di un passo (il contachilometri dell'ecosistema), installano il pacchetto ed eseguono i test; `build-test.sh` / `build-test.bat` controllano senza cambiare alcuna versione.
+`build.sh` / `build.bat` installano il pacchetto ed eseguono i test, e `build-test.sh` / `build-test.bat` controllano senza installare; nessuno cambia una versione. `python bump.py` alza la versione di un passo (il contachilometri dell'ecosistema).
 
 ## 🔗 Progetti correlati
 

@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Format-Markdown-083fa1.svg" alt="Format">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.0.5-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.6-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
@@ -28,7 +28,7 @@
 
 | | |
 |---|---|
-| Versão | `0.0.5` |
+| Versão | `0.0.6` |
 | Maturidade | Estrutura inicial |
 | Tecnologia | Markdown / Mermaid / Python / SVG |
 | Destino | O PC de quem o usa |
@@ -85,7 +85,7 @@ python tools/urtc_doctor.py                      # o doctor: um relatório sobre
 python -m pytest tests -q                        # os testes unitários das ferramentas
 ```
 
-`build.sh` / `build.bat` sobem a versão um passo (o conta-quilómetros do ecossistema), instalam o pacote e executam os testes; `build-test.sh` / `build-test.bat` verificam sem alterar nenhuma versão.
+`build.sh` / `build.bat` instalam o pacote e executam os testes, e `build-test.sh` / `build-test.bat` verificam sem instalar; nenhum altera a versão. `python bump.py` sobe a versão um passo (o conta-quilómetros do ecossistema).
 
 ## 🔗 Projetos relacionados
 

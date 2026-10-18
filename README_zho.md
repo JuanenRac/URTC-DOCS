@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Format-Markdown-083fa1.svg" alt="Format">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.0.5-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.6-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
@@ -28,7 +28,7 @@
 
 | | |
 |---|---|
-| 版本 | `0.0.5` |
+| 版本 | `0.0.6` |
 | 成熟度 | 雏形 |
 | 技术栈 | Markdown / Mermaid / Python / SVG |
 | 目标 | 使用者的电脑 |
@@ -85,7 +85,7 @@ python tools/urtc_doctor.py                      # 医生：关于本机和每�
 python -m pytest tests -q                        # 工具的单元测试
 ```
 
-`build.sh` / `build.bat` 将版本提升一步（生态的里程表规则），安装包并运行测试；`build-test.sh` / `build-test.bat` 在不改变任何版本的情况下进行检查。
+`build.sh` / `build.bat` 安装包并运行测试，`build-test.sh` / `build-test.bat` 不安装直接检查；两者都不会改变版本。`python bump.py` 将版本提升一步（生态的里程表规则）。
 
 ## 🔗 相关项目
 

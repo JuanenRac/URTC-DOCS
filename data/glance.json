@@ -10,7 +10,7 @@
     "URTC-FLASHER": {
       "hardware": "simulated",
       "tests": {
-        "count": 214
+        "count": 385
       }
     },
     "URTC-SMART-RACK": {

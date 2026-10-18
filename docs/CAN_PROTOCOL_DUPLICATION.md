@@ -8,7 +8,9 @@ CC BY-SA 4.0 - see LICENSE.md
 
 # The CAN protocol is implemented three times
 
-A study note, not a plan. Nothing described under "What a shared specification would hold" has been built, and whether to build it is a decision that belongs to the owner of the ecosystem.
+A study note, not a plan. Whether to build what is described under "What a shared specification would hold" is a decision that belongs to the owner of the ecosystem.
+
+**Status.** A first version of items 1, 3, 4 and 5 now exists in its own repository, [URTC-COMMON](https://github.com/JuanenRac/URTC-COMMON): a machine-readable frame table (`spec/can_protocol.json`, with a JSON Schema), the SLCAN subset, the conformance vectors copied there and extended, and a C header, a TypeScript module and a Python module generated from the table, with a check that fails when one is out of date. A test there compares the table with the firmware, the three tools and the identifiers listed in the prose, when they are checked out next to it. Its first reading also found two identifiers, `0x1A8` and `0x1A9` (read-back of the fault recorder), that the firmware implements and that neither the prose nor any tool describes. Item 2 (the sequences as state machines) and the rules for change (item 6) are only started, no tool or firmware imports URTC-COMMON yet, and the questions for the owner below are unchanged. The text of this note describes the situation as it was read before that repository existed.
 
 ## The situation
 

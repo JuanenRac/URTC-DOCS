@@ -17,6 +17,7 @@ FAMILY_REPOS: tuple[tuple[str, tuple[str, ...]], ...] = (
         "URTC Tool Platform",
         (
             "URTC",
+            "URTC-COMMON",
             "URTC-FLASHER",
             "URTC-SMART-RACK",
             "URTC-TESTER",

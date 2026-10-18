@@ -14,6 +14,7 @@ from __future__ import annotations
 
 DESCRIPTIONS: dict[str, str] = {
     "URTC": "Firmware of the tool-head board (STM32F303, 25 tool profiles, CAN bootloader, expansion slave) and the CAN protocol reference; no populated board exists yet.",
+    "URTC-COMMON": "The CAN protocol as data: a specification with generated C, TypeScript and Python code, conformance vectors and the Python transports; nothing uses it yet.",
     "URTC-DOCS": "Architecture, interfaces, security baseline, capability matrix and generated project catalogue of the ecosystem, plus the tools that compare all repositories.",
     "URTC-FLASHER": "Desktop tool that updates the board firmware over CAN (bootloader protocol, signed images) or over SWD/JTAG; tested against a simulated bootloader only.",
     "URTC-SMART-RACK": "Hardware-independent C logic and rack command protocol for a tool rack with pre-heating and lifecycle tracking; no board exists yet.",

@@ -21,7 +21,7 @@ BG_FROM, BG_TO = "#07090C", "#12161C"
 TAGS = ("ARCHITECTURE", "INTERFACES", "CAN", "SECURITY", "CATALOG", "PYTHON")
 
 WIDTH, BOX_W, BOX_H = 1200, 290, 78
-# repository -> (column centre, row, what it is); rows: 0 boards, 1 bus, 2 host tools, 3 operations
+# repository -> (column centre, row, what it is); rows: 0 boards, 1 bus, 2 host tools, 3 shared protocol library, 4 operations
 NODES: dict[str, tuple[int, int, str]] = {
     "URTC": (200, 0, "tool-head board firmware"),
     "URTC-SMART-RACK": (600, 0, "rack firmware, no board yet"),
@@ -29,8 +29,9 @@ NODES: dict[str, tuple[int, int, str]] = {
     "URTC-FLASHER": (200, 2, "flash over CAN or SWD"),
     "URTC-TESTER": (600, 2, "live bus tester"),
     "URTC-WEB-STUDIO": (1000, 2, "browser flasher and tester"),
-    "URTC-UPDATER": (350, 3, "reads the manifests"),
-    "URTC-DOCS": (850, 3, "this repository"),
+    "URTC-COMMON": (600, 3, "the CAN protocol as data"),
+    "URTC-UPDATER": (350, 4, "reads the manifests"),
+    "URTC-DOCS": (850, 4, "this repository"),
 }
 SOLID_ON_BUS = ("URTC", "URTC-FLASHER", "URTC-TESTER", "URTC-WEB-STUDIO")
 DASHED_ON_BUS = ("URTC-SMART-RACK", "URTC-VISION-TOOL")

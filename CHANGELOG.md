@@ -5,6 +5,11 @@ version number follows this ecosystem's "odometer" scheme: PATCH +1 on
 every real build, rolling into MINOR past 9 (`0.0.9` -> `0.1.0`); MAJOR is
 bumped manually only. See `bump_version.py`.
 
+## [0.0.3] - URTC-COMMON joins the family
+
+- **New repository in the family:** URTC-COMMON (the CAN protocol as data: a machine-readable specification, generated C, TypeScript and Python code, conformance vectors and the Python transports) is now in the Related Projects section of the eight READMEs, in the generated project catalogue, in the At a glance data and in the map of the ecosystem, on its own row because it sits between the host tools and the operations repositories.
+- **CAN protocol note and interface table:** `docs/CAN_PROTOCOL_DUPLICATION.md` has a status paragraph (items 1, 3, 4 and 5 now exist in URTC-COMMON, nothing imports it yet, and the two identifiers the firmware implements that no prose or tool describes), and `docs/INTERFACES.md` and `docs/ARCHITECTURE.md` say that a test now compares the copies with the specification.
+
 ## [0.0.2] - The At a glance tables
 
 - **At a glance:** `tools/make_glance.py` inserts, or rewrites in place, the At a glance table in the README and its seven translations of every repository of the ecosystem, written from the manifest of each repository (version, maturity, stack, target) and from `data/glance.json` (test count when it is known, target, and one hardware statement chosen from a closed vocabulary that is translated once in the eight languages). It keeps the line endings of each file, never duplicates the section, and `--check` fails when a section is missing, misplaced or stale; `--repo NAME` limits it to one repository.

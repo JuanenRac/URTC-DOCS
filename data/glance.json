@@ -4,6 +4,12 @@
       "hardware": "not_run",
       "target": "board"
     },
+    "URTC-COMMON": {
+      "hardware": "simulated",
+      "tests": {
+        "count": 217
+      }
+    },
     "URTC-DOCS": {
       "hardware": "not_applicable"
     },

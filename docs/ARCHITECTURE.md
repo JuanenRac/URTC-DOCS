@@ -76,7 +76,7 @@ flowchart LR
 | URTC-TESTER | Python; Qt Quick deck (default), Tkinter window behind `--legacy` | Asks the board which tool profile it is jumpered for and shows only that tool's controls and telemetry; never touches flash, in its README's words. Every output goes through the encoders of `advanced_protocol.py`, which reject out-of-range values instead of clamping them. | SLCAN, SocketCAN |
 | URTC-WEB-STUDIO | TypeScript, React, Vite; Web Serial | The main workflows of the two desktop tools in a browser tab (Flasher Studio, Tester Studio, a bus analyser) plus clearly labelled offline sandbox tabs that send nothing. | SLCAN over Web Serial |
 
-All three speak the same wire protocol; none of them imports it from the others or from a shared package (see `CAN_PROTOCOL_DUPLICATION.md`).
+All three speak the same wire protocol; none of them imports it from the others or from a shared package (see `CAN_PROTOCOL_DUPLICATION.md`). URTC-COMMON now holds a machine-readable specification of that protocol, shared vectors and the merged transports, and none of them uses it yet.
 
 ## Data flows
 

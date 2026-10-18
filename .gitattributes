@@ -1,6 +1,10 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 # Shell scripts must keep LF line endings on every platform.
-*.sh text eol=lf
 # The shared CAN vectors are compared byte for byte, so they keep LF on Windows too.
 tests/fixtures/*.json text eol=lf
+
+# Shell scripts keep LF, Windows batch files keep CRLF on every platform.
+*.sh text eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf

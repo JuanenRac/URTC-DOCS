@@ -1,0 +1,35 @@
+{
+ "reviewed": {
+  "*": {
+   "0a28eafebde8": "— iOS/iPadOS control app (Flutter) with real-time WebSocket sync.",
+   "19df42ee4a6f": "how to report a vulnerability, and this project's own real security focus areas.",
+   "21c5810d1c26": "— web control dashboard with real-time multi-robot 3D visualization.",
+   "5b10e71477f5": "— real forward kinematics and joint-limit validation over a real URDF subset.",
+   "667ee408d2dc": "SECURITY.md",
+   "ecd0a62c2932": "— real procedural 2D scene generator with YOLO/COCO annotation export."
+  },
+  "URTC": {
+   "0422ae7f3835": "Dedicated inputs for reflective optical proximity sensors like the TCRT5000, plus a generic active-low endstop",
+   "082721c71e97": "The bootloader checks the backup slot's size, computes its CRC32 and HMAC-SHA256 and compares both against wha",
+   "9013d6d939cf": "see the safety notice at the top of this README, and treat a first bring-up with the caution any new board des",
+   "cdd84258c26d": "PCB Advanced Inspection: thermal imaging (MLX9064x-family array - all 3 family members, MLX90640/MLX90641/MLX9",
+   "e2651c733589": "The master sends the expected HMAC-SHA256 signature as four frames (8 bytes each, in order)",
+   "fab5f62863cd": "Signature."
+  },
+  "URTC-COMMON": {
+   "76913d540948": "the same idea for the A.R.M.O.R. security ecosystem"
+  },
+  "URTC-FLASHER": {
+   "1ba4c30df686": "Specific verify-failure reasons: if verification fails during a CAN update, sends a reason byte alongside stat",
+   "547042fd0bda": "Deliberately installing an older version: the bootloader normally rejects a validly-signed image if it declare",
+   "667e018c6f39": "🔑 Changing the HMAC key / HardwareID",
+   "83c845f842c3": "Whichever source is active gets logged at startup, so it's always visible which values a given session actuall",
+   "964dc47be6ef": "The memory-map and HardwareID overrides only apply to the main board's own constants (the one exception is , t"
+  },
+  "URTC-UPDATER": {
+   "327c4d86725f": "sequential batch actions built from the same live state and safety path.",
+   "69381d120c8a": "Maturity | Established",
+   "9fa0a4ce65cd": "— the architecture, interfaces, security baseline, capability matrix and generated project catalogue of the ec"
+  }
+ }
+}

@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Format-Markdown-083fa1.svg" alt="Format">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.0.3-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.4-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
@@ -22,11 +22,13 @@
 
 ---
 
+> **Safety and security status:** this ecosystem is not a certified safety system, and no populated URTC board exists yet. The bootloaders check firmware images with CRC32 and a shared-key HMAC-SHA256, not with an asymmetric signature (planned); the published application images are signed with the public development key (`signing_key_kind: dev`), so anyone can produce an image the bootloader accepts; nothing has been transmitted to a real board. Read the [security baseline](docs/SECURITY_BASELINE.md) and the [threat model](docs/THREAT_MODEL.md) before relying on any statement here for the safety of a person.
+
 ## 📋 At a glance
 
 | | |
 |---|---|
-| Version | `0.0.3` |
+| Version | `0.0.4` |
 | Maturity | Scaffolding |
 | Stack | Markdown / Mermaid / Python / SVG |
 | Target | The PC of the person using it |
@@ -47,7 +49,7 @@ The picture below shows the repositories of URTC, the CAN bus that joins the boa
 * [First vertical slice](docs/FIRST_VERTICAL_SLICE.md): the smallest end-to-end path that exists today.
 * [CAN protocol duplication](docs/CAN_PROTOCOL_DUPLICATION.md): the protocol is implemented three times from prose; what a shared specification would hold.
 * [Project catalogue](docs/PROJECT_CATALOG.md): every repository of the ecosystem, written from its own manifest.
-* **Tools:** `make_catalog.py` writes the catalogue, `make_brand.py` the banner, icon and family map, `make_readmes.py` the eight READMEs of this repository, `publication_check.py` looks for anything private before a publication, and `check_all.sh` runs the own checks of every repository of the family and prints one PASS, FAIL or SKIP line each. `make_glance.py` writes the At a glance table of every repository from its manifest and from `data/glance.json` (`--check` compares, `--apply` writes); after a version bump, `python tools/make_glance.py --apply --repo NAME` refreshes the table of that repository.
+* **Tools:** `make_catalog.py` writes the catalogue, `make_brand.py` the banner, icon and family map, `make_readmes.py` the eight READMEs of this repository, `publication_check.py` looks for anything private before a publication, and `check_all.sh` runs the own checks of every repository of the family and prints one PASS, FAIL or SKIP line each. `make_glance.py` writes the At a glance table of every repository from its manifest and from `data/glance.json` (`--check` compares, `--apply` writes); after a version bump, `python tools/make_glance.py --apply --repo NAME` refreshes the table of that repository. `check_claims.py` reads the English README of every repository of the family and fails when a sentence has a risk word (E-STOP, interlock, real-time, signed, mTLS, FDCAN, YOLO, AI-driven, autonomous, certified, ...) and no status marker next to it (planned, not implemented, optional, off by default, simulated, tested, ...), unless a person has read that line next to the code and put it in `data/claims_reviewed.json`.
 
 ## 🧩 Role in URTC
 
@@ -72,13 +74,14 @@ URTC-DOCS/
 **Requirements:** Python 3.10 or newer; pytest for the tests
 
 ```bash
-python tools/make_catalog.py --check  # the catalogue is current (needs the repositories next to this one)
-python tools/make_brand.py --check    # the banner, icon and map are current
-python tools/make_readmes.py --check  # the eight READMEs are current
-python tools/make_glance.py --check   # the At a glance tables of the family are current (needs the repositories next to this one)
-python tools/publication_check.py     # nothing private would leave with a publication
-bash tools/check_all.sh               # the checks of every repository, one line each
-python -m pytest tests -q             # the unit tests of the tools
+python tools/make_catalog.py --check             # the catalogue is current (needs the repositories next to this one)
+python tools/make_brand.py --check               # the banner, icon and map are current
+python tools/make_readmes.py --check             # the eight READMEs are current
+python tools/make_glance.py --check              # the At a glance tables of the family are current (needs the repositories next to this one)
+python tools/publication_check.py                # nothing private would leave with a publication
+python tools/check_claims.py --require-siblings  # no README states a risky capability without its status (needs the repositories next to this one)
+bash tools/check_all.sh                          # the checks of every repository, one line each
+python -m pytest tests -q                        # the unit tests of the tools
 ```
 
 `build.sh` / `build.bat` raise the version by one step (the ecosystem's odometer), install the package and run the tests; `build-test.sh` / `build-test.bat` check without changing any version.

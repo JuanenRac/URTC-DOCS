@@ -10,11 +10,13 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import __version__, brand, catalog, family, glance, publication, readmes
+from . import __version__, brand, catalog, claims, family, glance, publication, readmes
 
 REPO = Path(__file__).resolve().parents[2]
 CATALOG_FILE = REPO / "docs" / "PROJECT_CATALOG.md"
 GLANCE_FILE = REPO / "data" / "glance.json"
+CLAIMS_FILE = REPO / "data" / "claims_reviewed.json"
+OWN_NAME = "URTC-DOCS"
 
 
 def _workspace(args: argparse.Namespace) -> Path:
@@ -141,6 +143,56 @@ def make_glance(argv: list[str] | None = None) -> int:
     return 0
 
 
+def check_claims(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(prog="check_claims.py", description="Fail when a README states a risky capability (E-STOP, interlock, signed, mTLS, ...) without a status marker or a reviewed line.")
+    parser.add_argument("--repo", action="append", metavar="NAME", help="only this repository (repeat the option for several)")
+    parser.add_argument("--require-siblings", action="store_true", help="fail instead of skipping when no sibling repository is found")
+    parser.add_argument("--workspace", help="the folder that holds the repositories (default: the parent of this repository)")
+    parser.add_argument("--data", default=str(CLAIMS_FILE), help="the reviewed list (default: data/claims_reviewed.json)")
+    parser.add_argument("--update-reviewed", action="store_true", help="rewrite the reviewed list from the READMEs as they are now; read every line it adds first")
+    parser.add_argument("--strict-stale", action="store_true", help="also fail when the reviewed list holds a line that no README has any more")
+    args = parser.parse_args(argv)
+    workspace = _workspace(args)
+    repos = claims.repositories(workspace, OWN_NAME)
+    if args.repo:
+        repos = [repo for repo in repos if repo.name in set(args.repo)]
+    if not repos:
+        message = f"no repository of the family was found in {workspace}"
+        if args.require_siblings:
+            print(f"CLAIMS=FAIL {message}", file=sys.stderr)
+            return 1
+        print(f"CLAIMS=SKIP {message}")
+        return 0
+    data = Path(args.data)
+    if args.update_reviewed:
+        reviewed = claims.build_reviewed(workspace, OWN_NAME)
+        claims.save_reviewed(data, reviewed)
+        total = sum(len(entries) for entries in reviewed.values())
+        print(f"CLAIMS=WRITTEN {total} reviewed lines in {data.name}")
+        return 0
+    reviewed = claims.load_reviewed(data)
+    bad_total = risky_total = 0
+    stale: list[str] = []
+    problems: list[str] = []
+    for repo in repos:
+        bad, seen, risky = claims.check_repo(repo, reviewed)
+        risky_total += risky
+        bad_total += len(bad)
+        for line, sentence in bad:
+            problems.append(f"{repo.name}/README.md:{line}: {sentence[:200]}")
+        if not args.repo:
+            stale += [f"{repo.name}:{key}" for key in claims.stale_entries(repo.name, reviewed, seen)]
+    for problem in problems:
+        print(problem, file=sys.stderr)
+    if stale:
+        print(f"note: {len(stale)} reviewed line(s) no longer match any README (remove them with --update-reviewed)")
+    if bad_total or (stale and args.strict_stale):
+        print(f"CLAIMS=FAIL {bad_total} sentence(s) with a risk word and no status marker, {len(stale)} stale, in {len(repos)} repositories", file=sys.stderr)
+        return 1
+    print(f"CLAIMS=PASS {risky_total} sentences with a risk word in {len(repos)} repositories, all marked or reviewed")
+    return 0
+
+
 def publication_check(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="publication_check.py", description="Look for anything private in the repositories of the ecosystem before a publication.")
     parser.add_argument("repositories", nargs="*", help="names of the repositories to check (default: every one of the ecosystem next to this one)")
@@ -170,12 +222,12 @@ def publication_check(argv: list[str] | None = None) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     """`run.sh` / `run.bat`: without arguments, say what this is; with one, run that tool."""
-    commands = {"catalog": make_catalog, "brand": make_brand, "readmes": make_readmes, "glance": make_glance, "publication": publication_check}
+    commands = {"catalog": make_catalog, "brand": make_brand, "readmes": make_readmes, "glance": make_glance, "claims": check_claims, "publication": publication_check}
     arguments = list(sys.argv[1:] if argv is None else argv)
     if not arguments or arguments[0] in {"-h", "--help", "help"}:
         print(f"URTC-DOCS v{__version__}")
         print("Documentation and cross-repository tooling hub of the URTC ecosystem.")
-        print("usage: run.sh <catalog|brand|readmes|glance|publication> [options]")
+        print("usage: run.sh <catalog|brand|readmes|glance|claims|publication> [options]")
         return 0
     if arguments[0] not in commands:
         print(f"unknown command {arguments[0]!r}; expected one of: {', '.join(commands)}", file=sys.stderr)

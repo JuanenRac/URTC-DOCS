@@ -74,6 +74,22 @@ A desk analysis of who could do what to the URTC ecosystem, what stops them toda
 | R3 | A private key, address or note reaches a public file. | The public/private boundary check in each CI, the `.gitignore` rule for `.env` files, and `tools/publication_check.py` (with `--history` for removed lines). | code | A secret with no recognisable shape; the check says it proves nothing about absence. |
 | R4 | An operator edits a generated file (catalogue, README, banner) and it drifts. | The unit tests and `--check` modes compare the generated files with their source. | code | Nothing prevents the edit, only its survival. |
 
+## External review of this ecosystem
+
+A reader from outside the project read the READMEs of the family and concluded that the platform has capabilities that do not exist. The cause was documentation, not code: planned capabilities were written in the present tense, some badges promised more than the code does, and some pages contradicted their own status box. The table puts each claim next to what the repositories contain.
+
+| Claim that was read | Reality |
+|---|---|
+| Firmware updates are signed and authenticated | The bootloaders check a CRC32 and a symmetric HMAC-SHA256 with a key shared by every board. The published application images are signed with the public development key (`signing_key_kind: dev`), so anyone can produce an image such a board accepts. An asymmetric signature (Ed25519) is planned |
+| The firmware runs on FDCAN | The tool controller has the classic bxCAN peripheral and speaks classic frames of at most eight bytes; there is no CAN FD |
+| A hardware safety loop protects the heaters and the laser | There is a thermal-runaway guard and a laser lock in software; the guard is tested on a computer with a simulated heater and its limits were never measured on a real heater. The documents ask for a hardware interlock that does not depend on the MCU |
+| Real-time execution, S-curve profiles, torque limits | Latency was never measured, there is no S-curve code and there is no torque sensing in the firmware |
+| The flashing and test tools are proven | They ran against a simulator only. No populated board exists, and nothing has been transmitted to a real board |
+| The project has no release | Releases exist; they carry firmware images signed with the development key and no board has run them |
+| The tools are `established` | The word means recorded real use. The manifests of the flasher, the tester, the web studio, the rack and the vision tool now say `functional` |
+
+What changed: every README says what is planned and what has only been tested against a simulator, carries a short safety and security status note in the eight languages, and is scanned by `tools/check_claims.py`, which fails when a sentence with a risk word has no status marker next to it and has not been read and put in `data/claims_reviewed.json` by a person. The check runs in the nightly family run and in `tools/check_all.sh`.
+
 ## Residual risks, in the order they would matter on a real installation
 
 1. The bus carries unauthenticated commands for devices that can burn or injure; the only mitigation is the installation (R1-R5), which nothing verifies.

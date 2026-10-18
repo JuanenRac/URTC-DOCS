@@ -16,6 +16,7 @@ import json
 from pathlib import Path
 
 from . import glance
+from .readme_claims_text import COMMENT as CLAIMS_COMMENT, NOTE as CLAIMS_NOTE, TOOLS as CLAIMS_TOOLS
 from .readme_family import FAMILY_REPOS
 from .readme_text import LANGUAGES, TEXT
 
@@ -66,6 +67,8 @@ def render(code: str, manifest: dict, entry: dict) -> str:
     add("")
     add("---")
     add("")
+    add(CLAIMS_NOTE[code])
+    add("")
     add(glance.render_section(code, manifest, entry).rstrip(chr(10)))
     add("")
     add(f"## 🎯 {text['h_overview']}")
@@ -78,7 +81,7 @@ def render(code: str, manifest: dict, entry: dict) -> str:
     add("")
     for label, path, description in text["overview"]:  # type: ignore[misc]
         add(f"* [{label}]({path}): {description}")
-    add(f"* **{text['tools_label']}** {text['tools']}")
+    add(f"* **{text['tools_label']}** {text['tools']}{CLAIMS_TOOLS[code]}")
     add("")
     add(f"## 🧩 {text['h_role']}")
     add("")
@@ -102,13 +105,15 @@ def render(code: str, manifest: dict, entry: dict) -> str:
     add("")
     add(str(text["dev_requirements"]))
     add("")
-    comments = text["dev_comments"]
+    comments = list(text["dev_comments"])
+    comments.insert(5, CLAIMS_COMMENT[code])
     commands = (
         "python tools/make_catalog.py --check",
         "python tools/make_brand.py --check",
         "python tools/make_readmes.py --check",
         "python tools/make_glance.py --check",
         "python tools/publication_check.py",
+        "python tools/check_claims.py --require-siblings",
         "bash tools/check_all.sh",
         "python -m pytest tests -q",
     )

@@ -5,6 +5,13 @@ version number follows this ecosystem's "odometer" scheme: PATCH +1 on
 every real build, rolling into MINOR past 9 (`0.0.9` -> `0.1.0`); MAJOR is
 bumped manually only. See `bump_version.py`.
 
+## [0.0.4]
+
+- New check `tools/check_claims.py` (module `claims`, 12 tests): it reads the English README of every repository of the ecosystem and fails when a sentence has a risk word (E-STOP, interlock, real-time, signed, FDCAN, torque, certified, ...) and no status marker next to it, unless the line is in `data/claims_reviewed.json`.
+- The nightly run and `tools/check_all.sh` run the claim check; the README documents the rule in the eight languages and carries the short safety and security status note.
+- `docs/THREAT_MODEL.md` has a section that sets the capabilities a reader from outside concluded from the READMEs against what the repositories contain.
+- The glance data and the catalogue follow the maturity that the manifests now declare.
+
 ## [0.0.3] - URTC-COMMON joins the family
 
 - **New repository in the family:** URTC-COMMON (the CAN protocol as data: a machine-readable specification, generated C, TypeScript and Python code, conformance vectors and the Python transports) is now in the Related Projects section of the eight READMEs, in the generated project catalogue, in the At a glance data and in the map of the ecosystem, on its own row because it sits between the host tools and the operations repositories.

@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Format-Markdown-083fa1.svg" alt="Format">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.0.3-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.4-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
@@ -22,11 +22,13 @@
 
 ---
 
+> **Estado de seguridad física y de ciberseguridad:** este ecosistema no es un sistema de seguridad certificado y todavía no existe ninguna placa URTC poblada. Los bootloaders comprueban las imágenes de firmware con CRC32 y un HMAC-SHA256 de clave compartida, no con una firma asimétrica (prevista); las imágenes de aplicación publicadas están firmadas con la clave pública de desarrollo (`signing_key_kind: dev`), así que cualquiera puede producir una imagen que el bootloader acepte; no se ha transmitido nada a una placa real. Lee la [línea base de seguridad](docs/SECURITY_BASELINE.md) y el [modelo de amenazas](docs/THREAT_MODEL.md) antes de fiarte de cualquier afirmación de aquí para la seguridad de una persona.
+
 ## 📋 De un vistazo
 
 | | |
 |---|---|
-| Versión | `0.0.3` |
+| Versión | `0.0.4` |
 | Madurez | Andamiaje |
 | Tecnología | Markdown / Mermaid / Python / SVG |
 | Destino | El PC de quien lo usa |
@@ -47,7 +49,7 @@ La imagen siguiente muestra los repositorios de URTC, el bus CAN que une las pla
 * [Primer corte vertical](docs/FIRST_VERTICAL_SLICE.md): el camino de extremo a extremo más pequeño que existe hoy.
 * [Duplicación del protocolo CAN](docs/CAN_PROTOCOL_DUPLICATION.md): el protocolo está implementado tres veces a partir de prosa; qué contendría una especificación compartida.
 * [Catálogo de proyectos](docs/PROJECT_CATALOG.md): cada repositorio del ecosistema, escrito a partir de su propio manifiesto.
-* **Herramientas:** `make_catalog.py` escribe el catálogo, `make_brand.py` el banner, el icono y el mapa de familias, `make_readmes.py` los ocho README de este repositorio, `publication_check.py` busca cualquier cosa privada antes de una publicación y `check_all.sh` ejecuta las comprobaciones propias de cada repositorio de la familia e imprime una línea PASS, FAIL o SKIP por cada uno. `make_glance.py` escribe la tabla De un vistazo de cada repositorio a partir de su manifiesto y de `data/glance.json` (`--check` compara, `--apply` escribe); tras subir una versión, `python tools/make_glance.py --apply --repo NOMBRE` actualiza la tabla de ese repositorio.
+* **Herramientas:** `make_catalog.py` escribe el catálogo, `make_brand.py` el banner, el icono y el mapa de familias, `make_readmes.py` los ocho README de este repositorio, `publication_check.py` busca cualquier cosa privada antes de una publicación y `check_all.sh` ejecuta las comprobaciones propias de cada repositorio de la familia e imprime una línea PASS, FAIL o SKIP por cada uno. `make_glance.py` escribe la tabla De un vistazo de cada repositorio a partir de su manifiesto y de `data/glance.json` (`--check` compara, `--apply` escribe); tras subir una versión, `python tools/make_glance.py --apply --repo NOMBRE` actualiza la tabla de ese repositorio. `check_claims.py` lee el README en inglés de cada repositorio de la familia y falla cuando una frase contiene una palabra de riesgo (E-STOP, enclavamiento, tiempo real, firmado, mTLS, FDCAN, YOLO, impulsado por IA, autónomo, certificado, ...) sin una marca de estado a su lado (previsto, no implementado, opcional, desactivado por defecto, simulado, probado, ...), salvo que una persona haya leído esa línea junto al código y la haya anotado en `data/claims_reviewed.json`.
 
 ## 🧩 Papel en URTC
 
@@ -72,13 +74,14 @@ URTC-DOCS/
 **Requisitos:** Python 3.10 o superior; pytest para las pruebas
 
 ```bash
-python tools/make_catalog.py --check  # el catálogo está al día (necesita los repositorios junto a este)
-python tools/make_brand.py --check    # el banner, el icono y el mapa están al día
-python tools/make_readmes.py --check  # los ocho README están al día
-python tools/make_glance.py --check   # las tablas De un vistazo de la familia están al día (necesita los repositorios junto a este)
-python tools/publication_check.py     # nada privado saldría con una publicación
-bash tools/check_all.sh               # las comprobaciones de cada repositorio, una línea por cada uno
-python -m pytest tests -q             # las pruebas unitarias de las herramientas
+python tools/make_catalog.py --check             # el catálogo está al día (necesita los repositorios junto a este)
+python tools/make_brand.py --check               # el banner, el icono y el mapa están al día
+python tools/make_readmes.py --check             # los ocho README están al día
+python tools/make_glance.py --check              # las tablas De un vistazo de la familia están al día (necesita los repositorios junto a este)
+python tools/publication_check.py                # nada privado saldría con una publicación
+python tools/check_claims.py --require-siblings  # ningún README afirma una capacidad de riesgo sin indicar su estado (necesita los repositorios junto a este)
+bash tools/check_all.sh                          # las comprobaciones de cada repositorio, una línea por cada uno
+python -m pytest tests -q                        # las pruebas unitarias de las herramientas
 ```
 
 `build.sh` / `build.bat` suben la versión un paso (el cuentakilómetros del ecosistema), instalan el paquete y ejecutan las pruebas; `build-test.sh` / `build-test.bat` comprueban sin cambiar ninguna versión.

@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Format-Markdown-083fa1.svg" alt="Format">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.0.3-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.4-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
@@ -22,11 +22,13 @@
 
 ---
 
+> **安全与安防现状:**本生态系统不是经认证的安全系统,目前也不存在已组装的 URTC 电路板。引导程序使用 CRC32 和共享密钥的 HMAC-SHA256 校验固件映像,而非非对称签名(计划中);已发布的应用映像使用公开的开发密钥签名(`signing_key_kind: dev`),因此任何人都可以生成引导程序接受的映像;尚未向任何真实电路板发送过任何内容。在依赖此处任何说法来保障人身安全之前,请先阅读[安全基线](docs/SECURITY_BASELINE.md)和[威胁模型](docs/THREAT_MODEL.md)。
+
 ## 📋 速览
 
 | | |
 |---|---|
-| 版本 | `0.0.3` |
+| 版本 | `0.0.4` |
 | 成熟度 | 雏形 |
 | 技术栈 | Markdown / Mermaid / Python / SVG |
 | 目标 | 使用者的电脑 |
@@ -47,7 +49,7 @@
 * [第一个垂直切片](docs/FIRST_VERTICAL_SLICE.md): 今天已存在的最小端到端路径。
 * [CAN 协议的重复实现](docs/CAN_PROTOCOL_DUPLICATION.md): 该协议依据一份文字说明被实现了三次；共享规范将包含什么。
 * [项目目录](docs/PROJECT_CATALOG.md): 生态中的每个仓库，依据其自身清单生成。
-* **工具：** `make_catalog.py` 生成目录，`make_brand.py` 生成横幅、图标和家族图，`make_readmes.py` 生成本仓库的八份 README，`publication_check.py` 在发布前查找任何私有内容，`check_all.sh` 运行家族中每个仓库自己的检查，并为每个仓库输出一行 PASS、FAIL 或 SKIP。`make_glance.py` 根据每个仓库的清单和 `data/glance.json` 生成其“速览”表（`--check` 比较，`--apply` 写入）；提升版本后，运行 `python tools/make_glance.py --apply --repo NAME` 即可刷新该仓库的表。
+* **工具：** `make_catalog.py` 生成目录，`make_brand.py` 生成横幅、图标和家族图，`make_readmes.py` 生成本仓库的八份 README，`publication_check.py` 在发布前查找任何私有内容，`check_all.sh` 运行家族中每个仓库自己的检查，并为每个仓库输出一行 PASS、FAIL 或 SKIP。`make_glance.py` 根据每个仓库的清单和 `data/glance.json` 生成其“速览”表（`--check` 比较，`--apply` 写入）；提升版本后，运行 `python tools/make_glance.py --apply --repo NAME` 即可刷新该仓库的表。`check_claims.py` 读取该系列每个仓库的英文 README,当某个句子含有风险词(E-STOP、联锁、实时、已签名、mTLS、FDCAN、YOLO、AI 驱动、自主、已认证等)而旁边没有状态标记(计划中、未实现、可选、默认关闭、模拟、已测试等),且不在人工对照代码读过并登记于 `data/claims_reviewed.json` 的行中时,检查失败。
 
 ## 🧩 在 URTC 中的角色
 
@@ -72,13 +74,14 @@ URTC-DOCS/
 **要求：** Python 3.10 或更新版本；测试需要 pytest
 
 ```bash
-python tools/make_catalog.py --check  # 目录是最新的（需要本仓库旁边有其他仓库）
-python tools/make_brand.py --check    # 横幅、图标和家族图是最新的
-python tools/make_readmes.py --check  # 八份 README 是最新的
-python tools/make_glance.py --check   # 家族的“速览”表是最新的（需要本仓库旁边有其他仓库）
-python tools/publication_check.py     # 发布时不会带出任何私有内容
-bash tools/check_all.sh               # 每个仓库的检查，每个一行
-python -m pytest tests -q             # 工具的单元测试
+python tools/make_catalog.py --check             # 目录是最新的（需要本仓库旁边有其他仓库）
+python tools/make_brand.py --check               # 横幅、图标和家族图是最新的
+python tools/make_readmes.py --check             # 八份 README 是最新的
+python tools/make_glance.py --check              # 家族的“速览”表是最新的（需要本仓库旁边有其他仓库）
+python tools/publication_check.py                # 发布时不会带出任何私有内容
+python tools/check_claims.py --require-siblings  # 没有任何 README 在不说明状态的情况下声称具备高风险能力(需要与本仓库相邻的其他仓库)
+bash tools/check_all.sh                          # 每个仓库的检查，每个一行
+python -m pytest tests -q                        # 工具的单元测试
 ```
 
 `build.sh` / `build.bat` 将版本提升一步（生态的里程表规则），安装包并运行测试；`build-test.sh` / `build-test.bat` 在不改变任何版本的情况下进行检查。

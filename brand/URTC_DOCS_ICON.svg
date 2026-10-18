@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-labelledby="title">
+  <title id="title">URTC-DOCS</title>
+  <defs><linearGradient id="bgIcon" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0A0D12"/><stop offset="50%" stop-color="#121720"/><stop offset="100%" stop-color="#07090C"/></linearGradient></defs>
+  <rect width="32" height="32" rx="4" fill="url(#bgIcon)"/>
+  <g transform="translate(16 16) scale(0.2)"><path d="M-62,-34 Q-30,-46 0,-30 Q30,-46 62,-34 V34 Q30,22 0,38 Q-30,22 -62,34 Z" fill="none" stroke="#FFB020" stroke-width="9" stroke-linejoin="round"/><path d="M0,-30 V38" stroke="#FFB020" stroke-width="4.5" opacity=".7"/><path d="M-46,-16 Q-30,-22 -14,-14 M-46,0 Q-30,-6 -14,2 M14,-14 Q30,-22 46,-16 M14,2 Q30,-6 46,0" fill="none" stroke="#FFB020" stroke-width="2.4" opacity=".6"/></g>
+</svg>

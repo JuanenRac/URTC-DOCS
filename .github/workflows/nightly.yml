@@ -1,0 +1,91 @@
+# =============================================================================
+# URTC-DOCS - the nightly run across the whole ecosystem
+# Copyright (C) 2026 JuanenRac (Electro Hobby 3D) <electrohobby3d@gmail.com>
+# GPL-3.0-or-later - see LICENSE
+# =============================================================================
+# The CI of one repository only sees that repository. What is written from the others
+# (the project catalogue) and what must agree between them (the shared documentation
+# and version checks) can only be compared with all of them side by side, so every
+# night, and when asked, every repository of the ecosystem is fetched next to this one
+# and the checks are run. A failing night opens (or updates) one issue.
+#
+# The catalogue is compared in two ways: its structure (which repositories exist and of
+# what kind) must be current or the night fails; its versions and maturity move with
+# almost every release, so a stale table is only reported and does not fail the night.
+name: URTC nightly ecosystem check
+
+on:
+  schedule:
+    - cron: "41 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  family:
+    name: Compare every repository with the others
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out this repository
+        uses: actions/checkout@v5
+        with:
+          path: URTC-DOCS
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Fetch the other repositories next to it
+        working-directory: URTC-DOCS
+        run: |
+          python - <<'PY' > ../family.txt
+          import sys
+          sys.path.insert(0, "src")
+          from urtc_docs.readme_family import all_names
+          print("\n".join(sorted(all_names() - {"URTC-DOCS"})))
+          PY
+          cd ..
+          while read -r repository; do
+            git clone --quiet --depth 1 "https://github.com/JuanenRac/${repository}.git" "${repository}" || echo "::warning::could not fetch ${repository}"
+          done < family.txt
+          ls -d URTC* | wc -l
+
+      - name: Install the test dependency
+        run: python -m pip install --quiet pytest
+
+      - name: Compare what is generated
+        working-directory: URTC-DOCS
+        run: |
+          status=0
+          for check in "tools/make_readmes.py --check" "tools/make_brand.py --check" "tools/make_catalog.py --check-structure --require-siblings"; do
+            echo "== python ${check}"
+            python ${check} || status=1
+          done
+          exit $status
+
+      - name: Report the versions of the catalogue (advisory)
+        working-directory: URTC-DOCS
+        continue-on-error: true
+        run: python tools/make_catalog.py --check --require-siblings
+
+      - name: Look for anything private in the ecosystem (no history)
+        working-directory: URTC-DOCS
+        continue-on-error: true
+        run: python tools/publication_check.py
+
+      - name: Run the own validation of every repository and the checks of this one
+        working-directory: URTC-DOCS
+        run: bash tools/check_all.sh
+
+      - name: Open an issue when the night failed
+        if: ${{ failure() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="The nightly ecosystem check failed"
+          existing=$(gh issue list --repo "${{ github.repository }}" --state open --search "${title} in:title" --json number --jq '.[0].number')
+          body="The nightly run of all the repositories found something that does not agree: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          if [ -n "$existing" ]; then gh issue comment "$existing" --repo "${{ github.repository }}" --body "$body"; else gh issue create --repo "${{ github.repository }}" --title "$title" --body "$body"; fi

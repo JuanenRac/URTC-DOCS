@@ -118,7 +118,17 @@ def test_the_catalogue_file_has_its_block():
     assert catalog.read_block(text) is not None
 
 
-@pytest.mark.skipif(shutil.which("bash") is None, reason="bash is not available")
+def usable_bash() -> bool:
+    """A real bash: on a Windows runner `bash` may be the launcher of a Linux subsystem with no distribution."""
+    if shutil.which("bash") is None:
+        return False
+    try:
+        return subprocess.run(["bash", "-c", "true"], capture_output=True, timeout=30).returncode == 0
+    except (OSError, subprocess.SubprocessError):
+        return False
+
+
+@pytest.mark.skipif(not usable_bash(), reason="no usable bash")
 def test_shell_scripts_have_valid_syntax():
     for script in ("tools/check_all.sh", "build.sh", "build-test.sh", "run.sh"):
         result = subprocess.run(["bash", "-n", script], capture_output=True, text=True, cwd=REPO)

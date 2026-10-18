@@ -2,3 +2,5 @@
 * text=auto
 # Shell scripts must keep LF line endings on every platform.
 *.sh text eol=lf
+# The shared CAN vectors are compared byte for byte, so they keep LF on Windows too.
+tests/fixtures/*.json text eol=lf

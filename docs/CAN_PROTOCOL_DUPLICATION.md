@@ -64,6 +64,13 @@ Nothing of this exists. It is the description of a possible next step so that th
 * *Sequence* vectors: the full frame trace of a successful update, of each verify-failure reason, of a read-back whose size is not a multiple of 8, of an image whose size is not a whole number of pages, of a version query against a board with and without the patch frame.
 * *SLCAN line* vectors: well-formed `t` lines, the rejected `T`, `r` and `R`, truncated and non-hex payloads, optional timestamp suffixes.
 
+A first, small set of these vectors now exists: `tests/fixtures/can_conformance_vectors.json` (identifier table of the 82 identifiers that at least two clients define, the four magic payloads, SLCAN encode and decode lines, the `0x111` quick-state answer, the version query with and without the `0x7E9` patch frame, the end-of-update minor field and the version order). This repository only checks that the file is coherent; the Flasher, the Tester and the Web Studio each keep a committed copy and run their own reader against it, so there is no run-time dependency between the repositories. What the first comparison showed:
+
+* The identifiers and magic payloads that the clients share all agree in value; only the constant names differ.
+* The serial readers of the Flasher and the Tester accepted a signed, `0x`-prefixed or underscore-separated field as a number (a property of Python's `int(..., 16)`), and the Flasher's reader handed an extended 29-bit frame on as if it were a standard one, which the Tester's reader and the SocketCAN and python-can transports of both already discarded. Both readers now require real hexadecimal digits, and the Flasher's discards extended frames.
+* An adapter timestamp after the payload is ignored by the Web Studio and makes the Flasher and the Tester drop the line. The protocol never enables timestamps, so the vector marks this as a tolerated difference instead of asserting one behaviour.
+* The Web Studio builds its per-tool command frames inside its React components, so those cannot be compared with the Tester's encoders without first moving them into plain functions.
+
 **5. Generated or checked artefacts**: a C header for the firmware, Python constants for the two desktop tools, TypeScript constants for the browser app, all produced from the table (or at least checked against it), plus a drift check like the scan above that fails when an identifier exists in one place and not in the table.
 
 **6. Rules for change**: a version of the specification, a rule for additive changes (new identifiers, trailing bytes) that older receivers ignore, and the host contract style already used for the patch number ("a board that predates it never sends it; a host that does not see it within a grace window falls back").

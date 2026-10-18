@@ -10,7 +10,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import __version__, brand, catalog, claims, family, glance, publication, readmes
+from . import __version__, brand, catalog, claims, doctor as doctor_module, family, glance, publication, readmes
 
 REPO = Path(__file__).resolve().parents[2]
 CATALOG_FILE = REPO / "docs" / "PROJECT_CATALOG.md"
@@ -220,14 +220,26 @@ def publication_check(argv: list[str] | None = None) -> int:
     return 1 if blocked else 0
 
 
+def doctor(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(prog="urtc_doctor.py", description="One report on this machine and on the repositories next to this one: tools, versions, shared copies, bundled firmware and the checks of every repository.")
+    parser.add_argument("--workspace", help="the folder that holds the repositories (default: the parent of this repository)")
+    parser.add_argument("--fast", action="store_true", help="leave out the checks that start the validation of each repository")
+    parser.add_argument("--online", action="store_true", help="also compare the bundled firmware with the newest release on GitHub")
+    args = parser.parse_args(argv)
+    lines = doctor_module.run_doctor(REPO, _workspace(args), online=args.online, fast=args.fast)
+    text, status = doctor_module.render(lines)
+    print(text)
+    return status
+
+
 def main(argv: list[str] | None = None) -> int:
     """`run.sh` / `run.bat`: without arguments, say what this is; with one, run that tool."""
-    commands = {"catalog": make_catalog, "brand": make_brand, "readmes": make_readmes, "glance": make_glance, "claims": check_claims, "publication": publication_check}
+    commands = {"catalog": make_catalog, "brand": make_brand, "readmes": make_readmes, "glance": make_glance, "claims": check_claims, "publication": publication_check, "doctor": doctor}
     arguments = list(sys.argv[1:] if argv is None else argv)
     if not arguments or arguments[0] in {"-h", "--help", "help"}:
         print(f"URTC-DOCS v{__version__}")
         print("Documentation and cross-repository tooling hub of the URTC ecosystem.")
-        print("usage: run.sh <catalog|brand|readmes|glance|claims|publication> [options]")
+        print("usage: run.sh <catalog|brand|readmes|glance|claims|publication|doctor> [options]")
         return 0
     if arguments[0] not in commands:
         print(f"unknown command {arguments[0]!r}; expected one of: {', '.join(commands)}", file=sys.stderr)

@@ -17,6 +17,7 @@ from pathlib import Path
 
 from . import glance
 from .readme_claims_text import COMMENT as CLAIMS_COMMENT, NOTE as CLAIMS_NOTE, TOOLS as CLAIMS_TOOLS
+from .readme_doctor_text import COMMENT as DOCTOR_COMMENT, TOOLS as DOCTOR_TOOLS
 from .readme_family import FAMILY_REPOS
 from .readme_text import LANGUAGES, TEXT
 
@@ -81,7 +82,7 @@ def render(code: str, manifest: dict, entry: dict) -> str:
     add("")
     for label, path, description in text["overview"]:  # type: ignore[misc]
         add(f"* [{label}]({path}): {description}")
-    add(f"* **{text['tools_label']}** {text['tools']}{CLAIMS_TOOLS[code]}")
+    add(f"* **{text['tools_label']}** {text['tools']}{CLAIMS_TOOLS[code]}{DOCTOR_TOOLS[code]}")
     add("")
     add(f"## 🧩 {text['h_role']}")
     add("")
@@ -107,6 +108,7 @@ def render(code: str, manifest: dict, entry: dict) -> str:
     add("")
     comments = list(text["dev_comments"])
     comments.insert(5, CLAIMS_COMMENT[code])
+    comments.insert(7, DOCTOR_COMMENT[code])
     commands = (
         "python tools/make_catalog.py --check",
         "python tools/make_brand.py --check",
@@ -115,6 +117,7 @@ def render(code: str, manifest: dict, entry: dict) -> str:
         "python tools/publication_check.py",
         "python tools/check_claims.py --require-siblings",
         "bash tools/check_all.sh",
+        "python tools/urtc_doctor.py",
         "python -m pytest tests -q",
     )
     add("```bash")

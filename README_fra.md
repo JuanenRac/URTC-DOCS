@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Format-Markdown-083fa1.svg" alt="Format">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.0.4-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.5-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
@@ -28,7 +28,7 @@
 
 | | |
 |---|---|
-| Version | `0.0.4` |
+| Version | `0.0.5` |
 | Maturité | Ébauche |
 | Technologie | Markdown / Mermaid / Python / SVG |
 | Cible | Le PC de la personne qui l'utilise |
@@ -49,7 +49,7 @@ L'image ci-dessous montre les dépôts d'URTC, le bus CAN qui relie les cartes e
 * [Première tranche verticale](docs/FIRST_VERTICAL_SLICE.md): le plus petit chemin de bout en bout qui existe aujourd'hui.
 * [Duplication du protocole CAN](docs/CAN_PROTOCOL_DUPLICATION.md): le protocole est implémenté trois fois à partir d'un texte ; ce que contiendrait une spécification partagée.
 * [Catalogue des projets](docs/PROJECT_CATALOG.md): chaque dépôt de l'écosystème, écrit à partir de son propre manifeste.
-* **Outils :** `make_catalog.py` écrit le catalogue, `make_brand.py` la bannière, l'icône et la carte des familles, `make_readmes.py` les huit README de ce dépôt, `publication_check.py` cherche tout ce qui serait privé avant une publication, et `check_all.sh` lance les vérifications propres à chaque dépôt de la famille et affiche une ligne PASS, FAIL ou SKIP pour chacun. `make_glance.py` écrit le tableau En un coup d'œil de chaque dépôt à partir de son manifeste et de `data/glance.json` (`--check` compare, `--apply` écrit) ; après un changement de version, `python tools/make_glance.py --apply --repo NOM` met à jour le tableau de ce dépôt. `check_claims.py` lit le README anglais de chaque dépôt de la famille et échoue lorsqu'une phrase contient un mot à risque (E-STOP, verrouillage, temps réel, signé, mTLS, FDCAN, YOLO, piloté par IA, autonome, certifié, ...) sans marqueur d'état à côté (prévu, non implémenté, optionnel, désactivé par défaut, simulé, testé, ...), sauf si une personne a lu cette ligne à côté du code et l'a inscrite dans `data/claims_reviewed.json`.
+* **Outils :** `make_catalog.py` écrit le catalogue, `make_brand.py` la bannière, l'icône et la carte des familles, `make_readmes.py` les huit README de ce dépôt, `publication_check.py` cherche tout ce qui serait privé avant une publication, et `check_all.sh` lance les vérifications propres à chaque dépôt de la famille et affiche une ligne PASS, FAIL ou SKIP pour chacun. `make_glance.py` écrit le tableau En un coup d'œil de chaque dépôt à partir de son manifeste et de `data/glance.json` (`--check` compare, `--apply` écrit) ; après un changement de version, `python tools/make_glance.py --apply --repo NOM` met à jour le tableau de ce dépôt. `check_claims.py` lit le README anglais de chaque dépôt de la famille et échoue lorsqu'une phrase contient un mot à risque (E-STOP, verrouillage, temps réel, signé, mTLS, FDCAN, YOLO, piloté par IA, autonome, certifié, ...) sans marqueur d'état à côté (prévu, non implémenté, optionnel, désactivé par défaut, simulé, testé, ...), sauf si une personne a lu cette ligne à côté du code et l'a inscrite dans `data/claims_reviewed.json`. `urtc_doctor.py` est le point d'entrée unique : un rapport sur les outils de la machine (Python, git, Node, le compilateur ARM, PySide6, ports série), les versions de chaque dépôt (manifeste, fichier source et dernière entrée du changelog), les copies d'URTC-COMMON et le firmware embarqué par le flasher et le web studio, la validation de chaque dépôt et les vérifications de celui-ci ; `--fast` omet les validations et `--online` compare le firmware embarqué avec la dernière release.
 
 ## 🧩 Rôle dans URTC
 
@@ -81,6 +81,7 @@ python tools/make_glance.py --check              # les tableaux En un coup d'œi
 python tools/publication_check.py                # rien de privé ne partirait avec une publication
 python tools/check_claims.py --require-siblings  # aucun README n'affirme une capacité risquée sans son statut (nécessite les dépôts à côté de celui-ci)
 bash tools/check_all.sh                          # les vérifications de chaque dépôt, une ligne chacun
+python tools/urtc_doctor.py                      # le doctor : un rapport sur cette machine et sur chaque dépôt
 python -m pytest tests -q                        # les tests unitaires des outils
 ```
 

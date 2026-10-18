@@ -5,6 +5,15 @@ version number follows this ecosystem's "odometer" scheme: PATCH +1 on
 every real build, rolling into MINOR past 9 (`0.0.9` -> `0.1.0`); MAJOR is
 bumped manually only. See `bump_version.py`.
 
+## [0.0.5] - The doctor: one report on the machine and on every repository
+
+- New tool tools/urtc_doctor.py (command doctor of the package): one report with the tools of the machine (Python, git, Node, the ARM compiler, PySide6, pytest, serial ports, which are only listed), the versions of every repository (manifest, version in its source file and newest CHANGELOG entry must agree), every copy of URTC-COMMON (as locked, and not behind URTC-COMMON when it is next to this repository), the firmware bundled by URTC-FLASHER and URTC-WEB-STUDIO (consistent with its manifests, and the same images in both), the own validation of every repository and the checks of this one.
+- --fast leaves out the checks that start other programs, --online compares the bundled firmware with the newest firmware release on GitHub (a pre-release counts); every line is PASS, FAIL, WARN or SKIP, a check that could not run is never a PASS, and the exit status is non-zero on a FAIL and when nothing could be checked. 19 tests.
+- The README (all eight languages) documents the doctor next to the other tools.
+- bump_manifest_version.py prints URTC instead of the name of another ecosystem.
+- The At a glance tables of the repositories that were behind their manifest were refreshed.
+- The nightly workflow also runs the doctor (--fast), so a version that disagrees with its source file or changelog, a copy of URTC-COMMON that was edited or fell behind, and bundled firmware that differs between the flasher and the web studio are reported the night they appear.
+
 ## [0.0.4]
 
 - New check `tools/check_claims.py` (module `claims`, 12 tests): it reads the English README of every repository of the ecosystem and fails when a sentence has a risk word (E-STOP, interlock, real-time, signed, FDCAN, torque, certified, ...) and no status marker next to it, unless the line is in `data/claims_reviewed.json`.

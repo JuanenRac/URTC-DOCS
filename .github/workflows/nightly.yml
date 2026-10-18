@@ -83,6 +83,10 @@ jobs:
         working-directory: URTC-DOCS
         run: bash tools/check_all.sh
 
+      - name: Check the versions, the copies of URTC-COMMON and the bundled firmware
+        working-directory: URTC-DOCS
+        run: python tools/urtc_doctor.py --fast
+
       - name: Open an issue when the night failed
         if: ${{ failure() }}
         env:

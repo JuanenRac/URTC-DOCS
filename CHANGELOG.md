@@ -5,6 +5,10 @@ version number follows this ecosystem's "odometer" scheme: PATCH +1 on
 every explicit bump, rolling into MINOR past 9 (`0.0.9` -> `0.1.0`); MAJOR is
 bumped manually only. See `bump_version.py`.
 
+## [0.0.7] - The capability matrix lists the multinode extension
+
+- docs/CAPABILITY_MATRIX.md has a row for several tool heads on one CAN bus: implemented in the main firmware behind a switch that is off by default, Local level (host tests only), nothing tried on boards and no host program using it yet.
+
 ## [0.0.6] - An explicit bump command: building never changes the version
 
 - Building no longer changes the version: build.sh and build.bat only read it, and raising it is the explicit `python bump.py` step. The README sources and the eight generated READMEs say so.

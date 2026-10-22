@@ -4,6 +4,7 @@
    "0a28eafebde8": "— iOS/iPadOS control app (Flutter) with real-time WebSocket sync.",
    "19df42ee4a6f": "how to report a vulnerability, and this project's own real security focus areas.",
    "21c5810d1c26": "— web control dashboard with real-time multi-robot 3D visualization.",
+   "25f4e9b361b2": "— a gateway in front of the CAN bus that lets only listed identifiers through, limits their rate and asks for ",
    "5b10e71477f5": "— real forward kinematics and joint-limit validation over a real URDF subset.",
    "667ee408d2dc": "SECURITY.md",
    "ecd0a62c2932": "— real procedural 2D scene generator with YOLO/COCO annotation export."
@@ -25,6 +26,12 @@
    "667e018c6f39": "🔑 Changing the HMAC key / HardwareID",
    "83c845f842c3": "Whichever source is active gets logged at startup, so it's always visible which values a given session actuall",
    "964dc47be6ef": "The memory-map and HardwareID overrides only apply to the main board's own constants (the one exception is , t"
+  },
+  "URTC-GATEWAY": {
+   "1794eaf69028": "Rate limit: a token bucket per identifier and for the whole link, and a harder one for an unlocked dangerous i",
+   "76913d540948": "the same idea for the A.R.M.O.R. security ecosystem",
+   "787f8ddd8a13": "A gateway in front of the CAN bus: the identifiers a host may send, a rate limit and a session key",
+   "928cfd52e54c": "Stack | Python / CAN / HMAC"
   },
   "URTC-UPDATER": {
    "327c4d86725f": "sequential batch actions built from the same live state and safety path.",

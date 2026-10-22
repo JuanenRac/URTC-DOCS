@@ -17,6 +17,7 @@ DESCRIPTIONS: dict[str, str] = {
     "URTC-COMMON": "The CAN protocol as data: a specification with generated C, TypeScript and Python code, conformance vectors and the Python transports; nothing uses it yet.",
     "URTC-DOCS": "Architecture, interfaces, security baseline, capability matrix and generated project catalogue of the ecosystem, plus the tools that compare all repositories.",
     "URTC-FLASHER": "Desktop tool that updates the board firmware over CAN (bootloader protocol, signed images) or over SWD/JTAG; tested against a simulated bootloader only.",
+    "URTC-GATEWAY": "Gateway in front of the CAN bus: the identifiers a host may send (made from the specification), a payload check, a rate limit and a session key, each one switchable; tested on the host only.",
     "URTC-SMART-RACK": "Hardware-independent C logic and rack command protocol for a tool rack with pre-heating and lifecycle tracking; no board exists yet.",
     "URTC-TESTER": "Desktop live CAN-bus tester that shows the controls and telemetry of the tool profile a board reports; checked against fake transports only.",
     "URTC-UPDATER": "Finds the ecosystem repositories on a machine from their manifests and installs or updates them after an explicit confirmation.",

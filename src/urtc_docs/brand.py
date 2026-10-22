@@ -30,6 +30,7 @@ NODES: dict[str, tuple[int, int, str]] = {
     "URTC-TESTER": (600, 2, "live bus tester"),
     "URTC-WEB-STUDIO": (1000, 2, "browser flasher and tester"),
     "URTC-COMMON": (600, 3, "the CAN protocol as data"),
+    "URTC-GATEWAY": (1000, 3, "filters the frames to the bus"),
     "URTC-UPDATER": (350, 4, "reads the manifests"),
     "URTC-DOCS": (850, 4, "this repository"),
 }

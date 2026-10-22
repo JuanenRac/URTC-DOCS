@@ -19,6 +19,12 @@
         "count": 405
       }
     },
+    "URTC-GATEWAY": {
+      "hardware": "simulated",
+      "tests": {
+        "count": 75
+      }
+    },
     "URTC-SMART-RACK": {
       "hardware": "not_run",
       "target": "board"

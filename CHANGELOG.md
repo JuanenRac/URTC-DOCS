@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented here.
 
+## [Unreleased]
+
+- **A repository template** (`template/eh3d-repo-template`): the canonical copy of the files every repository carries as the same file, with the name of the repository as `<REPO>`. `tools/sync_repo_tools.py` writes it into the repositories (keeping the line endings of each copy; without `--apply` it only lists the differences) and `tools/check_repo_tools.py` now compares the copies with the template instead of with the majority.
+- URTC-GATEWAY joins the family: the map, the catalogue, the list of related projects and the glance data know it.
+
 ## [0.0.8] - A check of the files every repository shares
 
 - `tools/ci_validate.py` fails when a versioned file has the name of a Windows path (a colon, the character a file system uses to store one, or a first folder named like a drive or a user profile): a path handed to WSL without translation once put build output inside a repository. The same check (`tools/_tracked_names.py`) is in every URTC repository.

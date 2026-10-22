@@ -226,7 +226,7 @@ def check_repo_tools(argv: list[str] | None = None) -> int:
     parser.add_argument("--workspace", help="the folder that holds the repositories (default: the parent of this repository)")
     args = parser.parse_args(argv)
     workspace = _workspace(args)
-    found, count = drift.check_workspace(workspace)
+    found, count = drift.check_workspace(workspace, template_dir=drift.TEMPLATE_DIR if workspace.resolve() == REPO.resolve().parent else None)
     if count < 2:
         message = f"fewer than two repositories of the ecosystem were found in {workspace}"
         if args.require_siblings:
@@ -240,6 +240,26 @@ def check_repo_tools(argv: list[str] | None = None) -> int:
         print(f"REPO_TOOLS=FAIL {len(found)} copy(ies) differ from the others ({count} repositories, {len(drift.SHARED_FILES)} shared files)", file=sys.stderr)
         return 1
     print(f"REPO_TOOLS=PASS {len(drift.SHARED_FILES)} shared files are the same in {count} repositories")
+    return 0
+
+
+def sync_repo_tools(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(prog="sync_repo_tools.py", description="Put the canonical copy of every shared file (template/eh3d-repo-template) into the repositories next to this one. Without --apply it only lists what would change.")
+    parser.add_argument("--apply", action="store_true", help="write the files (the line endings of each copy are kept)")
+    parser.add_argument("--workspace", help="the folder that holds the repositories (default: the parent of this repository)")
+    args = parser.parse_args(argv)
+    workspace = _workspace(args)
+    items = drift.plan_sync(workspace, template_dir=drift.TEMPLATE_DIR)
+    for item in items:
+        print(f"{item.repository}/{item.file}: {'written' if args.apply else 'would be written'}")
+    if args.apply:
+        drift.apply_sync(items)
+        print(f"SYNC_REPO_TOOLS=DONE {len(items)} file(s) written")
+        return 0
+    if items:
+        print(f"SYNC_REPO_TOOLS=DIFFERENT {len(items)} file(s) differ from the template (run with --apply)")
+        return 1
+    print("SYNC_REPO_TOOLS=PASS every shared file is the template")
     return 0
 
 
@@ -257,7 +277,7 @@ def doctor(argv: list[str] | None = None) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     """`run.sh` / `run.bat`: without arguments, say what this is; with one, run that tool."""
-    commands = {"catalog": make_catalog, "brand": make_brand, "readmes": make_readmes, "glance": make_glance, "claims": check_claims, "repo-tools": check_repo_tools, "publication": publication_check, "doctor": doctor}
+    commands = {"catalog": make_catalog, "brand": make_brand, "readmes": make_readmes, "glance": make_glance, "claims": check_claims, "repo-tools": check_repo_tools, "sync-repo-tools": sync_repo_tools, "publication": publication_check, "doctor": doctor}
     arguments = list(sys.argv[1:] if argv is None else argv)
     if not arguments or arguments[0] in {"-h", "--help", "help"}:
         print(f"URTC-DOCS v{__version__}")

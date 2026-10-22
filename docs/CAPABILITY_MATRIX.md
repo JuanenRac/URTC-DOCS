@@ -64,7 +64,7 @@ A unit test, a simulator and a bench result are different claims, and a lighter 
 |---|---|---|
 | Payload encoders for the migrated control families, rejecting out-of-range values | Local | `advanced_protocol.py` has no transport import, so the tests prove boundaries and safe-off frames on any computer. |
 | Qt Quick bridge logic, custom frame, telemetry watch, utility panels | Local | Three `verify_qt_*.py` end-to-end checks against a fake transport with real cross-thread signal delivery, run offscreen in CI. |
-| Per-tool panels of the Tkinter window (25 tools) | Builds | "Thousands of lines" exercised by the verify scripts and manual use, "not by a matching volume of automated tests". |
+| Per-tool panels of the Qt Quick deck (25 tools) | Builds | The deck builds each panel from the encoders and sends through the checked bridge; the offscreen end-to-end scripts and the tests cover the bridge, not every panel one by one. |
 | Bus statistics, health reads, safe-off of heaters, result records, session export | Local | `tests/` holds files for each of them (`test_bus_stats.py`, `test_reads_and_health.py`, `test_heater_safe_off.py`, `test_result_record.py`, `test_qt_session_export.py`). |
 | SLCAN and SocketCAN transports | Builds | Exercised through a fake transport only; no adapter in the environment where it was written, and the transport classes have no test file of their own. |
 

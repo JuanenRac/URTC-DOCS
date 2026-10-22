@@ -5,6 +5,11 @@ version number follows this ecosystem's "odometer" scheme: PATCH +1 on
 every explicit bump, rolling into MINOR past 9 (`0.0.9` -> `0.1.0`); MAJOR is
 bumped manually only. See `bump_version.py`.
 
+## [Unreleased]
+
+- The architecture and capability documents describe the Qt Quick window as the only window of the flasher and the tester, and the project catalogue follows the shorter manifest notes.
+- The manifest declares how far the project has been shown to work (`evidence`: host-test) and `tools/ci_validate.py` checks the value.
+
 ## [0.0.7] - The capability matrix lists the multinode extension
 
 - docs/CAPABILITY_MATRIX.md has a row for several tool heads on one CAN bus: implemented in the main firmware behind a switch that is off by default, Local level (host tests only), nothing tried on boards and no host program using it yet.

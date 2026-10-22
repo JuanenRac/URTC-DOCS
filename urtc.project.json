@@ -13,10 +13,11 @@
   ],
   "deployment_target": "user-pc",
   "maturity": "scaffolding",
+  "evidence": "host-test",
   "family": "Ecosystem Operations",
   "parent": null,
   "build": "python tools/build_test.py",
-  "notes": "The documentation and cross-repository tooling hub of the URTC ecosystem: the architecture, the interfaces, the security baseline, the threat model, the capability matrix and a study note on the three implementations of the CAN protocol, written from what the other repositories document and marked where a statement could not be traced. Tools (standard library only): a project catalogue generated from the manifests of the repositories found next to it, a banner, icon and ecosystem map generator, a generator of its own eight READMEs, a publication check for anything private, and a script that runs every repository's own CI validation and prints one PASS, FAIL or SKIP line each. Scaffolding on purpose: the tools are unit-tested and run in CI, but the nightly comparison of all the repositories has not yet been exercised over time.",
+  "notes": "The documentation and cross-repository tooling hub of the URTC ecosystem: the architecture, the interfaces, the security baseline, the threat model, the capability matrix and a study note on the implementations of the CAN protocol, written from what the other repositories document and marked where a statement could not be traced. Tools (standard library only): a project catalogue generated from the manifests of the repositories found next to it, banner, icon and ecosystem map generators, a generator of its own eight READMEs, a publication check for anything private, and urtc_doctor, which runs every repository's own CI validation and checks the shared copies and the firmware images. Scaffolding on purpose: the nightly comparison of all the repositories has not yet been exercised over time.",
   "native_version": {
     "file": "pyproject.toml",
     "pattern": "^version\\s*=\\s*\"(\\d+)\\.(\\d+)\\.(\\d+)\""

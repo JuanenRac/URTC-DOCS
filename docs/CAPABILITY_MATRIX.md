@@ -115,4 +115,4 @@ A unit test, a simulator and a bench result are different claims, and a lighter 
 
 * The release assets that FLASHER and WEB-STUDIO bundle are the main application 0.3.7 bench pre-release, whose application images are signed with the public development key and carry detached Ed25519 `.sig` files. `tools/sync_firmware.py` with no argument downloads the newest release.
 * The copies of `tools/ci_validate.py` differ slightly between repositories (FLASHER and TESTER accept an "INSTALL AND RUN" heading in a function that is not called; UPDATER does not require the four community files). None of the differences changes what a manifest has to contain.
-* `README_por.md` is required by no shared check; the other seven languages are compared by `_readme_parity.py`.
+* `README_por.md` is required and compared with the English original, like the other seven translations, by `_readme_parity.py`.

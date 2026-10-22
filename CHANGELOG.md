@@ -5,7 +5,7 @@ version number follows this ecosystem's "odometer" scheme: PATCH +1 on
 every explicit bump, rolling into MINOR past 9 (`0.0.9` -> `0.1.0`); MAJOR is
 bumped manually only. See `bump_version.py`.
 
-## [Unreleased]
+## [0.0.8] - A check of the files every repository shares
 
 - `tools/ci_validate.py` fails when a versioned file has the name of a Windows path (a colon, the character a file system uses to store one, or a first folder named like a drive or a user profile): a path handed to WSL without translation once put build output inside a repository. The same check (`tools/_tracked_names.py`) is in every URTC repository.
 - **The shared-file check also compares the dashboard notifier**: `tools/check_repo_tools.py` now reads `.github/workflows/dashboard-dispatch.yml` of every repository next to the documentation-policy, README-parity and version-bump tools, and reports the repository whose copy differs (the name of the repository and the line endings do not count). The notifier runs after the CI of a push to `main` finished green (`workflow_run`), no longer on the push itself.

@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented here.
 
-## [Unreleased]
+## [0.0.9] - Repository template and the gateway joins the family
 
 - **A repository template** (`template/eh3d-repo-template`): the canonical copy of the files every repository carries as the same file, with the name of the repository as `<REPO>`. `tools/sync_repo_tools.py` writes it into the repositories (keeping the line endings of each copy; without `--apply` it only lists the differences) and `tools/check_repo_tools.py` now compares the copies with the template instead of with the majority.
 - URTC-GATEWAY joins the family: the map, the catalogue, the list of related projects and the glance data know it.

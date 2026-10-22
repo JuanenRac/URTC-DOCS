@@ -73,3 +73,7 @@ def test_the_command_skips_or_fails_when_there_is_nothing_to_compare(tmp_path, c
     assert "REPO_TOOLS=SKIP" in capsys.readouterr().out
     assert cli.check_repo_tools(["--workspace", str(tmp_path), "--require-siblings"]) == 1
 
+
+
+def test_the_dashboard_notifier_is_one_of_the_shared_copies():
+    assert ".github/workflows/dashboard-dispatch.yml" in drift.SHARED_FILES

@@ -6,7 +6,7 @@
 """Drift of the files that every repository of the ecosystem carries as the same copy.
 
 A few small files are meant to be identical in every repository (the documentation-policy and README-parity
-checks, the manifest version bumper). Only the name of the repository inside the file may differ. When one copy is
+checks, the manifest version bumper, the dashboard notifier). Only the name of the repository inside the file may differ. When one copy is
 edited, or one repository is left behind, the checks stop meaning the same thing in each place. This reads the
 copies next to each other, takes the text most repositories share as the reference, and reports the repositories
 that differ, with the first differing line.
@@ -27,6 +27,7 @@ SHARED_FILES: tuple[str, ...] = (
     "tools/_doc_policy.py",
     "tools/_readme_parity.py",
     "bump_manifest_version.py",
+    ".github/workflows/dashboard-dispatch.yml",
 )
 
 _PLACEHOLDER = "<REPO>"

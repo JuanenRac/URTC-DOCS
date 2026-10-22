@@ -1,9 +1,6 @@
 # Changelog: URTC-DOCS 📚
 
-All notable changes to this project will be documented in this file. The
-version number follows this ecosystem's "odometer" scheme: PATCH +1 on
-every explicit bump, rolling into MINOR past 9 (`0.0.9` -> `0.1.0`); MAJOR is
-bumped manually only. See `bump_version.py`.
+All notable changes to this project are documented here.
 
 ## [0.0.8] - A check of the files every repository shares
 

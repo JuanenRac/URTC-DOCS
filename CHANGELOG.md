@@ -7,6 +7,7 @@ bumped manually only. See `bump_version.py`.
 
 ## [Unreleased]
 
+- The brand generator no longer writes the banner of this repository: it is made, like every project banner, by the profile's `tools/project_banner.py`, and the generator keeps the icon and the map of the families.
 - The banner follows the animated style of the ecosystem banners, with the name, the kind and the technologies of the project.
 - The architecture and capability documents describe the Qt Quick window as the only window of the flasher and the tester, and the project catalogue follows the shorter manifest notes.
 - The manifest declares how far the project has been shown to work (`evidence`: host-test) and `tools/ci_validate.py` checks the value.

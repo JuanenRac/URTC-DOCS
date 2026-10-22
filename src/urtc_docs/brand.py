@@ -143,7 +143,6 @@ def ecosystem_map(nodes: dict[str, tuple[int, int, str]] | None = None) -> str:
 def outputs() -> dict[str, str]:
     """Published path (relative to the repository) -> content."""
     return {
-        "images/URTC_DOCS_BANNER.svg": banner(),
         "images/URTC_ECOSYSTEM.svg": ecosystem_map(),
         "brand/URTC_DOCS_ICON.svg": icon(),
     }

@@ -49,7 +49,7 @@
 * [第一个垂直切片](docs/FIRST_VERTICAL_SLICE.md): 今天已存在的最小端到端路径。
 * [CAN 协议的重复实现](docs/CAN_PROTOCOL_DUPLICATION.md): 该协议依据一份文字说明被实现了三次；共享规范将包含什么。
 * [项目目录](docs/PROJECT_CATALOG.md): 生态中的每个仓库，依据其自身清单生成。
-* **工具：** `make_catalog.py` 生成目录，`make_brand.py` 生成横幅、图标和家族图，`make_readmes.py` 生成本仓库的八份 README，`publication_check.py` 在发布前查找任何私有内容，`check_all.sh` 运行家族中每个仓库自己的检查，并为每个仓库输出一行 PASS、FAIL 或 SKIP。`make_glance.py` 根据每个仓库的清单和 `data/glance.json` 生成其“速览”表（`--check` 比较，`--apply` 写入）；提升版本后，运行 `python tools/make_glance.py --apply --repo NAME` 即可刷新该仓库的表。`check_claims.py` 读取该系列每个仓库的英文 README,当某个句子含有风险词(E-STOP、联锁、实时、已签名、mTLS、FDCAN、YOLO、AI 驱动、自主、已认证等)而旁边没有状态标记(计划中、未实现、可选、默认关闭、模拟、已测试等),且不在人工对照代码读过并登记于 `data/claims_reviewed.json` 的行中时,检查失败。 `urtc_doctor.py` 是唯一的入口：它生成一份报告，包含本机工具（Python、git、Node、ARM 编译器、PySide6、串口）、每个仓库的版本（清单、源文件和最新的 changelog 条目）、URTC-COMMON 的副本以及烧录工具和 Web 工作室内置的固件、每个仓库的验证和本仓库的检查；`--fast` 跳过验证，`--online` 将内置固件与最新发布版本比较。
+* **工具：** `make_catalog.py` 生成目录，`make_brand.py` 生成横幅、图标和家族图，`make_readmes.py` 生成本仓库的八份 README，`publication_check.py` 在发布前查找任何私有内容，`check_all.sh` 运行家族中每个仓库自己的检查，并为每个仓库输出一行 PASS、FAIL 或 SKIP。`make_glance.py` 根据每个仓库的清单和 `data/glance.json` 生成其“速览”表（`--check` 比较，`--apply` 写入）；提升版本后，运行 `python tools/make_glance.py --apply --repo NAME` 即可刷新该仓库的表。`check_claims.py` 读取该系列每个仓库的英文 README,当某个句子含有风险词(E-STOP、联锁、实时、已签名、mTLS、FDCAN、YOLO、AI 驱动、自主、已认证等)而旁边没有状态标记(计划中、未实现、可选、默认关闭、模拟、已测试等),且不在人工对照代码读过并登记于 `data/claims_reviewed.json` 的行中时,检查失败。 `check_repo_tools.py` 比较每个仓库作为同一份副本携带的文件(文档策略与 README 一致性检查、清单版本升级工具),任何一个不同就会失败。 `urtc_doctor.py` 是唯一的入口：它生成一份报告，包含本机工具（Python、git、Node、ARM 编译器、PySide6、串口）、每个仓库的版本（清单、源文件和最新的 changelog 条目）、URTC-COMMON 的副本以及烧录工具和 Web 工作室内置的固件、每个仓库的验证和本仓库的检查；`--fast` 跳过验证，`--online` 将内置固件与最新发布版本比较。
 
 ## 🧩 在 URTC 中的角色
 
@@ -74,15 +74,16 @@ URTC-DOCS/
 **要求：** Python 3.10 或更新版本；测试需要 pytest
 
 ```bash
-python tools/make_catalog.py --check             # 目录是最新的（需要本仓库旁边有其他仓库）
-python tools/make_brand.py --check               # 横幅、图标和家族图是最新的
-python tools/make_readmes.py --check             # 八份 README 是最新的
-python tools/make_glance.py --check              # 家族的“速览”表是最新的（需要本仓库旁边有其他仓库）
-python tools/publication_check.py                # 发布时不会带出任何私有内容
-python tools/check_claims.py --require-siblings  # 没有任何 README 在不说明状态的情况下声称具备高风险能力(需要与本仓库相邻的其他仓库)
-bash tools/check_all.sh                          # 每个仓库的检查，每个一行
-python tools/urtc_doctor.py                      # 医生：关于本机和每个仓库的一份报告
-python -m pytest tests -q                        # 工具的单元测试
+python tools/make_catalog.py --check                 # 目录是最新的（需要本仓库旁边有其他仓库）
+python tools/make_brand.py --check                   # 横幅、图标和家族图是最新的
+python tools/make_readmes.py --check                 # 八份 README 是最新的
+python tools/make_glance.py --check                  # 家族的“速览”表是最新的（需要本仓库旁边有其他仓库）
+python tools/publication_check.py                    # 发布时不会带出任何私有内容
+python tools/check_claims.py --require-siblings      # 没有任何 README 在不说明状态的情况下声称具备高风险能力(需要与本仓库相邻的其他仓库)
+python tools/check_repo_tools.py --require-siblings  # 每个仓库作为同一份副本携带的文件内容一致(需要与本仓库相邻的其他仓库)
+bash tools/check_all.sh                              # 每个仓库的检查，每个一行
+python tools/urtc_doctor.py                          # 医生：关于本机和每个仓库的一份报告
+python -m pytest tests -q                            # 工具的单元测试
 ```
 
 `build.sh` / `build.bat` 安装包并运行测试，`build-test.sh` / `build-test.bat` 不安装直接检查；两者都不会改变版本。`python bump.py` 将版本提升一步（生态的里程表规则）。

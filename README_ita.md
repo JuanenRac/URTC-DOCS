@@ -49,7 +49,7 @@ L'immagine qui sotto mostra i repository di URTC, il bus CAN che collega le sche
 * [Prima fetta verticale](docs/FIRST_VERTICAL_SLICE.md): il più piccolo percorso da un capo all'altro che esiste oggi.
 * [Duplicazione del protocollo CAN](docs/CAN_PROTOCOL_DUPLICATION.md): il protocollo è implementato tre volte a partire da un testo; cosa conterrebbe una specifica condivisa.
 * [Catalogo dei progetti](docs/PROJECT_CATALOG.md): ogni repository dell'ecosistema, scritto a partire dal proprio manifesto.
-* **Strumenti:** `make_catalog.py` scrive il catalogo, `make_brand.py` il banner, l'icona e la mappa delle famiglie, `make_readmes.py` gli otto README di questo repository, `publication_check.py` cerca qualsiasi cosa privata prima di una pubblicazione e `check_all.sh` esegue i controlli propri di ogni repository della famiglia e stampa una riga PASS, FAIL o SKIP per ciascuno. `make_glance.py` scrive la tabella In breve di ogni repository dal suo manifesto e da `data/glance.json` (`--check` confronta, `--apply` scrive); dopo un aumento di versione, `python tools/make_glance.py --apply --repo NOME` aggiorna la tabella di quel repository. `check_claims.py` legge il README inglese di ogni repository della famiglia e fallisce quando una frase contiene una parola a rischio (E-STOP, interblocco, tempo reale, firmato, mTLS, FDCAN, YOLO, guidato dall'IA, autonomo, certificato, ...) senza un indicatore di stato accanto (previsto, non implementato, opzionale, disattivato per impostazione predefinita, simulato, provato, ...), a meno che una persona abbia letto quella riga accanto al codice e l'abbia inserita in `data/claims_reviewed.json`. `urtc_doctor.py` è l'unico punto di ingresso: un rapporto sugli strumenti della macchina (Python, git, Node, il compilatore ARM, PySide6, porte seriali), sulle versioni di ogni repository (manifest, file sorgente e ultima voce del changelog), sulle copie di URTC-COMMON e sul firmware incluso nel flasher e nel web studio, sulla convalida di ogni repository e sui controlli di questo; `--fast` salta le convalide e `--online` confronta il firmware incluso con l'ultima release.
+* **Strumenti:** `make_catalog.py` scrive il catalogo, `make_brand.py` il banner, l'icona e la mappa delle famiglie, `make_readmes.py` gli otto README di questo repository, `publication_check.py` cerca qualsiasi cosa privata prima di una pubblicazione e `check_all.sh` esegue i controlli propri di ogni repository della famiglia e stampa una riga PASS, FAIL o SKIP per ciascuno. `make_glance.py` scrive la tabella In breve di ogni repository dal suo manifesto e da `data/glance.json` (`--check` confronta, `--apply` scrive); dopo un aumento di versione, `python tools/make_glance.py --apply --repo NOME` aggiorna la tabella di quel repository. `check_claims.py` legge il README inglese di ogni repository della famiglia e fallisce quando una frase contiene una parola a rischio (E-STOP, interblocco, tempo reale, firmato, mTLS, FDCAN, YOLO, guidato dall'IA, autonomo, certificato, ...) senza un indicatore di stato accanto (previsto, non implementato, opzionale, disattivato per impostazione predefinita, simulato, provato, ...), a meno che una persona abbia letto quella riga accanto al codice e l'abbia inserita in `data/claims_reviewed.json`. `check_repo_tools.py` confronta i file che ogni repository porta come la stessa copia (i controlli della politica di documentazione e della parità dei README, lo strumento che aumenta la versione del manifesto) e fallisce quando uno differisce. `urtc_doctor.py` è l'unico punto di ingresso: un rapporto sugli strumenti della macchina (Python, git, Node, il compilatore ARM, PySide6, porte seriali), sulle versioni di ogni repository (manifest, file sorgente e ultima voce del changelog), sulle copie di URTC-COMMON e sul firmware incluso nel flasher e nel web studio, sulla convalida di ogni repository e sui controlli di questo; `--fast` salta le convalide e `--online` confronta il firmware incluso con l'ultima release.
 
 ## 🧩 Ruolo in URTC
 
@@ -74,15 +74,16 @@ URTC-DOCS/
 **Requisiti:** Python 3.10 o successivo; pytest per i test
 
 ```bash
-python tools/make_catalog.py --check             # il catalogo è aggiornato (servono i repository accanto a questo)
-python tools/make_brand.py --check               # il banner, l'icona e la mappa sono aggiornati
-python tools/make_readmes.py --check             # gli otto README sono aggiornati
-python tools/make_glance.py --check              # le tabelle In breve della famiglia sono aggiornate (servono i repository accanto a questo)
-python tools/publication_check.py                # nulla di privato uscirebbe con una pubblicazione
-python tools/check_claims.py --require-siblings  # nessun README afferma una capacità a rischio senza il suo stato (richiede i repository accanto a questo)
-bash tools/check_all.sh                          # i controlli di ogni repository, una riga ciascuno
-python tools/urtc_doctor.py                      # il doctor: un rapporto su questa macchina e su ogni repository
-python -m pytest tests -q                        # i test unitari degli strumenti
+python tools/make_catalog.py --check                 # il catalogo è aggiornato (servono i repository accanto a questo)
+python tools/make_brand.py --check                   # il banner, l'icona e la mappa sono aggiornati
+python tools/make_readmes.py --check                 # gli otto README sono aggiornati
+python tools/make_glance.py --check                  # le tabelle In breve della famiglia sono aggiornate (servono i repository accanto a questo)
+python tools/publication_check.py                    # nulla di privato uscirebbe con una pubblicazione
+python tools/check_claims.py --require-siblings      # nessun README afferma una capacità a rischio senza il suo stato (richiede i repository accanto a questo)
+python tools/check_repo_tools.py --require-siblings  # i file che ogni repository porta come la stessa copia sono uguali (richiede i repository accanto a questo)
+bash tools/check_all.sh                              # i controlli di ogni repository, una riga ciascuno
+python tools/urtc_doctor.py                          # il doctor: un rapporto su questa macchina e su ogni repository
+python -m pytest tests -q                            # i test unitari degli strumenti
 ```
 
 `build.sh` / `build.bat` installano il pacchetto ed eseguono i test, e `build-test.sh` / `build-test.bat` controllano senza installare; nessuno cambia una versione. `python bump.py` alza la versione di un passo (il contachilometri dell'ecosistema).

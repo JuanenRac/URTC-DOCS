@@ -49,7 +49,7 @@ L'image ci-dessous montre les dépôts d'URTC, le bus CAN qui relie les cartes e
 * [Première tranche verticale](docs/FIRST_VERTICAL_SLICE.md): le plus petit chemin de bout en bout qui existe aujourd'hui.
 * [Duplication du protocole CAN](docs/CAN_PROTOCOL_DUPLICATION.md): le protocole est implémenté trois fois à partir d'un texte ; ce que contiendrait une spécification partagée.
 * [Catalogue des projets](docs/PROJECT_CATALOG.md): chaque dépôt de l'écosystème, écrit à partir de son propre manifeste.
-* **Outils :** `make_catalog.py` écrit le catalogue, `make_brand.py` la bannière, l'icône et la carte des familles, `make_readmes.py` les huit README de ce dépôt, `publication_check.py` cherche tout ce qui serait privé avant une publication, et `check_all.sh` lance les vérifications propres à chaque dépôt de la famille et affiche une ligne PASS, FAIL ou SKIP pour chacun. `make_glance.py` écrit le tableau En un coup d'œil de chaque dépôt à partir de son manifeste et de `data/glance.json` (`--check` compare, `--apply` écrit) ; après un changement de version, `python tools/make_glance.py --apply --repo NOM` met à jour le tableau de ce dépôt. `check_claims.py` lit le README anglais de chaque dépôt de la famille et échoue lorsqu'une phrase contient un mot à risque (E-STOP, verrouillage, temps réel, signé, mTLS, FDCAN, YOLO, piloté par IA, autonome, certifié, ...) sans marqueur d'état à côté (prévu, non implémenté, optionnel, désactivé par défaut, simulé, testé, ...), sauf si une personne a lu cette ligne à côté du code et l'a inscrite dans `data/claims_reviewed.json`. `urtc_doctor.py` est le point d'entrée unique : un rapport sur les outils de la machine (Python, git, Node, le compilateur ARM, PySide6, ports série), les versions de chaque dépôt (manifeste, fichier source et dernière entrée du changelog), les copies d'URTC-COMMON et le firmware embarqué par le flasher et le web studio, la validation de chaque dépôt et les vérifications de celui-ci ; `--fast` omet les validations et `--online` compare le firmware embarqué avec la dernière release.
+* **Outils :** `make_catalog.py` écrit le catalogue, `make_brand.py` la bannière, l'icône et la carte des familles, `make_readmes.py` les huit README de ce dépôt, `publication_check.py` cherche tout ce qui serait privé avant une publication, et `check_all.sh` lance les vérifications propres à chaque dépôt de la famille et affiche une ligne PASS, FAIL ou SKIP pour chacun. `make_glance.py` écrit le tableau En un coup d'œil de chaque dépôt à partir de son manifeste et de `data/glance.json` (`--check` compare, `--apply` écrit) ; après un changement de version, `python tools/make_glance.py --apply --repo NOM` met à jour le tableau de ce dépôt. `check_claims.py` lit le README anglais de chaque dépôt de la famille et échoue lorsqu'une phrase contient un mot à risque (E-STOP, verrouillage, temps réel, signé, mTLS, FDCAN, YOLO, piloté par IA, autonome, certifié, ...) sans marqueur d'état à côté (prévu, non implémenté, optionnel, désactivé par défaut, simulé, testé, ...), sauf si une personne a lu cette ligne à côté du code et l'a inscrite dans `data/claims_reviewed.json`. `check_repo_tools.py` compare les fichiers que chaque dépôt porte comme la même copie (les contrôles de politique de documentation et de parité des README, l'outil de montée de version du manifeste) et échoue lorsqu'un fichier diffère. `urtc_doctor.py` est le point d'entrée unique : un rapport sur les outils de la machine (Python, git, Node, le compilateur ARM, PySide6, ports série), les versions de chaque dépôt (manifeste, fichier source et dernière entrée du changelog), les copies d'URTC-COMMON et le firmware embarqué par le flasher et le web studio, la validation de chaque dépôt et les vérifications de celui-ci ; `--fast` omet les validations et `--online` compare le firmware embarqué avec la dernière release.
 
 ## 🧩 Rôle dans URTC
 
@@ -74,15 +74,16 @@ URTC-DOCS/
 **Prérequis :** Python 3.10 ou plus récent ; pytest pour les tests
 
 ```bash
-python tools/make_catalog.py --check             # le catalogue est à jour (nécessite les dépôts à côté de celui-ci)
-python tools/make_brand.py --check               # la bannière, l'icône et la carte sont à jour
-python tools/make_readmes.py --check             # les huit README sont à jour
-python tools/make_glance.py --check              # les tableaux En un coup d'œil de la famille sont à jour (nécessite les dépôts à côté de celui-ci)
-python tools/publication_check.py                # rien de privé ne partirait avec une publication
-python tools/check_claims.py --require-siblings  # aucun README n'affirme une capacité risquée sans son statut (nécessite les dépôts à côté de celui-ci)
-bash tools/check_all.sh                          # les vérifications de chaque dépôt, une ligne chacun
-python tools/urtc_doctor.py                      # le doctor : un rapport sur cette machine et sur chaque dépôt
-python -m pytest tests -q                        # les tests unitaires des outils
+python tools/make_catalog.py --check                 # le catalogue est à jour (nécessite les dépôts à côté de celui-ci)
+python tools/make_brand.py --check                   # la bannière, l'icône et la carte sont à jour
+python tools/make_readmes.py --check                 # les huit README sont à jour
+python tools/make_glance.py --check                  # les tableaux En un coup d'œil de la famille sont à jour (nécessite les dépôts à côté de celui-ci)
+python tools/publication_check.py                    # rien de privé ne partirait avec une publication
+python tools/check_claims.py --require-siblings      # aucun README n'affirme une capacité risquée sans son statut (nécessite les dépôts à côté de celui-ci)
+python tools/check_repo_tools.py --require-siblings  # les fichiers que chaque dépôt porte comme la même copie sont identiques (nécessite les dépôts à côté de celui-ci)
+bash tools/check_all.sh                              # les vérifications de chaque dépôt, une ligne chacun
+python tools/urtc_doctor.py                          # le doctor : un rapport sur cette machine et sur chaque dépôt
+python -m pytest tests -q                            # les tests unitaires des outils
 ```
 
 `build.sh` / `build.bat` installent le paquet et lancent les tests, et `build-test.sh` / `build-test.bat` vérifient sans installer ; aucun ne change de version. `python bump.py` avance la version d'un cran (le compteur kilométrique de l'écosystème).

@@ -10,7 +10,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import __version__, brand, catalog, claims, doctor as doctor_module, family, glance, publication, readmes
+from . import __version__, brand, catalog, claims, doctor as doctor_module, drift, family, glance, publication, readmes
 
 REPO = Path(__file__).resolve().parents[2]
 CATALOG_FILE = REPO / "docs" / "PROJECT_CATALOG.md"
@@ -220,6 +220,29 @@ def publication_check(argv: list[str] | None = None) -> int:
     return 1 if blocked else 0
 
 
+def check_repo_tools(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(prog="check_repo_tools.py", description="Fail when a file that every repository carries as the same copy (the documentation-policy and README-parity checks, the manifest version bumper) differs between repositories.")
+    parser.add_argument("--require-siblings", action="store_true", help="fail instead of skipping when fewer than two repositories are found")
+    parser.add_argument("--workspace", help="the folder that holds the repositories (default: the parent of this repository)")
+    args = parser.parse_args(argv)
+    workspace = _workspace(args)
+    found, count = drift.check_workspace(workspace)
+    if count < 2:
+        message = f"fewer than two repositories of the ecosystem were found in {workspace}"
+        if args.require_siblings:
+            print(f"REPO_TOOLS=FAIL {message}", file=sys.stderr)
+            return 1
+        print(f"REPO_TOOLS=SKIP {message}")
+        return 0
+    for item in found:
+        print(f"{item.repository}/{item.file}: {item.detail}", file=sys.stderr)
+    if found:
+        print(f"REPO_TOOLS=FAIL {len(found)} copy(ies) differ from the others ({count} repositories, {len(drift.SHARED_FILES)} shared files)", file=sys.stderr)
+        return 1
+    print(f"REPO_TOOLS=PASS {len(drift.SHARED_FILES)} shared files are the same in {count} repositories")
+    return 0
+
+
 def doctor(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="urtc_doctor.py", description="One report on this machine and on the repositories next to this one: tools, versions, shared copies, bundled firmware and the checks of every repository.")
     parser.add_argument("--workspace", help="the folder that holds the repositories (default: the parent of this repository)")
@@ -234,12 +257,12 @@ def doctor(argv: list[str] | None = None) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     """`run.sh` / `run.bat`: without arguments, say what this is; with one, run that tool."""
-    commands = {"catalog": make_catalog, "brand": make_brand, "readmes": make_readmes, "glance": make_glance, "claims": check_claims, "publication": publication_check, "doctor": doctor}
+    commands = {"catalog": make_catalog, "brand": make_brand, "readmes": make_readmes, "glance": make_glance, "claims": check_claims, "repo-tools": check_repo_tools, "publication": publication_check, "doctor": doctor}
     arguments = list(sys.argv[1:] if argv is None else argv)
     if not arguments or arguments[0] in {"-h", "--help", "help"}:
         print(f"URTC-DOCS v{__version__}")
         print("Documentation and cross-repository tooling hub of the URTC ecosystem.")
-        print("usage: run.sh <catalog|brand|readmes|glance|claims|publication|doctor> [options]")
+        print("usage: run.sh <catalog|brand|readmes|glance|claims|repo-tools|publication|doctor> [options]")
         return 0
     if arguments[0] not in commands:
         print(f"unknown command {arguments[0]!r}; expected one of: {', '.join(commands)}", file=sys.stderr)

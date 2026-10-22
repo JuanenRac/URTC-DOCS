@@ -7,6 +7,7 @@ bumped manually only. See `bump_version.py`.
 
 ## [Unreleased]
 
+- **New check `tools/check_repo_tools.py`** (module `drift`, 7 tests, also `run.sh repo-tools`): the files every repository carries as the same copy (`tools/_doc_policy.py`, `tools/_readme_parity.py`, `bump_manifest_version.py`) are compared across the repositories next to this one, the name of the repository and the line endings being the only thing allowed to differ; the text most repositories share is the reference and a repository that differs is named with its first differing line. It runs in `tools/check_all.sh` and in the nightly ecosystem check, and the README of each language lists it in eight languages.
 - The brand generator no longer writes the banner of this repository: it is made, like every project banner, by the profile's `tools/project_banner.py`, and the generator keeps the icon and the map of the families.
 - The banner follows the animated style of the ecosystem banners, with the name, the kind and the technologies of the project.
 - The architecture and capability documents describe the Qt Quick window as the only window of the flasher and the tester, and the project catalogue follows the shorter manifest notes.

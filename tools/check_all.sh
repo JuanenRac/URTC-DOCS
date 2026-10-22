@@ -99,6 +99,11 @@ if [[ "$checked" -gt 0 ]]; then
 else
   report "docs: claim hygiene" SKIP "no sibling repositories to read the READMEs of"
 fi
+if [[ "$checked" -gt 0 ]]; then
+  run "docs: shared files" "$HERE" "$PYTHON" tools/check_repo_tools.py --require-siblings
+else
+  report "docs: shared files" SKIP "no sibling repositories to compare"
+fi
 if "$PYTHON" -c "import pytest" >/dev/null 2>&1; then
   run "docs: unit tests" "$HERE" "$PYTHON" -m pytest tests -q
 else

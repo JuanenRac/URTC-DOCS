@@ -49,7 +49,7 @@ The picture below shows the repositories of URTC, the CAN bus that joins the boa
 * [First vertical slice](docs/FIRST_VERTICAL_SLICE.md): the smallest end-to-end path that exists today.
 * [CAN protocol duplication](docs/CAN_PROTOCOL_DUPLICATION.md): the protocol is implemented three times from prose; what a shared specification would hold.
 * [Project catalogue](docs/PROJECT_CATALOG.md): every repository of the ecosystem, written from its own manifest.
-* **Tools:** `make_catalog.py` writes the catalogue, `make_brand.py` the banner, icon and family map, `make_readmes.py` the eight READMEs of this repository, `publication_check.py` looks for anything private before a publication, and `check_all.sh` runs the own checks of every repository of the family and prints one PASS, FAIL or SKIP line each. `make_glance.py` writes the At a glance table of every repository from its manifest and from `data/glance.json` (`--check` compares, `--apply` writes); after a version bump, `python tools/make_glance.py --apply --repo NAME` refreshes the table of that repository. `check_claims.py` reads the English README of every repository of the family and fails when a sentence has a risk word (E-STOP, interlock, real-time, signed, mTLS, FDCAN, YOLO, AI-driven, autonomous, certified, ...) and no status marker next to it (planned, not implemented, optional, off by default, simulated, tested, ...), unless a person has read that line next to the code and put it in `data/claims_reviewed.json`. `urtc_doctor.py` is the single entry point: one report with the tools of the machine (Python, git, Node, the ARM compiler, PySide6, serial ports), the versions of every repository (manifest, source file and newest changelog entry), the copies of URTC-COMMON and the firmware bundled by the flasher and the web studio, the validation of every repository and the checks of this one; `--fast` leaves out the validations and `--online` compares the bundled firmware with the newest release.
+* **Tools:** `make_catalog.py` writes the catalogue, `make_brand.py` the banner, icon and family map, `make_readmes.py` the eight READMEs of this repository, `publication_check.py` looks for anything private before a publication, and `check_all.sh` runs the own checks of every repository of the family and prints one PASS, FAIL or SKIP line each. `make_glance.py` writes the At a glance table of every repository from its manifest and from `data/glance.json` (`--check` compares, `--apply` writes); after a version bump, `python tools/make_glance.py --apply --repo NAME` refreshes the table of that repository. `check_claims.py` reads the English README of every repository of the family and fails when a sentence has a risk word (E-STOP, interlock, real-time, signed, mTLS, FDCAN, YOLO, AI-driven, autonomous, certified, ...) and no status marker next to it (planned, not implemented, optional, off by default, simulated, tested, ...), unless a person has read that line next to the code and put it in `data/claims_reviewed.json`. `check_repo_tools.py` compares the files every repository carries as the same copy (the documentation-policy and README-parity checks, the manifest version bumper) and fails when one differs. `urtc_doctor.py` is the single entry point: one report with the tools of the machine (Python, git, Node, the ARM compiler, PySide6, serial ports), the versions of every repository (manifest, source file and newest changelog entry), the copies of URTC-COMMON and the firmware bundled by the flasher and the web studio, the validation of every repository and the checks of this one; `--fast` leaves out the validations and `--online` compares the bundled firmware with the newest release.
 
 ## 🧩 Role in URTC
 
@@ -74,15 +74,16 @@ URTC-DOCS/
 **Requirements:** Python 3.10 or newer; pytest for the tests
 
 ```bash
-python tools/make_catalog.py --check             # the catalogue is current (needs the repositories next to this one)
-python tools/make_brand.py --check               # the banner, icon and map are current
-python tools/make_readmes.py --check             # the eight READMEs are current
-python tools/make_glance.py --check              # the At a glance tables of the family are current (needs the repositories next to this one)
-python tools/publication_check.py                # nothing private would leave with a publication
-python tools/check_claims.py --require-siblings  # no README states a risky capability without its status (needs the repositories next to this one)
-bash tools/check_all.sh                          # the checks of every repository, one line each
-python tools/urtc_doctor.py                      # the doctor: one report on this machine and on every repository
-python -m pytest tests -q                        # the unit tests of the tools
+python tools/make_catalog.py --check                 # the catalogue is current (needs the repositories next to this one)
+python tools/make_brand.py --check                   # the banner, icon and map are current
+python tools/make_readmes.py --check                 # the eight READMEs are current
+python tools/make_glance.py --check                  # the At a glance tables of the family are current (needs the repositories next to this one)
+python tools/publication_check.py                    # nothing private would leave with a publication
+python tools/check_claims.py --require-siblings      # no README states a risky capability without its status (needs the repositories next to this one)
+python tools/check_repo_tools.py --require-siblings  # the files every repository carries as the same copy are the same (needs the repositories next to this one)
+bash tools/check_all.sh                              # the checks of every repository, one line each
+python tools/urtc_doctor.py                          # the doctor: one report on this machine and on every repository
+python -m pytest tests -q                            # the unit tests of the tools
 ```
 
 `build.sh` / `build.bat` install the package and run the tests, and `build-test.sh` / `build-test.bat` check without installing; neither changes a version. `python bump.py` raises the version by one step (the ecosystem's odometer).

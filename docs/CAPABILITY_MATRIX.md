@@ -67,6 +67,8 @@ A unit test, a simulator and a bench result are different claims, and a lighter 
 | Per-tool panels of the Qt Quick deck (25 tools) | Builds | The deck builds each panel from the encoders and sends through the checked bridge; the offscreen end-to-end scripts and the tests cover the bridge, not every panel one by one. |
 | Bus statistics, health reads, safe-off of heaters, result records, session export | Local | `tests/` holds files for each of them (`test_bus_stats.py`, `test_reads_and_health.py`, `test_heater_safe_off.py`, `test_result_record.py`, `test_qt_session_export.py`). |
 | SLCAN and SocketCAN transports | Builds | Exercised through a fake transport only; no adapter in the environment where it was written, and the transport classes have no test file of their own. |
+| Without a window (`--headless`): identify, self-test and test plans (JSON) with a log and a result record; a command that actuates needs the plan and the operator to allow it, and a plan can repeat a command so that the firmware's watchdog does not drop it | Emulated | Run against the simulated tool head and recorded traces that live in the tester itself (`tester_simulator.py`); the head drops an unrefreshed order like the firmware but is the same author's reading of the protocol. No board, no adapter. |
+| Heater PID panel (`0x1B9` / `0x1BA`: gains, relay autotune, state) | Emulated | The frames are checked against the examples of the specification and the simulated head answers them, autotune included. The firmware function is host-tested only and was never run on a heater. |
 
 ## URTC-WEB-STUDIO
 
@@ -77,6 +79,7 @@ A unit test, a simulator and a bench result are different claims, and a lighter 
 | Web Serial transport | Absent as evidence | Real code, no automated test, never run against a USB-CAN adapter. |
 | Control, OLED, Specs/BOM and Thermal IR tabs | Local | Labelled sandbox tabs with no CAN traffic. The thermal view there is generated noise, not a sensor reading. |
 | Firmware download from the GitHub release, patch number over CAN | Local | Unit-tested logic; the browser limit (files are served from a host without CORS headers) is handled and documented. |
+| Heater PID panel in Tester Studio (`0x1B9` / `0x1BA`) | Local | Frame encoding and decoding are unit-tested against the specification; the panel itself is checked by type-checking and the build only, never run against a board. |
 
 ## URTC-SMART-RACK
 

@@ -11,7 +11,6 @@ import re
 import xml.etree.ElementTree as ElementTree
 from pathlib import Path
 
-import pytest
 
 from urtc_docs import brand, readme_family, readme_text, readmes
 from urtc_docs.descriptions import DESCRIPTIONS

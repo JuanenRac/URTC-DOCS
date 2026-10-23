@@ -76,7 +76,7 @@ def render(code: str, manifest: dict, entry: dict) -> str:
     add(f"## 🎯 {text['h_overview']}")
     add("")
     add('<p align="center">')
-    add(f'  <img src="images/URTC_ECOSYSTEM.svg" alt="URTC ecosystem" width="100%">')
+    add('  <img src="images/URTC_ECOSYSTEM.svg" alt="URTC ecosystem" width="100%">')
     add("</p>")
     add("")
     add(str(text["overview_intro"]))

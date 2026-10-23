@@ -4,6 +4,7 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **A static check on every push:** `ruff.toml` (unused names, exception chaining and syntax errors, the rules the flasher and the tester already ran) and a step of the CI that runs `ruff check .` with a pinned ruff; it found an unused import and an f-string without placeholders, now fixed.
 - The capability matrix lists the virtual board in the flasher and in the tester, the trace replay and the Black Box viewer of the web studio.
 - The CI holds the tests to a coverage floor of 84 percent of the package (measured 92; `pytest-cov` is in the `dev` extra).
 

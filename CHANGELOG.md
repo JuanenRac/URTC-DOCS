@@ -2,9 +2,15 @@
 
 All notable changes to this project are documented here.
 
-## [Unreleased]
+## [0.1.0] - Capability matrix and family tables brought up to date
 
 - **The capability matrix lists what the tester and the web studio gained:** the headless mode with test plans and the simulated head, and the heater PID panel, each at the level its evidence supports (emulated in the tester, local in the web studio), with the limits stated.
+
+- **The matrix lists the other new capabilities:** the list of official images for a bare board in the flasher, and the CRC-8 that the rack and the vision tool now share, each at the level its evidence supports.
+
+- **The project catalogue follows the manifests:** the versions of the seven repositories that were released together are current in `docs/PROJECT_CATALOG.md`.
+
+- **The test counters of the family tables are measured again:** URTC-COMMON shows 337 tests and URTC-FLASHER 466 in their At a glance tables, instead of the numbers from earlier versions.
 
 ## [0.0.9] - Repository template and the gateway joins the family
 

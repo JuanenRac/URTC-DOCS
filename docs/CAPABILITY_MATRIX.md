@@ -57,6 +57,7 @@ A unit test, a simulator and a bench result are different claims, and a lighter 
 | Full-chip SWD/JTAG programming | Builds | `verify_qt_swd_full_chip_flash.py` only builds the pyOCD / CubeProgrammer commands with `dry_run=True`. |
 | Download of images from the GitHub release | Local | Host, size and digest rules have tests; the bundled `firmware/` folder holds older images than the newest release at the time of reading (see below). |
 | Refusal of dev-signed images | Local | Opt-in (`require_production_signature`), off by default; the bundled official images are dev-signed. |
+| List of the official images for a board with no firmware and no image on disk | Local | The decision (boot-loader answer, empty `firmware/`) and the list are tested with a fake release; nothing is downloaded or chosen by itself, and no board was involved. |
 
 ## URTC-TESTER
 
@@ -86,6 +87,7 @@ A unit test, a simulator and a bench result are different claims, and a lighter 
 | Capability | Level | Evidence and limits |
 |---|---|---|
 | Tool-ID decoding, lifecycle tracking, pre-heat decision, rack command protocol with CRC8, command validation, link watchdog, multi-slot inventory | Local | Host-native C tests. The README counts 138 assertions; the manifest notes count 131 **(the two disagree)**. |
+| Rack CRC-8 shared with the vision link (header copied from URTC-COMMON and checked against its lock) and checked against the shared vectors | Local | Host-native C tests run the vectors that URTC-COMMON writes as C tables; no board. |
 | Cross-compile for Cortex-M4F | Builds | Proves compile and link against a placeholder linker script, "not that any of this runs on real silicon". |
 | CAN, F-RAM and GPIO drivers; a real heater | Absent | "No PCB/schematic exists for this board yet". |
 
@@ -94,6 +96,7 @@ A unit test, a simulator and a bench result are different claims, and a lighter 
 | Capability | Level | Evidence and limits |
 |---|---|---|
 | Sensor frame protocol (versioned framing, CRC8), range validation, rate limiter, diagnostics counters | Local | 65 host-native assertions, run by the CI through `build_firmware.sh`. |
+| Vision CRC-8 shared with the rack (header copied from URTC-COMMON and checked against its lock) and checked against the shared vectors | Local | Host-native C tests run the vectors that URTC-COMMON writes as C tables; no board. |
 | Python vision companion: synthetic frames, false colour, RGB-to-thermal ROI alignment, temperature statistics | Local | 27 pytest cases, run in CI. |
 | Reading a real MLX9064x or RGB camera, per-pixel calibration | Absent | Needs a board and cameras. |
 

@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented here.
 
+## [Unreleased]
+
+- The CI holds the tests to a coverage floor of 84 percent of the package (measured 92; `pytest-cov` is in the `dev` extra).
+
 ## [0.1.0] - Capability matrix and family tables brought up to date
 
 - **The capability matrix lists what the tester and the web studio gained:** the headless mode with test plans and the simulated head, and the heater PID panel, each at the level its evidence supports (emulated in the tester, local in the web studio), with the limits stated.

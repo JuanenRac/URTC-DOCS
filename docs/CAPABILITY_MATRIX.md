@@ -58,6 +58,7 @@ A unit test, a simulator and a bench result are different claims, and a lighter 
 | Download of images from the GitHub release | Local | Host, size and digest rules have tests; the bundled `firmware/` folder holds older images than the newest release at the time of reading (see below). |
 | Refusal of dev-signed images | Local | Opt-in (`require_production_signature`), off by default; the bundled official images are dev-signed. |
 | List of the official images for a board with no firmware and no image on disk | Local | The decision (boot-loader answer, empty `firmware/`) and the list are tested with a fake release; nothing is downloaded or chosen by itself, and no board was involved. |
+| Flashing through a virtual board (SLCAN over TCP, `socket://` ports and `URTC_VIRTUAL_PORT`) | Emulated | `urtc_can/virtual_board.py` of URTC-COMMON plays an SLCAN adapter and a board (application and bootloader) written from the protocol description; a test runs the real flasher through it end to end, over a TCP socket and over the real pyserial URL handler. It proves the handling of a simulated board, not a real bootloader. |
 
 ## URTC-TESTER
 
@@ -70,6 +71,7 @@ A unit test, a simulator and a bench result are different claims, and a lighter 
 | SLCAN and SocketCAN transports | Builds | Exercised through a fake transport only; no adapter in the environment where it was written, and the transport classes have no test file of their own. |
 | Without a window (`--headless`): identify, self-test and test plans (JSON) with a log and a result record; a command that actuates needs the plan and the operator to allow it, and a plan can repeat a command so that the firmware's watchdog does not drop it | Emulated | Run against the simulated tool head and recorded traces that live in the tester itself (`tester_simulator.py`); the head drops an unrefreshed order like the firmware but is the same author's reading of the protocol. No board, no adapter. |
 | Heater PID panel (`0x1B9` / `0x1BA`: gains, relay autotune, state) | Emulated | The frames are checked against the examples of the specification and the simulated head answers them, autotune included. The firmware function is host-tested only and was never run on a heater. |
+| Identify and run read-only plans through a virtual board (`--transport serial --port socket://...`) | Emulated | The command line and the SLCAN transport run unchanged against the virtual board of URTC-COMMON over the real pyserial URL handler (4 tests). The virtual board is a model of the application, not a tool head, so the self-test of a tool reports what it cannot read. |
 
 ## URTC-WEB-STUDIO
 
@@ -81,6 +83,8 @@ A unit test, a simulator and a bench result are different claims, and a lighter 
 | Control, OLED, Specs/BOM and Thermal IR tabs | Local | Labelled sandbox tabs with no CAN traffic. The thermal view there is generated noise, not a sensor reading. |
 | Firmware download from the GitHub release, patch number over CAN | Local | Unit-tested logic; the browser limit (files are served from a host without CORS headers) is handled and documented. |
 | Heater PID panel in Tester Studio (`0x1B9` / `0x1BA`) | Local | Frame encoding and decoding are unit-tested against the specification; the panel itself is checked by type-checking and the build only, never run against a board. |
+| Replay of a recorded `.trc` / `.asc` trace into the log and the panels with no board | Local | The parser reads what the Studio exports and refuses what is not a frame; the player is tested with a clock moved by hand (speed, pause, stop, loop, long silences). Replayed frames are marked, never answer a request and are never exported as the board's. Never tried with a trace from a real bus tool. |
+| Black Box viewer: chart of the recorded temperature and setpoint, and saved JSON / CSV records opened with no board | Local | Every shared vector round-trips through the JSON and the CSV; a file with a value out of range or too many samples is refused. The chart itself is checked by type-checking and the build only; no real fault record has been read. |
 
 ## URTC-SMART-RACK
 

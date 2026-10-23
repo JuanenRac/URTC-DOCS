@@ -4,6 +4,7 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- The capability matrix lists the virtual board in the flasher and in the tester, the trace replay and the Black Box viewer of the web studio.
 - The CI holds the tests to a coverage floor of 84 percent of the package (measured 92; `pytest-cov` is in the `dev` extra).
 
 ## [0.1.0] - Capability matrix and family tables brought up to date

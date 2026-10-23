@@ -68,7 +68,7 @@ def compare(copies: dict[str, str], reference_text: str | None = None) -> list[D
         return []
     counts = Counter(normalized.values())
     best = max(counts.values())
-    first_of = {}
+    first_of: dict[str, str] = {}
     for name in sorted(normalized):
         first_of.setdefault(normalized[name], name)
     reference = min((text for text, count in counts.items() if count == best), key=lambda text: first_of[text])

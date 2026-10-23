@@ -63,7 +63,7 @@ def native_version(repo: Path, manifest: dict) -> str | None:
         text = (repo / spec["file"]).read_text(encoding="utf-8", errors="replace")
         pattern = spec["pattern"]
         if isinstance(pattern, dict):
-            parts = []
+            parts: list[str] = []
             for key in ("major", "minor", "patch", "build"):
                 if key not in pattern:
                     continue

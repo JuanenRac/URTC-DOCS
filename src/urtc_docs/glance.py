@@ -307,7 +307,8 @@ def locate(lines: list[str]) -> tuple[int | None, int | None, int | None]:
     headings = _headings(lines)
     start = end = None
     for position, index in enumerate(headings):
-        if HEADING.match(lines[index]) and HEADING.match(lines[index]).group(1) in ALL_HEADINGS:
+        heading = HEADING.match(lines[index])
+        if heading and heading.group(1) in ALL_HEADINGS:
             start = index
             end = headings[position + 1] if position + 1 < len(headings) else len(lines)
             break

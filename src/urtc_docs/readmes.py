@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import cast
 
 from . import glance
 from .readme_claims_text import COMMENT as CLAIMS_COMMENT, NOTE as CLAIMS_NOTE, TOOLS as CLAIMS_TOOLS
@@ -41,7 +42,7 @@ def language_bar(code: str) -> str:
 def render(code: str, manifest: dict, entry: dict) -> str:
     text = TEXT[code]
     version, maturity = manifest["version"], manifest["maturity"]
-    tree = text["tree"]
+    tree = cast("dict[str, str]", text["tree"])
     lines: list[str] = []
     add = lines.append
 
@@ -81,7 +82,7 @@ def render(code: str, manifest: dict, entry: dict) -> str:
     add("")
     add(str(text["overview_intro"]))
     add("")
-    for label, path, description in text["overview"]:  # type: ignore[misc]
+    for label, path, description in cast("list[tuple[str, str, str]]", text["overview"]):
         add(f"* [{label}]({path}): {description}")
     add(f"* **{text['tools_label']}** {text['tools']}{CLAIMS_TOOLS[code]}{DRIFT_TOOLS[code]}{DOCTOR_TOOLS[code]}")
     add("")
@@ -107,7 +108,7 @@ def render(code: str, manifest: dict, entry: dict) -> str:
     add("")
     add(str(text["dev_requirements"]))
     add("")
-    comments = list(text["dev_comments"])
+    comments = list(cast("list[str]", text["dev_comments"]))
     comments.insert(5, CLAIMS_COMMENT[code])
     comments.insert(6, DRIFT_COMMENT[code])
     comments.insert(8, DOCTOR_COMMENT[code])
@@ -146,14 +147,14 @@ def render(code: str, manifest: dict, entry: dict) -> str:
     add("")
     add(f"**{text['related_beyond']}**")
     add("")
-    for name, url, description in text["beyond"]:  # type: ignore[misc]
+    for name, url, description in cast("list[tuple[str, str, str]]", text["beyond"]):
         add(f"* **[{name}]({url})** - {description}")
     add("")
     add(f"## 📚 {text['h_docs']}")
     add("")
     add(str(text["docs_intro"]))
     add("")
-    for label, path in text["docs_links"]:  # type: ignore[misc]
+    for label, path in cast("list[tuple[str, str]]", text["docs_links"]):
         add(f"* [{label}]({path})")
     add(f"* {text['docs_contact']}")
     add("")

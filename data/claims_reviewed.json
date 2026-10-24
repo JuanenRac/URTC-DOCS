@@ -36,7 +36,8 @@
   "URTC-UPDATER": {
    "327c4d86725f": "sequential batch actions built from the same live state and safety path.",
    "69381d120c8a": "Maturity | Established",
-   "9fa0a4ce65cd": "— the architecture, interfaces, security baseline, capability matrix and generated project catalogue of the ec"
+   "9fa0a4ce65cd": "— the architecture, interfaces, security baseline, capability matrix and generated project catalogue of the ec",
+   "a650c5b9d252": "Updates | 🟡 | Installs from signed packages with a rollback; tried on a PC only."
   }
  }
 }

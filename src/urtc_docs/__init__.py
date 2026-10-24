@@ -5,4 +5,4 @@
 # =============================================================================
 """URTC-DOCS: the documentation and cross-repository tooling hub of the URTC ecosystem."""
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"

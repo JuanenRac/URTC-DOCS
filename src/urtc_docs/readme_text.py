@@ -77,7 +77,9 @@ TEXT: dict[str, dict[str, object]] = {
             "tools": "thin scripts over the package, check_all.sh, and the shared CI checks of the ecosystem",
             "tests": "unit tests of the tools",
             "images": "banner and map of the ecosystem",
-            "brand": "the icon"
+            "brand": "the icon",
+            "data": "the data the generators read (the numbers of At a glance, the reviewed claims)",
+            "template": "the canonical copy of the files every repository shares, and the tool that puts it in place"
         },
         "h_dev": "BUILD & RUN",
         "dev_requirements": "**Requirements:** Python 3.10 or newer; pytest for the tests",
@@ -192,7 +194,9 @@ TEXT: dict[str, dict[str, object]] = {
             "tools": "scripts finos sobre el paquete, check_all.sh y las comprobaciones de CI compartidas del ecosistema",
             "tests": "pruebas unitarias de las herramientas",
             "images": "banner y mapa del ecosistema",
-            "brand": "el icono"
+            "brand": "el icono",
+            "data": "los datos que leen los generadores (las cifras de De un vistazo, las afirmaciones revisadas)",
+            "template": "la copia canónica de los archivos que comparten todos los repositorios y la herramienta que la coloca"
         },
         "h_dev": "COMPILACIÓN Y EJECUCIÓN",
         "dev_requirements": "**Requisitos:** Python 3.10 o superior; pytest para las pruebas",
@@ -307,7 +311,9 @@ TEXT: dict[str, dict[str, object]] = {
             "tools": "scripts fins au-dessus du paquet, check_all.sh et les vérifications de CI partagées de l'écosystème",
             "tests": "tests unitaires des outils",
             "images": "bannière et carte de l'écosystème",
-            "brand": "l'icône"
+            "brand": "l'icône",
+            "data": "les données lues par les générateurs (les chiffres de En un coup d'œil, les affirmations relues)",
+            "template": "la copie de référence des fichiers que partagent tous les dépôts et l'outil qui la met en place"
         },
         "h_dev": "COMPILATION ET EXÉCUTION",
         "dev_requirements": "**Prérequis :** Python 3.10 ou plus récent ; pytest pour les tests",
@@ -422,7 +428,9 @@ TEXT: dict[str, dict[str, object]] = {
             "tools": "script sottili sopra il pacchetto, check_all.sh e i controlli CI condivisi dell'ecosistema",
             "tests": "test unitari degli strumenti",
             "images": "banner e mappa dell'ecosistema",
-            "brand": "l'icona"
+            "brand": "l'icona",
+            "data": "i dati letti dai generatori (le cifre di In breve, le affermazioni riviste)",
+            "template": "la copia di riferimento dei file condivisi da tutti i repository e lo strumento che la installa"
         },
         "h_dev": "COMPILAZIONE ED ESECUZIONE",
         "dev_requirements": "**Requisiti:** Python 3.10 o successivo; pytest per i test",
@@ -537,7 +545,9 @@ TEXT: dict[str, dict[str, object]] = {
             "tools": "dünne Skripte über dem Paket, check_all.sh und die gemeinsamen CI-Prüfungen des Ökosystems",
             "tests": "Unit-Tests der Werkzeuge",
             "images": "Banner und Karte des Ökosystems",
-            "brand": "das Symbol"
+            "brand": "das Symbol",
+            "data": "die Daten, die die Generatoren lesen (die Zahlen von „Auf einen Blick“, die geprüften Aussagen)",
+            "template": "die maßgebliche Kopie der Dateien, die alle Repositories teilen, und das Werkzeug, das sie einspielt"
         },
         "h_dev": "BUILD & AUSFÜHRUNG",
         "dev_requirements": "**Voraussetzungen:** Python 3.10 oder neuer; pytest für die Tests",
@@ -652,7 +662,9 @@ TEXT: dict[str, dict[str, object]] = {
             "tools": "包之上的薄脚本、check_all.sh，以及生态共享的 CI 检查",
             "tests": "工具的单元测试",
             "images": "横幅和生态图",
-            "brand": "图标"
+            "brand": "图标",
+            "data": "生成器读取的数据（“速览”中的数字、已审阅的声明）",
+            "template": "所有仓库共享文件的规范副本，以及把它放到位的工具"
         },
         "h_dev": "构建与运行",
         "dev_requirements": "**要求：** Python 3.10 或更新版本；测试需要 pytest",
@@ -767,7 +779,9 @@ TEXT: dict[str, dict[str, object]] = {
             "tools": "パッケージの上の薄いスクリプト、check_all.sh、エコシステム共通の CI チェック",
             "tests": "ツールの単体テスト",
             "images": "バナーとエコシステムマップ",
-            "brand": "アイコン"
+            "brand": "アイコン",
+            "data": "ジェネレーターが読むデータ（「ひと目で」の数値、確認済みの主張）",
+            "template": "全リポジトリが共有するファイルの正本と、それを配置するツール"
         },
         "h_dev": "ビルドと実行",
         "dev_requirements": "**必要なもの：** Python 3.10 以降、テスト用に pytest",
@@ -882,7 +896,9 @@ TEXT: dict[str, dict[str, object]] = {
             "tools": "scripts finos sobre o pacote, check_all.sh e as verificações de CI partilhadas do ecossistema",
             "tests": "testes unitários das ferramentas",
             "images": "banner e mapa do ecossistema",
-            "brand": "o ícone"
+            "brand": "o ícone",
+            "data": "os dados que os geradores leem (os números de «Num relance», as afirmações revistas)",
+            "template": "a cópia de referência dos ficheiros que todos os repositórios partilham e a ferramenta que a coloca"
         },
         "h_dev": "COMPILAÇÃO E EXECUÇÃO",
         "dev_requirements": "**Requisitos:** Python 3.10 ou superior; pytest para os testes",

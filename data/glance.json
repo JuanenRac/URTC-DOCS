@@ -7,7 +7,7 @@
     "URTC-COMMON": {
       "hardware": "simulated",
       "tests": {
-        "count": 532
+        "count": 718
       }
     },
     "URTC-DOCS": {
@@ -16,13 +16,13 @@
     "URTC-FLASHER": {
       "hardware": "simulated",
       "tests": {
-        "count": 488
+        "count": 515
       }
     },
     "URTC-GATEWAY": {
       "hardware": "simulated",
       "tests": {
-        "count": 74
+        "count": 79
       }
     },
     "URTC-SMART-RACK": {

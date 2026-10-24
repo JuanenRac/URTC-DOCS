@@ -28,11 +28,11 @@ python urtc_flasher.py --cli --transport mock --file firmware/URTC_MAIN_FIRMWARE
 python urtc_flasher.py --cli --transport mock --file firmware/URTC_MAIN_FIRMWARE_v<ver>.bin --mock-fail 0x03
 ```
 
-Replace `<ver>` with the version that `sync_firmware.py` printed. The folder that ships in the repository holds an older release than the newest one at the time of reading, so the sync is worth running.
+Replace `<ver>` with the version that `sync_firmware.py` printed. The `firmware/` folder is not in git and is empty after a clone: the sync fills it, so it has to run first.
 
 ## What was observed
 
-The sequence above was run for this document in a fresh clone, with the newest release and then with the older bundled image. Each run ended with `SUCCESS: firmware update complete.` and the second command with `FAILED: Bootloader reported failure: Verify FAILED - main slot untouched - HMAC signature mismatch`. The run printed `Using the signature published in the manifest (key: dev)` and a note that the image is signed with the public development key. About 36 pages are transferred; the whole simulated transfer took about twenty seconds because the simulator paces the pages.
+The sequence above was run for this document in a fresh clone, with the newest release and then with an older release image. Each run ended with `SUCCESS: firmware update complete.` and the second command with `FAILED: Bootloader reported failure: Verify FAILED - main slot untouched - HMAC signature mismatch`. The run printed `Using the signature published in the manifest (key: dev)` and a note that the image is signed with the public development key. About 36 pages are transferred; the whole simulated transfer took about twenty seconds because the simulator paces the pages.
 
 ## Where the path stops
 

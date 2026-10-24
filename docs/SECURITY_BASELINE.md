@@ -10,13 +10,13 @@ CC BY-SA 4.0 - see LICENSE.md
 
 What the code of the ecosystem enforces today, what is only an option that is off by default, and what is missing. It is a reading of the repositories, **not the result of a penetration test or of an external review**, and nothing in it has been tried against an attacker or on a real board. Read it with `THREAT_MODEL.md`, which turns the same facts into scenarios.
 
-The sources are named in each line: `URTC` (`docs/CAN_THREAT_MODEL.TXT`, `docs/FIRMWARE_SIGNING.TXT`, `docs/FIRMWARE_DISTRIBUTION.md`, `docs/CANBUS.TXT`), `URTC-FLASHER`, `URTC-TESTER`, `URTC-WEB-STUDIO`, `URTC-UPDATER` and the shared CI checks.
+The sources are named in each line: `URTC` (`docs/CAN_THREAT_MODEL.TXT`, `docs/FIRMWARE_SIGNING.TXT`, `docs/FIRMWARE_DISTRIBUTION.md`, `docs/CANBUS.TXT`), `URTC-FLASHER`, `URTC-TESTER`, `URTC-WEB-STUDIO`, `URTC-UPDATER`, `URTC-GATEWAY`, `URTC-COMMON` and the shared CI checks.
 
 ## Network position
 
-* **There is no network service in the ecosystem.** The boards sit on a wired CAN bus; the PC tools open a local serial port, a SocketCAN interface or (browser) a Web Serial port; the updater makes outbound HTTPS requests to GitHub. Nothing listens on a TCP port.
+* **There is no always-on network service in the ecosystem.** The boards sit on a wired CAN bus; the PC tools open a local serial port, a SocketCAN interface or (browser) a Web Serial port; the updater and the programs that check for updates make outbound HTTPS requests to GitHub. A TCP port is opened only by three optional things, each on request: the gateway (when someone starts it), the virtual board of URTC-COMMON (loopback only, for trying the tools with no hardware) and the development server of the web studio (`localhost` only).
 * **The bus is assumed closed.** The threat model of the firmware requires that only the robot controller and the tool heads are on the wires and that a service adapter is plugged in only while someone services the machine, with the hazardous heads disarmed. Nothing in software checks this.
-* **The bus is not to be bridged to Wi-Fi, Ethernet or the internet** without a gateway that forwards a whitelist of identifiers and rate-limits them (requirement R3 of the firmware threat model). No such gateway exists in this ecosystem.
+* **The bus is not to be bridged to Wi-Fi, Ethernet or the internet** without a gateway that forwards a whitelist of identifiers and rate-limits them (requirement R3 of the firmware threat model). URTC-GATEWAY is that gateway, as software: it has only been tested against fakes and a local socket, and it does not replace the hardware measures of the threat model.
 
 ## What the software enforces
 
@@ -30,7 +30,8 @@ The sources are named in each line: `URTC` (`docs/CAN_THREAT_MODEL.TXT`, `docs/F
 * **Recovered state is never re-armed.** The saved heater, laser and motor setpoints can be read after a reset but are not applied.
 * **Entering the bootloader cuts power to every actuator inline** before the reset.
 * **Bootloader.** Updates go to a backup slot and are copied only after size, CRC32, HMAC-SHA256 and HardwareID have matched; any mismatch leaves the main slot untouched and the bootloader never jumps into an image that failed a check. Anti-rollback compares major, minor and (when both carry one) patch; a downgrade needs a one-shot authorisation that must be sent again for each attempt and the image must still be correctly signed.
-* **Host tests with sanitizers** for the version wire format; host tests for the dispatch routing, the thermal guard and the counters.
+* **Host tests with sanitizers:** 38 suites compile the firmware sources against a fake HAL and run under the address and undefined-behaviour sanitizers and `gcc -fanalyzer`, with a coverage floor; they cover the version wire format, the dispatch routing, the thermal guard, the counters, the handlers of the tools and both bootloaders. The firmware is also held to the shared vectors of URTC-COMMON.
+* **The bootloader answers a read-back or a downgrade authorisation only in the session the application started** (the application leaves a mark in a backup register of the RTC block when it accepts `0x7F0`; the bootloader reads it once and clears it).
 
 ### Host tools
 
@@ -38,6 +39,8 @@ The sources are named in each line: `URTC` (`docs/CAN_THREAT_MODEL.TXT`, `docs/F
 * **URTC-FLASHER** refuses an image whose sha256 differs from its published manifest before any bus traffic; refuses an image built for the other board (`component` and `hardware_id` are compared before the first frame); sends only a published signature and never signs; shows a red warning for an image signed with the public development key and, with `require_production_signature` set, refuses it; says what it replaces (installed -> new) and warns about a downgrade; writes an update report with its own digest; keeps the deadline arithmetic on the monotonic clock; keeps worker threads away from the window; restricts downloads to GitHub release assets and the asset hosts it redirects to, checking the host before the request and again on the final address, and compares the byte count with the announced size.
 * **Bit-rate auto-detect only listens** (SLCAN `L`), so searching cannot disturb a running bus.
 * **URTC-WEB-STUDIO** keeps its simulator apart from the real bus by tested rules, asks for confirmation of dangerous actions, has a safe-off path, parses only standard `t` frames, refuses an image whose digest differs from the published one, stops a flash when the manifest cannot be downloaded instead of asking for a key, and shows no key in its JavaScript.
+* **The programs that update themselves** (the flasher, the tester and the updater, through `self_update.py` of URTC-COMMON) offer only a strictly newer version for their own system, require the SHA-256 and the Ed25519 signature of the package to match, ask for an explicit confirmation and keep the previous version for a rollback; the options are conservative (no check unless the person asks, no way to skip the checksum or the signature or to add a host).
+* **URTC-GATEWAY** lets through only the identifiers listed (the dangerous ones are refused unless the operator unlocks them), checks the length and values of every payload against the specification, limits the rate per identifier and for the link, and asks a peer to prove it holds a key with an HMAC over a connection nonce and a counter. Every protection can be switched off, and the program lists each one that is off when it starts.
 * **URTC-UPDATER** never acts on its own initiative: a selected project always needs an explicit confirmation, and a batch is sequential and confirmed. It clones into a staging directory, runs the project's non-versioning build check there, promotes with renames and keeps the previous checkout as a backup. The commit-signature policy is `warn` by default and `require` on request (`URTC_UPDATER_REQUIRE_SIGNED=1` or the settings file); with `require`, an unsigned candidate is refused before its manifest is read or anything is built.
 
 ### Repositories and CI
@@ -51,7 +54,8 @@ The sources are named in each line: `URTC` (`docs/CAN_THREAT_MODEL.TXT`, `docs/F
 ## What is a setting that is off, or only advice
 
 * **`require_production_signature`** in URTC-FLASHER: off by default.
-* **`signature_policy: require`** in URTC-UPDATER: off by default.
+* **`signature_policy: require`** in URTC-UPDATER: off by default. So is *ask before the build check* (the project, commit, author, signature and the scripts the candidate changed are shown before its build check runs).
+* **Every protection of URTC-GATEWAY** can be switched off from its configuration file or command line.
 * **The release signing key** (`URTC_SIGNING_KEY_FILE`, `URTC_RELEASE=1`): the build supports it and refuses the development key in release mode, but the newest published release manifest says `signing_key_kind: dev` for both application images.
 * **Requirements R1-R5** of the firmware threat model (an interlock independent of the microcontroller, a closed bus, no bridging, a private signing key, an emergency stop that cuts power): installation requirements, not features. Nothing in software enforces or even detects them.
 
@@ -66,8 +70,8 @@ The sources are named in each line: `URTC` (`docs/CAN_THREAT_MODEL.TXT`, `docs/F
 | **A digest and the file it protects come from the same place** | The `.sha256` and the manifest are release assets next to the image; they detect corruption and a mismatched download, not a replaced release. The real check is the bootloader's signature. | Implicit in `FIRMWARE_DISTRIBUTION.md`; stated here. |
 | **The updater runs the build script of whatever it clones** | A compromised repository or account would make the updater execute attacker code after the user confirmed. The default signature policy only warns. | `signature.py`: "a compromised account or repository could push a commit that this tool would then build and run". |
 | **No hardware E-stop in firmware** | A "stop" frame is not an emergency stop; the laser line PB6 is software controlled. | `CAN_THREAT_MODEL.TXT` R1, R5: an installation requirement. |
-| **WEB-STUDIO transport and screens untested** | Behaviour that could send the wrong frame is covered only by review. | README of URTC-WEB-STUDIO. |
-| **Three unsynchronised copies of the protocol** | A fix to a frame layout or a safety limit has to be made three times. | `CAN_PROTOCOL_DUPLICATION.md`. |
+| **WEB-STUDIO transport only tried against a model** | The end-to-end checks drive the page in a real Chromium through a model of the adapter and the board, never a real adapter; behaviour that could send the wrong frame on a real bus is covered by those checks and by review. | README of URTC-WEB-STUDIO. |
+| **Copies of the shared protocol code** | A fix is made once in URTC-COMMON and has to reach each copy; a lock file makes the CI of a repository fail when its copy fell behind or was edited, but a repository can still stay on an older copy until its refresh. | `CAN_PROTOCOL_DUPLICATION.md`. |
 | **Shared CI checks are copies** | A rule changed in the SDK reaches a repository only when its sync script runs. | `INTERFACES.md`. |
 
 ## What a reader should conclude

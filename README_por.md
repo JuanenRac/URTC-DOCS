@@ -65,6 +65,8 @@ URTC-DOCS/
 ├── tests/    testes unitários das ferramentas
 ├── images/   banner e mapa do ecossistema
 ├── brand/    o ícone
+├── data/     os dados que os geradores leem (os números de «Num relance», as afirmações revistas)
+├── template/ a cópia de referência dos ficheiros que todos os repositórios partilham e a ferramenta que a coloca
 ├── build.sh / build.bat, build-test.sh / build-test.bat, run.sh / run.bat
 └── urtc.project.json, pyproject.toml, CHANGELOG.md, LICENSE, LICENSE.md
 ```

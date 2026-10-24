@@ -65,6 +65,8 @@ URTC-DOCS/
 ├── tests/    ツールの単体テスト
 ├── images/   バナーとエコシステムマップ
 ├── brand/    アイコン
+├── data/     ジェネレーターが読むデータ（「ひと目で」の数値、確認済みの主張）
+├── template/ 全リポジトリが共有するファイルの正本と、それを配置するツール
 ├── build.sh / build.bat, build-test.sh / build-test.bat, run.sh / run.bat
 └── urtc.project.json, pyproject.toml, CHANGELOG.md, LICENSE, LICENSE.md
 ```

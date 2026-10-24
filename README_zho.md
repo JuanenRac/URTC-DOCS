@@ -65,6 +65,8 @@ URTC-DOCS/
 ├── tests/    工具的单元测试
 ├── images/   横幅和生态图
 ├── brand/    图标
+├── data/     生成器读取的数据（“速览”中的数字、已审阅的声明）
+├── template/ 所有仓库共享文件的规范副本，以及把它放到位的工具
 ├── build.sh / build.bat, build-test.sh / build-test.bat, run.sh / run.bat
 └── urtc.project.json, pyproject.toml, CHANGELOG.md, LICENSE, LICENSE.md
 ```

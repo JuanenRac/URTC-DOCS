@@ -100,6 +100,8 @@ def render(code: str, manifest: dict, entry: dict) -> str:
     add(f"├── tests/    {tree['tests']}")
     add(f"├── images/   {tree['images']}")
     add(f"├── brand/    {tree['brand']}")
+    add(f"├── data/     {tree['data']}")
+    add(f"├── template/ {tree['template']}")
     add("├── build.sh / build.bat, build-test.sh / build-test.bat, run.sh / run.bat")
     add("└── urtc.project.json, pyproject.toml, CHANGELOG.md, LICENSE, LICENSE.md")
     add("```")

@@ -12,7 +12,7 @@ from pathlib import Path
 import pytest
 
 from conftest import make_manifest, write_repo
-from urtc_docs import cli, glance
+from urtc_docs import cli, glance, status
 
 README = (
     "<p align=\"center\">banner</p>\n\n# Title\n\n---\n\n**Honesty check:** text.\n\n---\n\n"
@@ -111,7 +111,7 @@ def test_the_shipped_data_file_is_valid_and_lists_this_repository():
 def test_the_command_applies_then_checks_a_workspace(tmp_path: Path, capsys):
     repo = write_repo(tmp_path, "URTC-X")
     for filename in glance.LANGUAGE_FILES.values():
-        (repo / filename).write_text(README, encoding="utf-8", newline="\n")
+        (repo / filename).write_text(README + "\n" + status.render_own("en"), encoding="utf-8", newline="\n")
     data = tmp_path / "glance.json"
     data.write_text(json.dumps({"repos": {"URTC-X": ENTRY, "URTC-GONE": ENTRY}}), encoding="utf-8")
     arguments = ["--workspace", str(tmp_path), "--data", str(data)]

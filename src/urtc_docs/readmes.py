@@ -16,7 +16,7 @@ import json
 from pathlib import Path
 from typing import cast
 
-from . import glance
+from . import glance, status
 from .readme_claims_text import COMMENT as CLAIMS_COMMENT, NOTE as CLAIMS_NOTE, TOOLS as CLAIMS_TOOLS
 from .readme_drift_text import COMMENT as DRIFT_COMMENT, TOOLS as DRIFT_TOOLS
 from .readme_doctor_text import COMMENT as DOCTOR_COMMENT, TOOLS as DOCTOR_TOOLS
@@ -163,6 +163,8 @@ def render(code: str, manifest: dict, entry: dict) -> str:
     add(f"## 👤 {text['h_author']}")
     add("")
     add("**JuanenRac (Electro Hobby 3D)** · electrohobby3d@gmail.com")
+    add("")
+    add(status.render_own(code).rstrip(chr(10)))
     add("")
     add(f"## 📜 {text['h_license']}")
     add("")

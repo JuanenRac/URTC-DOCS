@@ -119,6 +119,18 @@ Wo man mehr liest:
 
 **JuanenRac (Electro Hobby 3D)** · electrohobby3d@gmail.com
 
+## 💡 Projektstatus
+
+🟢 fertig und überprüft · 🟡 funktioniert, mit bekannten Grenzen · 🟠 halb fertig oder nicht überprüft · 🔴 nicht gemacht oder funktioniert nicht. Nichts ist grün, wenn es nie auf echter Hardware lief.
+
+| Teil | Status | Was das Repository belegen kann |
+| --- | :---: | --- |
+| Software | 🟡 | Die Generatoren für Katalog, Marke und READMEs sowie die Prüfungen von Veröffentlichung, Aussagen und Familie laufen auf einem Computer; keine Hardware beteiligt. |
+| Tests | 🟢 | Die Testsuite besteht bei jedem Push in der CI, unter Linux und unter Windows. |
+| Prüfungen über die Familie | 🟡 | Der nächtliche Lauf holt jedes Repository der Familie und vergleicht deren Übersichtstabellen, Aussagen und die Struktur des Katalogs; eine veraltete Version im Katalog wird gemeldet, lässt die Nacht aber nicht scheitern. |
+| Sicherheitsdokumente | 🟡 | Die Sicherheitsgrundlage und das Bedrohungsmodell sind aus den anderen Repositorys geschrieben, so wie sie gelesen wurden; niemand außerhalb des Projekts hat sie geprüft. |
+| Dokumentation | 🟡 | README in acht Sprachen und Referenzdokumente; die Übersetzungen wurden nicht von Muttersprachlern geprüft. |
+
 ## 📜 LIZENZ
 
 Software: GPL-3.0-or-later - siehe [LICENSE](LICENSE). Dokumentation: CC BY-SA 4.0 - siehe [LICENSE.md](LICENSE.md).

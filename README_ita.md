@@ -119,6 +119,18 @@ Dove leggere di più:
 
 **JuanenRac (Electro Hobby 3D)** · electrohobby3d@gmail.com
 
+## 💡 Stato del progetto
+
+🟢 fatto e verificato · 🟡 funziona, con limiti noti · 🟠 a metà o non verificato · 🔴 non fatto o non funzionante. Nulla è verde se non ha mai girato su hardware reale.
+
+| Parte | Stato | Ciò che il repository può dimostrare |
+| --- | :---: | --- |
+| Software | 🟡 | I generatori del catalogo, del marchio e dei README, e i controlli della pubblicazione, delle affermazioni e della famiglia, girano su un computer; nessun hardware coinvolto. |
+| Test | 🟢 | La suite di test passa nella CI, su Linux e su Windows, a ogni push. |
+| Controlli su tutta la famiglia | 🟡 | L'esecuzione notturna scarica ogni repository della famiglia e ne confronta le tabelle riassuntive, le affermazioni e la struttura del catalogo; una versione non aggiornata nel catalogo viene segnalata ma non fa fallire la notte. |
+| Documenti di sicurezza | 🟡 | La base di sicurezza e il modello delle minacce sono scritti a partire dagli altri repository come sono stati letti; nessuno al di fuori del progetto li ha rivisti. |
+| Documentazione | 🟡 | README in otto lingue e documenti di riferimento; le traduzioni non sono state riviste da madrelingua. |
+
 ## 📜 LICENZA
 
 Software: GPL-3.0-or-later - vedi [LICENSE](LICENSE). Documentazione: CC BY-SA 4.0 - vedi [LICENSE.md](LICENSE.md).

@@ -121,7 +121,7 @@ def test_every_readme_has_the_same_headings_links_and_version():
     outputs = readmes.outputs(REPO)
     headings = {name: re.findall(r"(?m)^## (\S+)", text) for name, text in outputs.items()}
     assert len({tuple(value) for value in headings.values()}) == 1
-    assert len(headings["README.md"]) == 9
+    assert len(headings["README.md"]) == 10
     links = {name: set(re.findall(r"\]\((https?://[^)\s]+)\)", text)) for name, text in outputs.items()}
     assert len({frozenset(value) for value in links.values()}) == 1
     for name, text in outputs.items():

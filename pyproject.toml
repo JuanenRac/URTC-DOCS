@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "urtc-docs"
-version = "0.1.0"
+version = "0.1.1"
 description = "Documentation and cross-repository tooling hub of the URTC ecosystem: architecture, interfaces, CAN protocol map, security baseline, capability matrix, project catalogue and the tools that keep them honest."
 readme = "README.md"
 requires-python = ">=3.10"

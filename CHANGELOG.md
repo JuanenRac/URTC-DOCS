@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented here.
 
-## [Unreleased]
+## [0.1.1] - The dev dependencies are closed with hashes and the types are checked and a static check on every push
 
 - The architecture, the interfaces, the capability matrix, the security baseline, the threat model and the first slice describe the shared code, the gateway, the signed packages, the offline copy of the web studio and the current test counts, and no longer list disagreements that were solved; the project tree of the README lists the data and the template.
 - **The dev dependencies are closed with hashes and the types are checked:** `requirements-dev.lock` pins every package the tests need, with the hash of every file (the CI and the build scripts install it with `--require-hashes`, then the project itself without dependencies), and `mypy` runs on `src` and `tools` in the CI (thirteen findings fixed with casts and annotations, no behaviour changed).

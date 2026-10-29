@@ -88,22 +88,17 @@ TEXT: dict[str, dict[str, object]] = {
         "h_related": "Related Projects",
         "related_intro": "URTC is made of independent repositories, each with its own version, tests and README. This is the family, by group:",
         "related_this": "this repository",
-        "related_beyond": "Beyond URTC:",
+        "related_beyond": "Sister projects (independent, with the same base and tools):",
         "beyond": [
-            [
-                "HYDRA-UMC",
-                "https://github.com/JuanenRac/HYDRA-UMC",
-                "the robot-arm motherboard whose CAN relay is documented as the bus the tool head sits on"
-            ],
             [
                 "HYDRA-UMC-DOCS",
                 "https://github.com/JuanenRac/HYDRA-UMC-DOCS",
-                "the same idea for the HYDRA-UMC ecosystem"
+                "sister project: the documentation hub of HYDRA-UMC, an independent ecosystem that shares this one's base and tools"
             ],
             [
                 "ARMOR-DOCS",
                 "https://github.com/JuanenRac/ARMOR-DOCS",
-                "the same idea for the A.R.M.O.R. security ecosystem"
+                "sister project: the documentation hub of A.R.M.O.R., the security ecosystem, also independent and on the same base"
             ],
             [
                 "JuanenRac",
@@ -205,22 +200,17 @@ TEXT: dict[str, dict[str, object]] = {
         "h_related": "Proyectos relacionados",
         "related_intro": "URTC se compone de repositorios independientes, cada uno con su versión, sus pruebas y su README. Esta es la familia, por grupos:",
         "related_this": "este repositorio",
-        "related_beyond": "Más allá de URTC:",
+        "related_beyond": "Proyectos hermanos (independientes, con la misma base y herramientas):",
         "beyond": [
-            [
-                "HYDRA-UMC",
-                "https://github.com/JuanenRac/HYDRA-UMC",
-                "la placa base del brazo robótico, cuyo relé CAN está documentado como el bus en el que se conecta la cabeza de herramienta"
-            ],
             [
                 "HYDRA-UMC-DOCS",
                 "https://github.com/JuanenRac/HYDRA-UMC-DOCS",
-                "la misma idea para el ecosistema HYDRA-UMC"
+                "proyecto hermano: el centro de documentación de HYDRA-UMC, un ecosistema independiente que comparte base y herramientas con este"
             ],
             [
                 "ARMOR-DOCS",
                 "https://github.com/JuanenRac/ARMOR-DOCS",
-                "la misma idea para el ecosistema de seguridad A.R.M.O.R."
+                "proyecto hermano: el centro de documentación de A.R.M.O.R., el ecosistema de seguridad, también independiente y sobre la misma base"
             ],
             [
                 "JuanenRac",
@@ -322,22 +312,17 @@ TEXT: dict[str, dict[str, object]] = {
         "h_related": "Projets liés",
         "related_intro": "URTC est fait de dépôts indépendants, chacun avec sa version, ses tests et son README. Voici la famille, par groupes :",
         "related_this": "ce dépôt",
-        "related_beyond": "Au-delà de URTC :",
+        "related_beyond": "Projets frères (indépendants, avec la même base et les mêmes outils) :",
         "beyond": [
-            [
-                "HYDRA-UMC",
-                "https://github.com/JuanenRac/HYDRA-UMC",
-                "la carte mère du bras robotique, dont le relais CAN est documenté comme le bus sur lequel se branche la tête d'outil"
-            ],
             [
                 "HYDRA-UMC-DOCS",
                 "https://github.com/JuanenRac/HYDRA-UMC-DOCS",
-                "la même idée pour l'écosystème HYDRA-UMC"
+                "projet frère : le centre de documentation de HYDRA-UMC, un écosystème indépendant qui partage la base et les outils de celui-ci"
             ],
             [
                 "ARMOR-DOCS",
                 "https://github.com/JuanenRac/ARMOR-DOCS",
-                "la même idée pour l'écosystème de sécurité A.R.M.O.R."
+                "projet frère : le centre de documentation d'A.R.M.O.R., l'écosystème de sécurité, lui aussi indépendant et construit sur la même base"
             ],
             [
                 "JuanenRac",
@@ -439,22 +424,17 @@ TEXT: dict[str, dict[str, object]] = {
         "h_related": "Progetti correlati",
         "related_intro": "URTC è fatto di repository indipendenti, ciascuno con la propria versione, i propri test e il proprio README. Ecco la famiglia, per gruppi:",
         "related_this": "questo repository",
-        "related_beyond": "Oltre URTC:",
+        "related_beyond": "Progetti fratelli (indipendenti, con la stessa base e gli stessi strumenti):",
         "beyond": [
-            [
-                "HYDRA-UMC",
-                "https://github.com/JuanenRac/HYDRA-UMC",
-                "la scheda madre del braccio robotico, il cui relay CAN è documentato come il bus a cui si collega la testa utensile"
-            ],
             [
                 "HYDRA-UMC-DOCS",
                 "https://github.com/JuanenRac/HYDRA-UMC-DOCS",
-                "la stessa idea per l'ecosistema HYDRA-UMC"
+                "progetto fratello: il centro di documentazione di HYDRA-UMC, un ecosistema indipendente che condivide base e strumenti con questo"
             ],
             [
                 "ARMOR-DOCS",
                 "https://github.com/JuanenRac/ARMOR-DOCS",
-                "la stessa idea per l'ecosistema di sicurezza A.R.M.O.R."
+                "progetto fratello: il centro di documentazione di A.R.M.O.R., l'ecosistema di sicurezza, anch'esso indipendente e sulla stessa base"
             ],
             [
                 "JuanenRac",
@@ -556,22 +536,17 @@ TEXT: dict[str, dict[str, object]] = {
         "h_related": "Verwandte Projekte",
         "related_intro": "URTC besteht aus unabhängigen Repositories mit jeweils eigener Version, eigenen Tests und eigenem README. Das ist die Familie, nach Gruppen:",
         "related_this": "dieses Repository",
-        "related_beyond": "Über URTC hinaus:",
+        "related_beyond": "Schwesterprojekte (unabhängig, mit derselben Basis und denselben Werkzeugen):",
         "beyond": [
-            [
-                "HYDRA-UMC",
-                "https://github.com/JuanenRac/HYDRA-UMC",
-                "die Hauptplatine des Roboterarms, deren CAN-Relay als der Bus dokumentiert ist, an dem der Werkzeugkopf hängt"
-            ],
             [
                 "HYDRA-UMC-DOCS",
                 "https://github.com/JuanenRac/HYDRA-UMC-DOCS",
-                "dieselbe Idee für das Ökosystem HYDRA-UMC"
+                "Schwesterprojekt: das Dokumentationszentrum von HYDRA-UMC, einem unabhängigen Ökosystem, das Basis und Werkzeuge mit diesem teilt"
             ],
             [
                 "ARMOR-DOCS",
                 "https://github.com/JuanenRac/ARMOR-DOCS",
-                "dieselbe Idee für das Sicherheits-Ökosystem A.R.M.O.R."
+                "Schwesterprojekt: das Dokumentationszentrum von A.R.M.O.R., dem Sicherheits-Ökosystem, ebenfalls unabhängig und auf derselben Basis"
             ],
             [
                 "JuanenRac",
@@ -673,22 +648,17 @@ TEXT: dict[str, dict[str, object]] = {
         "h_related": "相关项目",
         "related_intro": "URTC 由相互独立的仓库组成，每个仓库都有自己的版本、测试和 README。以下是按组划分的家族：",
         "related_this": "本仓库",
-        "related_beyond": "URTC 之外：",
+        "related_beyond": "姊妹项目（相互独立，共用同一基础和工具）：",
         "beyond": [
-            [
-                "HYDRA-UMC",
-                "https://github.com/JuanenRac/HYDRA-UMC",
-                "机械臂主板，其 CAN 中继在文档中被记载为工具头所接入的总线"
-            ],
             [
                 "HYDRA-UMC-DOCS",
                 "https://github.com/JuanenRac/HYDRA-UMC-DOCS",
-                "同样的思路，用于 HYDRA-UMC 生态"
+                "姊妹项目：HYDRA-UMC 的文档中心，一个独立的生态，与本生态共用基础和工具"
             ],
             [
                 "ARMOR-DOCS",
                 "https://github.com/JuanenRac/ARMOR-DOCS",
-                "同样的思路，用于 A.R.M.O.R. 安防生态"
+                "姊妹项目：A.R.M.O.R. 安全生态的文档中心，同样独立，建立在同一基础上"
             ],
             [
                 "JuanenRac",
@@ -790,22 +760,17 @@ TEXT: dict[str, dict[str, object]] = {
         "h_related": "関連プロジェクト",
         "related_intro": "URTC は独立したリポジトリで構成され、それぞれに固有のバージョン、テスト、README があります。グループ別のファミリーは次のとおりです：",
         "related_this": "このリポジトリ",
-        "related_beyond": "URTC の外：",
+        "related_beyond": "姉妹プロジェクト（独立しており、基盤とツールを共有）：",
         "beyond": [
-            [
-                "HYDRA-UMC",
-                "https://github.com/JuanenRac/HYDRA-UMC",
-                "ロボットアームのマザーボード。そのCANリレーが、ツールヘッドが接続されるバスとして文書化されています"
-            ],
             [
                 "HYDRA-UMC-DOCS",
                 "https://github.com/JuanenRac/HYDRA-UMC-DOCS",
-                "HYDRA-UMC エコシステム向けの同じ考え方"
+                "姉妹プロジェクト：HYDRA-UMC のドキュメントハブ。基盤とツールを共有する独立したエコシステム"
             ],
             [
                 "ARMOR-DOCS",
                 "https://github.com/JuanenRac/ARMOR-DOCS",
-                "A.R.M.O.R. セキュリティエコシステム向けの同じ考え方"
+                "姉妹プロジェクト：A.R.M.O.R. セキュリティエコシステムのドキュメントハブ。こちらも独立し、同じ基盤の上にある"
             ],
             [
                 "JuanenRac",
@@ -907,22 +872,17 @@ TEXT: dict[str, dict[str, object]] = {
         "h_related": "Projetos relacionados",
         "related_intro": "O URTC é feito de repositórios independentes, cada um com a sua versão, os seus testes e o seu README. Esta é a família, por grupos:",
         "related_this": "este repositório",
-        "related_beyond": "Para além do URTC:",
+        "related_beyond": "Projetos irmãos (independentes, com a mesma base e as mesmas ferramentas):",
         "beyond": [
-            [
-                "HYDRA-UMC",
-                "https://github.com/JuanenRac/HYDRA-UMC",
-                "a placa-mãe do braço robótico, cujo relé CAN está documentado como o barramento onde a cabeça de ferramenta se liga"
-            ],
             [
                 "HYDRA-UMC-DOCS",
                 "https://github.com/JuanenRac/HYDRA-UMC-DOCS",
-                "a mesma ideia para o ecossistema HYDRA-UMC"
+                "projeto irmão: o centro de documentação do HYDRA-UMC, um ecossistema independente que partilha a base e as ferramentas com este"
             ],
             [
                 "ARMOR-DOCS",
                 "https://github.com/JuanenRac/ARMOR-DOCS",
-                "a mesma ideia para o ecossistema de segurança A.R.M.O.R."
+                "projeto irmão: o centro de documentação do A.R.M.O.R., o ecossistema de segurança, também independente e sobre a mesma base"
             ],
             [
                 "JuanenRac",

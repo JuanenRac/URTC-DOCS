@@ -10,7 +10,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import __version__, brand, catalog, claims, doctor as doctor_module, drift, family, glance, publication, readmes, status
+from . import __version__, brand, catalog, claims, doctor as doctor_module, drift, family, glance, publication, readmes, related, status
 
 REPO = Path(__file__).resolve().parents[2]
 CATALOG_FILE = REPO / "docs" / "PROJECT_CATALOG.md"
@@ -96,6 +96,22 @@ def make_readmes(argv: list[str] | None = None) -> int:
         print("READMES=FAIL out of date: " + ", ".join(stale), file=sys.stderr)
         return 1
     print(f"READMES={'PASS' if args.check else 'WRITTEN'} {len(readmes.LANGUAGES)} languages")
+    return 0
+
+
+def make_related(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(prog="make_related.py", description="Write or check the Related Projects section of the READMEs of the other repositories of the family.")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--apply", action="store_true", help="rewrite the section where it differs")
+    mode.add_argument("--check", action="store_true", help="fail when a section differs (the default)")
+    parser.add_argument("--repo", action="append", metavar="NAME", help="only this repository (repeat the option for several)")
+    parser.add_argument("--workspace", help="the folder that holds the repositories (default: the parent of this repository)")
+    args = parser.parse_args(argv)
+    problems, done = related.run(_workspace(args), args.repo, write=args.apply)
+    if problems:
+        print("RELATED=FAIL " + "; ".join(problems), file=sys.stderr)
+        return 1
+    print(f"RELATED={'WRITTEN' if args.apply else 'PASS'} {done} files")
     return 0
 
 

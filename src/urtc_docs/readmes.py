@@ -59,6 +59,25 @@ ALT_STRUCTURE = {
 }
 
 
+def related_lines(code: str, name: str) -> list[str]:
+    """The body of Related Projects for the repository `name`, ending with a blank line: the family by group, then the sister projects."""
+    text = TEXT[code]
+    out = [str(text["related_intro"]), ""]
+    for family_name, names_in_family in FAMILY_REPOS:
+        entries = []
+        for member in names_in_family:
+            if member == name:
+                entries.append(f"**{member}** ({text['related_this']})")
+            else:
+                entries.append(f"[{member}]({URL.format(name=member)})")
+        out.append(f"* **{family_name}:** " + ", ".join(entries))
+    out += ["", f"**{text['related_beyond']}**", ""]
+    for other, url, description in cast("list[tuple[str, str, str]]", text["beyond"]):
+        out.append(f"* **[{other}]({url})** - {description}")
+    out.append("")
+    return out
+
+
 def architecture_block(name: str, code: str) -> str:
     return (f'<p align="center">\n  <img src="images/architecture.svg" alt="{ALT_ARCH[code]}" width="100%">\n</p>\n\n{ARCH_CAPTION[code]}')
 
@@ -196,22 +215,7 @@ def render(code: str, manifest: dict, entry: dict) -> str:
     add(LANGUAGES_TEXT[code])
     add("")
     section("related")
-    add(str(text["related_intro"]))
-    add("")
-    for family_name, names_in_family in FAMILY_REPOS:
-        entries = []
-        for name in names_in_family:
-            if name == NAME:
-                entries.append(f"**{name}** ({text['related_this']})")
-            else:
-                entries.append(f"[{name}]({URL.format(name=name)})")
-        add(f"* **{family_name}:** " + ", ".join(entries))
-    add("")
-    add(f"**{text['related_beyond']}**")
-    add("")
-    for name, url, description in cast("list[tuple[str, str, str]]", text["beyond"]):
-        add(f"* **[{name}]({url})** - {description}")
-    add("")
+    lines.extend(related_lines(code, NAME))
     section("documentation")
     add(str(text["docs_intro"]))
     add("")

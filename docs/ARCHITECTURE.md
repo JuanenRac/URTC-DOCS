@@ -103,7 +103,7 @@ All three speak the same wire protocol. URTC-COMMON holds a machine-readable spe
 
 ## Where URTC meets the other ecosystems
 
-* **HYDRA-UMC.** The URTC README states that the tool head sits on the FDCAN2 relay tunnel of the HYDRA-UMC motherboard, and the CAN reference is titled for "URTC/HYDRA-UMC". The relay itself belongs to the HYDRA-UMC firmware repository and was not read for this document **(not traced)**.
+* **HYDRA-UMC.** A sister project, not a part of URTC: an independent ecosystem that shares the base and the tools of this one. The CAN reference of the firmware is titled for "URTC/HYDRA-UMC" because a tool head can sit on the CAN relay of the HYDRA-UMC motherboard; that relay belongs to the HYDRA-UMC firmware repository and was not read for this document **(not traced)**. URTC does not depend on it.
 * **Profile and dashboard.** The `JuanenRac` repository discovers URTC repositories through URTC-UPDATER's client and a pinned revision of it.
 * **ELECTRO-HOBBY-3D-UPDATER.** Its manifest has a different ecosystem identifier, so no updater discovers it by design; it forwards to the three updaters.
 

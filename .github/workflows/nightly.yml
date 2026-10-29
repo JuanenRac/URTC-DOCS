@@ -63,7 +63,7 @@ jobs:
         working-directory: URTC-DOCS
         run: |
           status=0
-          for check in "tools/make_readmes.py --check" "tools/make_brand.py --check" "tools/make_catalog.py --check-structure --require-siblings" "tools/make_glance.py --check --require-siblings" "tools/check_claims.py --require-siblings" "tools/check_repo_tools.py --require-siblings"; do
+          for check in "tools/make_readmes.py --check" "tools/make_brand.py --check" "tools/make_catalog.py --check-structure --require-siblings" "tools/make_glance.py --check --require-siblings" "tools/make_related.py --check" "tools/check_claims.py --require-siblings" "tools/check_repo_tools.py --require-siblings"; do
             echo "== python ${check}"
             python ${check} || status=1
           done

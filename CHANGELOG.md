@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented here.
 
+## [Unreleased]
+
+- **The layout of the README is checked in the CI:** the validator runs `tools/universal_readme_check.py` and lists, as a warning, what differs from the universal layout of the README.
+
 ## [0.1.1] - The dev dependencies are closed with hashes and the types are checked and a static check on every push
 
 - The architecture, the interfaces, the capability matrix, the security baseline, the threat model and the first slice describe the shared code, the gateway, the signed packages, the offline copy of the web studio and the current test counts, and no longer list disagreements that were solved; the project tree of the README lists the data and the template.

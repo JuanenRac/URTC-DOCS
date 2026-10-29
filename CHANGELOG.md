@@ -9,6 +9,7 @@ All notable changes to this project are documented here.
 - **The layout of the README is checked in the CI:** the validator runs `tools/universal_readme_check.py` and lists, as a warning, what differs from the universal layout of the README.
 
 - **The At a glance and Project status checks follow the universal layout:** Project status may sit right after At a glance with the traffic-light icon (the shared README sections put it there), and the marker comment that opens it is not read as part of the At a glance table.
+- **The nightly run also checks that the checks leave every repository untouched:** after the own validation of each repository, its working tree must be exactly as it was (a check that rewrites a tracked file, or leaves a new file that is not ignored, is reported). The test count of the rack in the "At a glance" data is current.
 
 ## [0.1.1] - The dev dependencies are closed with hashes and the types are checked and a static check on every push
 

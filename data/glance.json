@@ -33,7 +33,7 @@
       "hardware": "not_run",
       "target": "board",
       "tests": {
-        "count": 467
+        "count": 531
       }
     },
     "URTC-TESTER": {

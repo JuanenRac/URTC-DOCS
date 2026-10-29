@@ -51,6 +51,24 @@ run() {
   fi
 }
 
+# run_untouched NAME DIRECTORY COMMAND... : like run, and the working tree of that repository must be exactly as it was
+# before (a check that rewrites a tracked file, or leaves a new one that is not ignored, is a check that makes the next
+# commit differ from what was reviewed).
+run_untouched() {
+  local name="$1" directory="$2" before after
+  if ! git -C "$directory" rev-parse --git-dir >/dev/null 2>&1; then
+    run "$@"
+    return
+  fi
+  before="$(git -C "$directory" status --porcelain 2>/dev/null)"
+  run "$@"
+  after="$(git -C "$directory" status --porcelain 2>/dev/null)"
+  if [[ "$before" != "$after" ]]; then
+    report "$name (tree)" FAIL "the check changed the working tree:"
+    diff <(printf '%s\n' "$before") <(printf '%s\n' "$after") | sed 's/^/    | /' | head -10
+  fi
+}
+
 if [[ -z "$PYTHON" ]]; then
   report "everything" SKIP "python is not installed"
   echo
@@ -74,7 +92,7 @@ for directory in "$ROOT"/URTC "$ROOT"/URTC-*; do
     continue
   fi
   checked=$((checked + 1))
-  run "$name" "$directory" "$PYTHON" tools/ci_validate.py
+  run_untouched "$name" "$directory" "$PYTHON" tools/ci_validate.py
 done
 if [[ "$checked" -eq 0 ]]; then
   report "family" SKIP "no repository of the ecosystem was found next to this one"

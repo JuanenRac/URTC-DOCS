@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented here.
 
-## [Unreleased]
+## [0.1.2] - Related projects with a line for each repository, the nightly checks and the universal README
 
 - **Related Projects lists the URTC family:** the section names the repositories of URTC by group, each with one short line about what it is for, and, in one short line each, the sister projects (independent ecosystems of the same author that share the base and the tools), in the eight languages. It no longer says that URTC is part of another ecosystem. The section is written from one text and one list: `tools/make_related.py` puts it in the READMEs of the other repositories of the family (`--check` fails when one differs, and the nightly run does it), and `docs/ARCHITECTURE.md` describes HYDRA-UMC as a sister project.
 - **The numbers of At a glance and the reviewed claims follow the new READMEs of the family:** the test counts of the repositories that state them (718, 153, 500, 79, 467, 183, 425, 560 and 531 tests) are in `data/glance.json`, and the sentences about security and safety that the new Security & Safety sections add were read and entered in `data/claims_reviewed.json`.

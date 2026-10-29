@@ -30,11 +30,26 @@
 |---|---|
 | Version | `0.1.1` |
 | Maturité | Ébauche |
+| Tests | 153 |
 | Technologie | Markdown / Mermaid / Python / SVG |
 | Cible | Le PC de la personne qui l'utilise |
 | Sur matériel réel | Sans objet : rien ici ne s'exécute sur du matériel |
 
-## 🎯 Vue d'ensemble
+**Aller à :** [Présentation](#-présentation) · [Architecture](#-architecture) · [Démarrage rapide](#-démarrage-rapide) · [Tests](#-tests) · [Structure](#-structure-du-dépôt) · [Liés](#-projets-liés)
+
+## 🚦 État du projet
+
+🟢 fait et vérifié · 🟡 fonctionne, avec des limites connues · 🟠 à moitié fait ou non vérifié · 🔴 non fait ou non fonctionnel. Rien n'est vert si cela n'a jamais tourné sur du vrai matériel.
+
+| Partie | État | Ce que le dépôt peut démontrer |
+| --- | :---: | --- |
+| Logiciel | 🟡 | Les générateurs du catalogue, de la marque et des README, et les vérifications de la publication, des affirmations et de la famille, tournent sur un ordinateur ; aucun matériel impliqué. |
+| Tests | 🟢 | La suite de tests passe dans la CI, sous Linux et sous Windows, à chaque push. |
+| Vérifications sur toute la famille | 🟡 | L'exécution de nuit récupère chaque dépôt de la famille et compare leurs tableaux de synthèse, leurs affirmations et la structure du catalogue ; une version périmée dans le catalogue est signalée mais ne fait pas échouer la nuit. |
+| Documents de sécurité | 🟡 | La base de sécurité et le modèle de menaces sont écrits à partir des autres dépôts tels qu'ils ont été lus ; personne en dehors du projet ne les a relus. |
+| Documentation | 🟡 | README en huit langues et documents de référence ; les traductions n'ont pas été relues par des locuteurs natifs. |
+
+## 🎯 Présentation
 
 <p align="center">
   <img src="images/URTC_ECOSYSTEM.svg" alt="URTC ecosystem" width="100%">
@@ -55,23 +70,15 @@ L'image ci-dessous montre les dépôts d'URTC, le bus CAN qui relie les cartes e
 
 URTC-DOCS est la mémoire de l'écosystème : l'endroit où vivent l'architecture, les interfaces, le socle de sécurité et la matrice des capacités, et où sont gardés les outils qui comparent tous les dépôts côte à côte. Chaque dépôt garde son propre README, ses tests et son contrat ; celui-ci dit comment ils s'assemblent et ce qui a réellement été prouvé.
 
-## 📂 Structure du dépôt
+## 🏛️ Architecture
 
-```text
-URTC-DOCS/
-├── docs/     architecture, interfaces, matrice des capacités, socle de sécurité, modèle de menaces, première tranche, note sur le protocole CAN, catalogue généré
-├── src/      les outils sous forme de paquet (catalogue, marque, README, vérification de publication)
-├── tools/    scripts fins au-dessus du paquet, check_all.sh et les vérifications de CI partagées de l'écosystème
-├── tests/    tests unitaires des outils
-├── images/   bannière et carte de l'écosystème
-├── brand/    l'icône
-├── data/     les données lues par les générateurs (les chiffres de En un coup d'œil, les affirmations relues)
-├── template/ la copie de référence des fichiers que partagent tous les dépôts et l'outil qui la met en place
-├── build.sh / build.bat, build-test.sh / build-test.bat, run.sh / run.bat
-└── urtc.project.json, pyproject.toml, CHANGELOG.md, LICENSE, LICENSE.md
-```
+<p align="center">
+  <img src="images/architecture.svg" alt="Architecture d'URTC-DOCS : ce qu'il lit, ce qu'il contient et ce qu'il alimente" width="100%">
+</p>
 
-## 🛠️ COMPILATION ET EXÉCUTION
+Comment les parties de ce dépôt s'articulent. L'image est dessinée à partir de `docs/architecture.json` et vérifiée par rapport au code.
+
+## 🚀 Démarrage rapide
 
 **Prérequis :** Python 3.10 ou plus récent ; pytest pour les tests
 
@@ -88,7 +95,65 @@ python tools/urtc_doctor.py                          # le doctor : un rapport su
 python -m pytest tests -q                            # les tests unitaires des outils
 ```
 
-`build.sh` / `build.bat` installent le paquet et lancent les tests, et `build-test.sh` / `build-test.bat` vérifient sans installer ; aucun ne change de version. `python bump.py` avance la version d'un cran (le compteur kilométrique de l'écosystème).
+## 🧪 Tests
+
+La suite compte 153 tests (`python -m pytest tests -q`). Ils exécutent sur des jeux d'essai les générateurs du catalogue, de la marque, des tableaux En un coup d'œil, des tableaux d'état et des README, les contrôles des affirmations, des fichiers partagés, de la publication et le doctor, les vecteurs de conformité des notes CAN, et vérifient que les README de ce dépôt sont exactement ce qu'écrit le générateur.
+
+## 🏗️ Compilation et publication
+
+`build.sh` / `build.bat` installent le paquet et lancent les tests, et `build-test.sh` / `build-test.bat` vérifient sans installer ; aucun ne change de version.
+
+## 📂 Structure du dépôt
+
+<p align="center">
+  <img src="images/repository-structure.svg" alt="Structure du dépôt URTC-DOCS" width="100%">
+</p>
+
+<details>
+<summary>Version texte de l'arborescence</summary>
+
+```text
+URTC-DOCS/
+├── docs/                                              architecture, interfaces, matrice des capacités, socle de sécurité, modèle de menaces et catalogue généré
+├── src/urtc_docs/                                     les outils sous forme de paquet : catalogue, marque, README, En un coup d'œil, état, contrôles
+├── tools/                                             scripts légers au-dessus du paquet, check_all.sh et les contrôles de CI partagés
+├── data/                                              les chiffres d'En un coup d'œil et les affirmations relues
+├── template/                                          la copie canonique des fichiers que partagent tous les dépôts
+├── tests/                                             tests unitaires des outils
+├── brand/                                             l'icône
+├── images/                                            bannière et images de ce README
+├── .github/                                           workflow de CI et modèles d'issues et de pull requests
+├── build.sh build.bat                                 scripts de compilation
+├── build-test.sh build-test.bat                       scripts de compilation et de test qui ne changent rien dans le dépôt
+├── test.sh test.bat                                   lancent les tests
+├── run.sh run.bat                                     lancent le programme
+├── urtc.project.json                                  manifeste : version, rôle, maturité et commande de compilation
+├── CHANGELOG.md                                       ce qui a changé à chaque version
+├── SECURITY.md SUPPORT.md                             politique de sécurité et assistance
+├── CONTRIBUTING.md CODE_OF_CONDUCT.md                 comment contribuer et code de conduite
+├── .gitattributes .gitignore                          réglages Git
+├── bump.py bump_version.py bump_manifest_version.py   scripts qui augmentent la version
+├── LICENSE LICENSE.md                                 licence du logiciel et de la documentation
+└── pyproject.toml requirements-dev.lock ruff.toml     paquet, outils figés et réglages de lint
+```
+
+</details>
+
+## 🗺️ Feuille de route et limites connues
+
+**Limites connues aujourd'hui**
+
+* Le socle de sécurité et le modèle de menaces sont écrits à partir des autres dépôts tels qu'ils ont été lus ; personne en dehors du projet ne les a relus.
+* L'exécution de nuit récupère chaque dépôt de la famille et compare leurs tableaux de synthèse, leurs affirmations et la structure du catalogue ; une version périmée dans le catalogue est signalée mais ne fait pas échouer la nuit.
+* Les documents décrivent du logiciel ; aucun matériel n'intervient et aucune affirmation sur des cartes n'a été vérifiée sur une carte.
+
+**Ensuite**
+
+* Tenir à jour le catalogue, les tableaux En un coup d'œil et la matrice des capacités à mesure que les dépôts changent.
+
+## 🌍 Langues
+
+Le README et les textes existent en anglais, espagnol, français, italien, allemand, chinois, japonais et portugais européen.
 
 ## 🔗 Projets liés
 
@@ -104,7 +169,7 @@ URTC est fait de dépôts indépendants, chacun avec sa version, ses tests et so
 * **[ARMOR-DOCS](https://github.com/JuanenRac/ARMOR-DOCS)** - la même idée pour l'écosystème de sécurité A.R.M.O.R.
 * **[JuanenRac](https://github.com/JuanenRac/JuanenRac)** - le profil et le tableau d'état de tous les écosystèmes
 
-## 📚 Documentation et communauté
+## 📚 Documentation
 
 Pour en savoir plus :
 
@@ -113,23 +178,18 @@ Pour en savoir plus :
 * [Protocole CAN : trois implémentations d'une spécification en prose](docs/CAN_PROTOCOL_DUPLICATION.md)
 * [Journal des modifications de ce dépôt](CHANGELOG.md)
 * [Licence (GPL-3.0-or-later)](LICENSE)
+
+## 🤝 Contribuer et communauté
+
+* Avant une pull request, lancez `URTC_CI=1 python tools/ci_validate.py` : il doit réussir. Voir [CONTRIBUTING.md](CONTRIBUTING.md) et le [code de conduite](CODE_OF_CONDUCT.md).
+* Le README existe en huit langues : une modification du texte se fait dans les huit fichiers, et les sections partagées avec d'autres dépôts sont écrites par `tools/readme_sections.py` d'URTC-COMMON.
+* Ne décrivez pas comme fonctionnant sur une carte ce qui a seulement été compilé.
+* Signalez une vulnérabilité en privé : [SECURITY.md](SECURITY.md). Questions, idées et rapports : electrohobby3d@gmail.com ([SUPPORT.md](SUPPORT.md)).
 * Questions, idées et rapports : electrohobby3d@gmail.com
 
 ## 👤 AUTEUR
 
 **JuanenRac (Electro Hobby 3D)** · electrohobby3d@gmail.com
-
-## 💡 État du projet
-
-🟢 fait et vérifié · 🟡 fonctionne, avec des limites connues · 🟠 à moitié fait ou non vérifié · 🔴 non fait ou non fonctionnel. Rien n'est vert si cela n'a jamais tourné sur du vrai matériel.
-
-| Partie | État | Ce que le dépôt peut démontrer |
-| --- | :---: | --- |
-| Logiciel | 🟡 | Les générateurs du catalogue, de la marque et des README, et les vérifications de la publication, des affirmations et de la famille, tournent sur un ordinateur ; aucun matériel impliqué. |
-| Tests | 🟢 | La suite de tests passe dans la CI, sous Linux et sous Windows, à chaque push. |
-| Vérifications sur toute la famille | 🟡 | L'exécution de nuit récupère chaque dépôt de la famille et compare leurs tableaux de synthèse, leurs affirmations et la structure du catalogue ; une version périmée dans le catalogue est signalée mais ne fait pas échouer la nuit. |
-| Documents de sécurité | 🟡 | La base de sécurité et le modèle de menaces sont écrits à partir des autres dépôts tels qu'ils ont été lus ; personne en dehors du projet ne les a relus. |
-| Documentation | 🟡 | README en huit langues et documents de référence ; les traductions n'ont pas été relues par des locuteurs natifs. |
 
 ## 📜 LICENCE
 

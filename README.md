@@ -30,9 +30,24 @@
 |---|---|
 | Version | `0.1.1` |
 | Maturity | Scaffolding |
+| Tests | 153 |
 | Stack | Markdown / Mermaid / Python / SVG |
 | Target | The PC of the person using it |
 | On real hardware | Not applicable: nothing here runs on hardware |
+
+**Jump to:** [Overview](#-overview) · [Architecture](#-architecture) · [Quick start](#-quick-start) · [Testing](#-testing) · [Structure](#-repository-structure) · [Related](#-related-projects)
+
+## 🚦 Project status
+
+🟢 done and verified · 🟡 works, with known limits · 🟠 half done or not verified · 🔴 not done or not working. Nothing is green if it never ran on real hardware.
+
+| Part | Status | What the repository can show |
+| --- | :---: | --- |
+| Software | 🟡 | The generators of the catalogue, the brand and the READMEs, and the checks of the publication, the claims and the family, run on a computer; no hardware is involved. |
+| Tests | 🟢 | The test suite passes in the CI, on Linux and on Windows, on every push. |
+| Checks across the family | 🟡 | The nightly run fetches every repository of the family and compares their summary tables, claims and catalogue structure; a stale version in the catalogue is reported but does not fail the night. |
+| Security documents | 🟡 | The security baseline and the threat model are written from the other repositories as they were read; nobody outside the project has reviewed them. |
+| Documentation | 🟡 | README in eight languages and reference documents; the translations were not reviewed by native speakers. |
 
 ## 🎯 Overview
 
@@ -55,23 +70,15 @@ The picture below shows the repositories of URTC, the CAN bus that joins the boa
 
 URTC-DOCS is the memory of the ecosystem: the place where the architecture, the interfaces, the security baseline and the capability matrix live, and where the tools that compare all the repositories side by side are kept. Each repository keeps its own README, tests and contract; this one says how they fit together and what has really been proven.
 
-## 📂 Repository Structure
+## 🏛️ Architecture
 
-```text
-URTC-DOCS/
-├── docs/     architecture, interfaces, capability matrix, security baseline, threat model, first slice, CAN protocol note, generated catalogue
-├── src/      the tools as a package (catalogue, brand, READMEs, publication check)
-├── tools/    thin scripts over the package, check_all.sh, and the shared CI checks of the ecosystem
-├── tests/    unit tests of the tools
-├── images/   banner and map of the ecosystem
-├── brand/    the icon
-├── data/     the data the generators read (the numbers of At a glance, the reviewed claims)
-├── template/ the canonical copy of the files every repository shares, and the tool that puts it in place
-├── build.sh / build.bat, build-test.sh / build-test.bat, run.sh / run.bat
-└── urtc.project.json, pyproject.toml, CHANGELOG.md, LICENSE, LICENSE.md
-```
+<p align="center">
+  <img src="images/architecture.svg" alt="URTC-DOCS architecture: what it reads, what it holds and what it feeds" width="100%">
+</p>
 
-## 🛠️ BUILD & RUN
+How the parts of this repository fit together. The picture is drawn from `docs/architecture.json` and checked against the code.
+
+## 🚀 Quick start
 
 **Requirements:** Python 3.10 or newer; pytest for the tests
 
@@ -88,7 +95,65 @@ python tools/urtc_doctor.py                          # the doctor: one report on
 python -m pytest tests -q                            # the unit tests of the tools
 ```
 
-`build.sh` / `build.bat` install the package and run the tests, and `build-test.sh` / `build-test.bat` check without installing; neither changes a version. `python bump.py` raises the version by one step (the ecosystem's odometer).
+## 🧪 Testing
+
+The suite has 153 tests (`python -m pytest tests -q`). They run the generators of the catalogue, the brand, the At a glance tables, the status tables and the READMEs on fixtures, the checks of the claims, the shared files, the publication and the doctor, the conformance vectors of the CAN notes, and check that the READMEs of this repository are exactly what the generator writes.
+
+## 🏗️ Build & Release
+
+`build.sh` / `build.bat` install the package and run the tests, and `build-test.sh` / `build-test.bat` check without installing; neither changes a version.
+
+## 📂 Repository Structure
+
+<p align="center">
+  <img src="images/repository-structure.svg" alt="Repository structure of URTC-DOCS" width="100%">
+</p>
+
+<details>
+<summary>Text version of the tree</summary>
+
+```text
+URTC-DOCS/
+├── docs/                                              architecture, interfaces, capability matrix, security baseline, threat model and the generated catalogue
+├── src/urtc_docs/                                     the tools as a package: catalogue, brand, READMEs, At a glance, status, checks
+├── tools/                                             thin scripts over the package, check_all.sh and the shared CI checks
+├── data/                                              the numbers of At a glance and the reviewed claims
+├── template/                                          the canonical copy of the files every repository shares
+├── tests/                                             unit tests of the tools
+├── brand/                                             the icon
+├── images/                                            banner and the pictures of this README
+├── .github/                                           CI workflow, issue and pull-request templates
+├── build.sh build.bat                                 build scripts
+├── build-test.sh build-test.bat                       build and test scripts that change nothing in the repository
+├── test.sh test.bat                                   run the tests
+├── run.sh run.bat                                     start the program
+├── urtc.project.json                                  manifest: version, role, maturity and build command
+├── CHANGELOG.md                                       what changed in each version
+├── SECURITY.md SUPPORT.md                             security policy and support
+├── CONTRIBUTING.md CODE_OF_CONDUCT.md                 how to contribute and the code of conduct
+├── .gitattributes .gitignore                          Git settings
+├── bump.py bump_version.py bump_manifest_version.py   scripts that raise the version
+├── LICENSE LICENSE.md                                 software license and documentation license
+└── pyproject.toml requirements-dev.lock ruff.toml     package, locked tools and lint settings
+```
+
+</details>
+
+## 🗺️ Roadmap & Known limits
+
+**Known limits today**
+
+* The security baseline and the threat model are written from the other repositories as they were read; nobody outside the project has reviewed them.
+* The nightly run fetches every repository of the family and compares their summary tables, claims and catalogue structure; a stale version in the catalogue is reported but does not fail the night.
+* The documents describe software; no hardware is involved and none of the claims about boards has been checked on a board.
+
+**Next**
+
+* Keep the catalogue, the At a glance tables and the capability matrix current as the repositories change.
+
+## 🌍 Languages
+
+README and texts exist in English, Spanish, French, Italian, German, Chinese, Japanese and European Portuguese.
 
 ## 🔗 Related Projects
 
@@ -104,7 +169,7 @@ URTC is made of independent repositories, each with its own version, tests and R
 * **[ARMOR-DOCS](https://github.com/JuanenRac/ARMOR-DOCS)** - the same idea for the A.R.M.O.R. security ecosystem
 * **[JuanenRac](https://github.com/JuanenRac/JuanenRac)** - the profile and the status dashboard of all the ecosystems
 
-## 📚 Documentation & Community
+## 📚 Documentation
 
 Where to read more:
 
@@ -113,23 +178,18 @@ Where to read more:
 * [CAN protocol: three implementations of one prose specification](docs/CAN_PROTOCOL_DUPLICATION.md)
 * [Changelog of this repository](CHANGELOG.md)
 * [License (GPL-3.0-or-later)](LICENSE)
+
+## 🤝 Contributing & Community
+
+* Before a pull request run `URTC_CI=1 python tools/ci_validate.py`: it must pass. See [CONTRIBUTING.md](CONTRIBUTING.md) and the [code of conduct](CODE_OF_CONDUCT.md).
+* The README exists in eight languages: a change to the text is made in all eight files, and the sections shared with other repositories are written by `tools/readme_sections.py` of URTC-COMMON.
+* Do not describe as working on a board what has only been built.
+* Report a vulnerability privately: [SECURITY.md](SECURITY.md). Questions, ideas and reports: electrohobby3d@gmail.com ([SUPPORT.md](SUPPORT.md)).
 * Questions, ideas and reports: electrohobby3d@gmail.com
 
 ## 👤 AUTHOR
 
 **JuanenRac (Electro Hobby 3D)** · electrohobby3d@gmail.com
-
-## 💡 Project status
-
-🟢 done and verified · 🟡 works, with known limits · 🟠 half done or not verified · 🔴 not done or not working. Nothing is green if it never ran on real hardware.
-
-| Part | Status | What the repository can show |
-| --- | :---: | --- |
-| Software | 🟡 | The generators of the catalogue, the brand and the READMEs, and the checks of the publication, the claims and the family, run on a computer; no hardware is involved. |
-| Tests | 🟢 | The test suite passes in the CI, on Linux and on Windows, on every push. |
-| Checks across the family | 🟡 | The nightly run fetches every repository of the family and compares their summary tables, claims and catalogue structure; a stale version in the catalogue is reported but does not fail the night. |
-| Security documents | 🟡 | The security baseline and the threat model are written from the other repositories as they were read; nobody outside the project has reviewed them. |
-| Documentation | 🟡 | README in eight languages and reference documents; the translations were not reviewed by native speakers. |
 
 ## 📜 LICENSE
 

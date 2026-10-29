@@ -1,0 +1,163 @@
+{
+  "repo": "URTC-DOCS",
+  "ecosystem": "urtc",
+  "tagline": "The documents of the ecosystem and the tools that compare the repositories side by side.",
+  "description": "URTC-DOCS holds the architecture, interface, security and capability documents of URTC and the tools that read the manifests, READMEs and changelogs of the other repositories to write the catalogue, the At a glance tables and the brand, to check the claims and the shared files, and to run the nightly comparison. Everything is tested on a computer; no hardware is involved.",
+  "columns": [
+    "WHAT IT READS",
+    "THIS REPOSITORY",
+    "WHAT IT FEEDS"
+  ],
+  "nodes": [
+    {
+      "id": "repos",
+      "column": 0,
+      "level": "external",
+      "title": "The URTC repositories",
+      "lines": [
+        "manifests, READMEs, changelogs",
+        "and documents, read from the",
+        "folder next to this one"
+      ]
+    },
+    {
+      "id": "data",
+      "column": 0,
+      "level": "config",
+      "title": "data/",
+      "lines": [
+        "the numbers of At a glance and",
+        "the claims a person reviewed"
+      ],
+      "code": [
+        "data/glance.json",
+        "data/claims_reviewed.json"
+      ]
+    },
+    {
+      "id": "gen",
+      "column": 1,
+      "level": "tested",
+      "title": "Generators",
+      "lines": [
+        "catalogue, At a glance, brand",
+        "and the READMEs of this",
+        "repository; --check compares"
+      ],
+      "code": [
+        "tools/make_catalog.py",
+        "tools/make_glance.py",
+        "tools/make_readmes.py"
+      ]
+    },
+    {
+      "id": "check",
+      "column": 1,
+      "level": "tested",
+      "title": "Checks",
+      "lines": [
+        "claims, publication and the",
+        "shared files of the family;",
+        "one PASS or FAIL line each"
+      ],
+      "code": [
+        "tools/check_claims.py",
+        "tools/publication_check.py",
+        "tools/check_repo_tools.py"
+      ]
+    },
+    {
+      "id": "tmpl",
+      "column": 1,
+      "level": "contract",
+      "title": "template/",
+      "lines": [
+        "the canonical copy of the files",
+        "every repository shares, and",
+        "the tool that puts it in place"
+      ],
+      "code": [
+        "template/eh3d-repo-template",
+        "tools/sync_repo_tools.py"
+      ]
+    },
+    {
+      "id": "docs",
+      "column": 1,
+      "level": "contract",
+      "title": "docs/",
+      "lines": [
+        "architecture, interfaces, security",
+        "baseline, threat model and the",
+        "capability matrix"
+      ],
+      "code": [
+        "docs/ARCHITECTURE.md",
+        "docs/CAPABILITY_MATRIX.md",
+        "docs/SECURITY_BASELINE.md"
+      ]
+    },
+    {
+      "id": "out",
+      "column": 2,
+      "level": "external",
+      "title": "Every repository",
+      "lines": [
+        "its At a glance table and its",
+        "shared files, written from here",
+        "and checked every night"
+      ]
+    },
+    {
+      "id": "night",
+      "column": 2,
+      "level": "external",
+      "title": "Nightly workflow",
+      "lines": [
+        "fetches the family from GitHub",
+        "and runs the comparison"
+      ],
+      "code": [
+        ".github/workflows/nightly.yml"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "repos",
+      "to": "gen",
+      "label": "read",
+      "level": "tested"
+    },
+    {
+      "from": "data",
+      "to": "gen",
+      "label": "numbers",
+      "level": "tested"
+    },
+    {
+      "from": "gen",
+      "to": "out",
+      "label": "writes",
+      "level": "tested"
+    },
+    {
+      "from": "check",
+      "to": "night",
+      "label": "run by",
+      "level": "tested"
+    },
+    {
+      "from": "tmpl",
+      "to": "out",
+      "level": "tested"
+    }
+  ],
+  "legend": {
+    "tested": "covered by tests on a computer",
+    "contract": "the source of the rest",
+    "config": "data a person maintains",
+    "external": "another repository or a workflow"
+  },
+  "footer": "The documents say what is proven; none of it involves hardware."
+}

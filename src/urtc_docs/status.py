@@ -113,7 +113,7 @@ def _cell(text: str) -> str:
 def render_own(code: str) -> str:
     """The section for the README of this repository in one language, with LF line endings and a closing blank line."""
     heading, legend, heads = UI[code]
-    lines = [f"## 💡 {heading}", "", legend, "", "| " + " | ".join(heads) + " |", "| --- | :---: | --- |"]
+    lines = [f"## 🚦 {heading}", "", legend, "", "| " + " | ".join(heads) + " |", "| --- | :---: | --- |"]
     lines += [f"| {_cell(part)} | {light} | {_cell(note)} |" for part, light, note in OWN_ROWS[code]]
     lines.append("")
     return "\n".join(lines) + "\n"

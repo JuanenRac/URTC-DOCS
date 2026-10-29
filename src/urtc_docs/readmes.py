@@ -22,10 +22,67 @@ from .readme_drift_text import COMMENT as DRIFT_COMMENT, TOOLS as DRIFT_TOOLS
 from .readme_doctor_text import COMMENT as DOCTOR_COMMENT, TOOLS as DOCTOR_TOOLS
 from .readme_family import FAMILY_REPOS
 from .readme_text import LANGUAGES, TEXT
+from .readme_universal_text import CONTRIBUTING, ICONS, LANGUAGES_TEXT, ROADMAP, SECTION_NAMES, TESTING
 
 NAME = "URTC-DOCS"
 URL = "https://github.com/JuanenRac/{name}"
 BADGE_COLOUR = {"scaffolding": "FFB020", "functional": "0F6CBD", "established": "2EA44F", "production": "2EA44F"}
+
+
+ALT_ARCH = {
+    "en": "URTC-DOCS architecture: what it reads, what it holds and what it feeds",
+    "es": "Arquitectura de URTC-DOCS: qué lee, qué contiene y qué alimenta",
+    "de": "Architektur von URTC-DOCS: was es liest, was es enthält und was es speist",
+    "fr": "Architecture d'URTC-DOCS : ce qu'il lit, ce qu'il contient et ce qu'il alimente",
+    "it": "Architettura di URTC-DOCS: che cosa legge, che cosa contiene e che cosa alimenta",
+    "zh": "URTC-DOCS 的架构：读取什么、包含什么、供给什么",
+    "ja": "URTC-DOCS のアーキテクチャ：何を読み、何を持ち、何に供給するか",
+    "pt": "Arquitetura do URTC-DOCS: o que lê, o que contém e o que alimenta",
+}
+ARCH_CAPTION = {
+    "en": "How the parts of this repository fit together. The picture is drawn from `docs/architecture.json` and checked against the code.",
+    "es": "Cómo encajan las partes de este repositorio. La imagen se dibuja desde `docs/architecture.json` y se comprueba contra el código.",
+    "de": "Wie die Teile dieses Repositorys zusammenpassen. Das Bild wird aus `docs/architecture.json` gezeichnet und gegen den Code geprüft.",
+    "fr": "Comment les parties de ce dépôt s'articulent. L'image est dessinée à partir de `docs/architecture.json` et vérifiée par rapport au code.",
+    "it": "Come si incastrano le parti di questo repository. L'immagine è disegnata da `docs/architecture.json` e verificata rispetto al codice.",
+    "zh": "本仓库各部分如何协作。图片由 `docs/architecture.json` 绘制，并与代码核对。",
+    "ja": "このリポジトリの各部分の関係。図は `docs/architecture.json` から描かれ、コードと照合されます。",
+    "pt": "Como as partes deste repositório se encaixam. A imagem é desenhada a partir de `docs/architecture.json` e verificada com o código.",
+}
+SUMMARY_TREE = {
+    "en": "Text version of the tree", "es": "Versión en texto del árbol", "de": "Textversion des Baums", "fr": "Version texte de l'arborescence",
+    "it": "Versione testuale dell'albero", "zh": "目录树的文本版", "ja": "ツリーのテキスト版", "pt": "Versão em texto da árvore",
+}
+ALT_STRUCTURE = {
+    "en": "Repository structure of URTC-DOCS", "es": "Estructura del repositorio URTC-DOCS", "de": "Struktur des Repositorys URTC-DOCS", "fr": "Structure du dépôt URTC-DOCS",
+    "it": "Struttura del repository URTC-DOCS", "zh": "URTC-DOCS 的仓库结构", "ja": "URTC-DOCS のリポジトリ構成", "pt": "Estrutura do repositório URTC-DOCS",
+}
+
+
+def architecture_block(name: str, code: str) -> str:
+    return (f'<p align="center">\n  <img src="images/architecture.svg" alt="{ALT_ARCH[code]}" width="100%">\n</p>\n\n{ARCH_CAPTION[code]}')
+
+
+def structure_block(name: str, code: str) -> str:
+    """The picture of the repository and the text tree of docs/structure.json (the tree is written by tools/make_structure.py, so the names are the same everywhere)."""
+    import importlib.util
+    import sys
+
+    root = Path(__file__).resolve().parents[2]
+    tools = str(root / "tools")
+    sys.path.insert(0, tools)
+    try:
+        spec_module = importlib.util.spec_from_file_location("urtc_make_structure", root / "tools" / "make_structure.py")
+        module = importlib.util.module_from_spec(spec_module)  # type: ignore[arg-type]
+        spec_module.loader.exec_module(module)  # type: ignore[union-attr]
+        spec = json.loads((root / "docs" / "structure.json").read_text(encoding="utf-8"))
+        tree = module.render_tree(spec, code).rstrip("\n")
+    finally:
+        sys.path.remove(tools)
+    if not tree.lstrip().startswith("```"):
+        tree = "```text\n" + tree + "\n```"
+    return (f'<p align="center">\n  <img src="images/repository-structure.svg" alt="{ALT_STRUCTURE[code]}" width="100%">\n</p>\n\n'
+            f"<details>\n<summary>{SUMMARY_TREE[code]}</summary>\n\n{tree}\n\n</details>")
 
 
 def language_bar(code: str) -> str:
@@ -42,7 +99,6 @@ def language_bar(code: str) -> str:
 def render(code: str, manifest: dict, entry: dict) -> str:
     text = TEXT[code]
     version, maturity = manifest["version"], manifest["maturity"]
-    tree = cast("dict[str, str]", text["tree"])
     lines: list[str] = []
     add = lines.append
 
@@ -74,8 +130,15 @@ def render(code: str, manifest: dict, entry: dict) -> str:
     add("")
     add(glance.render_section(code, manifest, entry).rstrip(chr(10)))
     add("")
-    add(f"## 🎯 {text['h_overview']}")
+    add(status.render_own(code).rstrip(chr(10)))
     add("")
+    names = SECTION_NAMES[code]
+
+    def section(key: str, title: str | None = None) -> None:
+        add(f"## {ICONS[key]} {title or names[key]}")
+        add("")
+
+    section("overview")
     add('<p align="center">')
     add('  <img src="images/URTC_ECOSYSTEM.svg" alt="URTC ecosystem" width="100%">')
     add("</p>")
@@ -86,28 +149,13 @@ def render(code: str, manifest: dict, entry: dict) -> str:
         add(f"* [{label}]({path}): {description}")
     add(f"* **{text['tools_label']}** {text['tools']}{CLAIMS_TOOLS[code]}{DRIFT_TOOLS[code]}{DOCTOR_TOOLS[code]}")
     add("")
-    add(f"## 🧩 {text['h_role']}")
-    add("")
+    section("role", str(text["h_role"]))
     add(str(text["role"]))
     add("")
-    add(f"## 📂 {text['h_structure']}")
+    section("architecture")
+    add(architecture_block(NAME, code))
     add("")
-    add("```text")
-    add(f"{NAME}/")
-    add(f"├── docs/     {tree['docs']}")
-    add(f"├── src/      {tree['src']}")
-    add(f"├── tools/    {tree['tools']}")
-    add(f"├── tests/    {tree['tests']}")
-    add(f"├── images/   {tree['images']}")
-    add(f"├── brand/    {tree['brand']}")
-    add(f"├── data/     {tree['data']}")
-    add(f"├── template/ {tree['template']}")
-    add("├── build.sh / build.bat, build-test.sh / build-test.bat, run.sh / run.bat")
-    add("└── urtc.project.json, pyproject.toml, CHANGELOG.md, LICENSE, LICENSE.md")
-    add("```")
-    add("")
-    add(f"## 🛠️ {text['h_dev']}")
-    add("")
+    section("quickstart")
     add(str(text["dev_requirements"]))
     add("")
     comments = list(cast("list[str]", text["dev_comments"]))
@@ -132,15 +180,27 @@ def render(code: str, manifest: dict, entry: dict) -> str:
         add(f"{command.ljust(width)}  # {comment}")
     add("```")
     add("")
+    section("testing")
+    add(TESTING[code])
+    add("")
+    section("build")
     add(str(text["dev_note"]))
     add("")
-    add(f"## 🔗 {text['h_related']}")
+    section("structure")
+    add(structure_block(NAME, code))
     add("")
+    section("roadmap")
+    add(ROADMAP[code])
+    add("")
+    section("languages")
+    add(LANGUAGES_TEXT[code])
+    add("")
+    section("related")
     add(str(text["related_intro"]))
     add("")
-    for family_name, names in FAMILY_REPOS:
+    for family_name, names_in_family in FAMILY_REPOS:
         entries = []
-        for name in names:
+        for name in names_in_family:
             if name == NAME:
                 entries.append(f"**{name}** ({text['related_this']})")
             else:
@@ -152,24 +212,28 @@ def render(code: str, manifest: dict, entry: dict) -> str:
     for name, url, description in cast("list[tuple[str, str, str]]", text["beyond"]):
         add(f"* **[{name}]({url})** - {description}")
     add("")
-    add(f"## 📚 {text['h_docs']}")
-    add("")
+    section("documentation")
     add(str(text["docs_intro"]))
     add("")
     for label, path in cast("list[tuple[str, str]]", text["docs_links"]):
         add(f"* [{label}]({path})")
+    add("")
+    section("contributing")
+    words = CONTRIBUTING[code]
+    add(f"* {words['first'].format(cmd='URTC_CI=1 python tools/ci_validate.py')}")
+    add(f"* {words['readme']}")
+    add(f"* {words['honest']}")
+    add(f"* {words['report']}")
     add(f"* {text['docs_contact']}")
     add("")
-    add(f"## 👤 {text['h_author']}")
-    add("")
+    section("author")
     add("**JuanenRac (Electro Hobby 3D)** · electrohobby3d@gmail.com")
     add("")
-    add(status.render_own(code).rstrip(chr(10)))
-    add("")
-    add(f"## 📜 {text['h_license']}")
-    add("")
+    section("license")
     add(str(text["license"]))
-    return "\n".join(lines) + "\n"
+    text_out = "\n".join(lines) + "\n"
+    # the "Jump to" line that follows the table of At a glance (the same line that tools/make_glance.py writes)
+    return glance.apply_to_text(text_out, glance.with_jump(glance.render_section(code, manifest, entry), code, text_out))
 
 
 def outputs(repo: Path) -> dict[str, str]:

@@ -30,7 +30,7 @@ Every repository of the ecosystem, written by `tools/make_catalog.py` from the `
 
 | Repository | Version | Maturity | Role | Stack | Target | Parent | What it is |
 |---|---|---|---|---|---|---|---|
-| [URTC](https://github.com/JuanenRac/URTC) | 0.4.0 | Functional | firmware | firmware-c | mcu | - | Firmware of the tool-head board (STM32F303, 25 tool profiles, CAN bootloader, expansion slave) and the CAN protocol reference; no populated board exists yet. |
+| [URTC](https://github.com/JuanenRac/URTC) | 0.4.1 | Functional | firmware | firmware-c | mcu | - | Firmware of the tool-head board (STM32F303, 25 tool profiles, CAN bootloader, expansion slave) and the CAN protocol reference; no populated board exists yet. |
 | [URTC-COMMON](https://github.com/JuanenRac/URTC-COMMON) | 0.0.8 | Scaffolding | library | python | user-pc | - | The CAN protocol as data: a specification with generated C, TypeScript and Python code, conformance vectors and the Python transports; nothing uses it yet. |
 | [URTC-GATEWAY](https://github.com/JuanenRac/URTC-GATEWAY) | 0.0.2 | Scaffolding | tool | python | user-pc | - | Gateway in front of the CAN bus: the identifiers a host may send (made from the specification), a payload check, a rate limit and a session key, each one switchable; tested on the host only. |
 | [URTC-SMART-RACK](https://github.com/JuanenRac/URTC-SMART-RACK) | 0.2.1 | Functional | firmware | firmware-c | user-pc | - | Hardware-independent C logic and rack command protocol for a tool rack with pre-heating and lifecycle tracking; no board exists yet. |

@@ -7,11 +7,14 @@
     "URTC-COMMON": {
       "hardware": "simulated",
       "tests": {
-        "count": 718
+        "count": 713
       }
     },
     "URTC-DOCS": {
-      "hardware": "not_applicable"
+      "hardware": "not_applicable",
+      "tests": {
+        "count": 153
+      }
     },
     "URTC-FLASHER": {
       "hardware": "simulated",

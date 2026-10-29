@@ -30,6 +30,9 @@ SHARED_FILES: tuple[str, ...] = (
     ".github/workflows/dashboard-dispatch.yml",
     "tools/_tracked_names.py",
     "tools/pretty_run.py",
+    "tools/_readme_svg.py",
+    "tools/make_architecture.py",
+    "tools/make_structure.py",
 )
 
 _PLACEHOLDER = "<REPO>"

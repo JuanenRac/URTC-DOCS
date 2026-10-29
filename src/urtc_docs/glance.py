@@ -214,6 +214,61 @@ ANY_H2 = re.compile(r"^## ")
 FENCE = re.compile(r"^\s*(```|~~~)")
 ALL_HEADINGS = {labels["heading"] for labels in LABELS.values()}
 
+# The "Jump to" line that follows the table in a README that has the universal layout: one link for each of these sections that the README has, in the order of
+# the layout. A README that does not have the Architecture section yet (it is not in the universal layout) gets no such line.
+JUMP_LABELS: dict[str, dict[str, str]] = {
+    "en": {"prefix": "**Jump to:**", "overview": "Overview", "architecture": "Architecture", "features": "Features", "security": "Security", "interfaces": "Interfaces", "configuration": "Configuration", "quickstart": "Quick start", "testing": "Testing", "troubleshooting": "Troubleshooting", "structure": "Structure", "related": "Related"},
+    "es": {"prefix": "**Ir a:**", "overview": "Resumen", "architecture": "Arquitectura", "features": "Funciones", "security": "Seguridad", "interfaces": "Interfaces", "configuration": "Configuración", "quickstart": "Inicio rápido", "testing": "Pruebas", "troubleshooting": "Problemas", "structure": "Estructura", "related": "Relacionados"},
+    "de": {"prefix": "**Springe zu:**", "overview": "Überblick", "architecture": "Architektur", "features": "Funktionen", "security": "Sicherheit", "interfaces": "Schnittstellen", "configuration": "Konfiguration", "quickstart": "Schnellstart", "testing": "Tests", "troubleshooting": "Probleme", "structure": "Struktur", "related": "Verwandte"},
+    "fr": {"prefix": "**Aller à :**", "overview": "Présentation", "architecture": "Architecture", "features": "Fonctionnalités", "security": "Sécurité", "interfaces": "Interfaces", "configuration": "Configuration", "quickstart": "Démarrage rapide", "testing": "Tests", "troubleshooting": "Dépannage", "structure": "Structure", "related": "Liés"},
+    "it": {"prefix": "**Vai a:**", "overview": "Panoramica", "architecture": "Architettura", "features": "Funzionalità", "security": "Sicurezza", "interfaces": "Interfacce", "configuration": "Configurazione", "quickstart": "Avvio rapido", "testing": "Test", "troubleshooting": "Problemi", "structure": "Struttura", "related": "Correlati"},
+    "ja": {"prefix": "**移動先：**", "overview": "概要", "architecture": "アーキテクチャ", "features": "機能", "security": "セキュリティ", "interfaces": "インターフェース", "configuration": "設定", "quickstart": "クイックスタート", "testing": "テスト", "troubleshooting": "トラブルシューティング", "structure": "構成", "related": "関連"},
+    "zh": {"prefix": "**跳转到：**", "overview": "概述", "architecture": "架构", "features": "功能", "security": "安全", "interfaces": "接口", "configuration": "配置", "quickstart": "快速开始", "testing": "测试", "troubleshooting": "故障排除", "structure": "结构", "related": "相关项目"},
+    "pt": {"prefix": "**Ir para:**", "overview": "Visão geral", "architecture": "Arquitetura", "features": "Funcionalidades", "security": "Segurança", "interfaces": "Interfaces", "configuration": "Configuração", "quickstart": "Início rápido", "testing": "Testes", "troubleshooting": "Problemas", "structure": "Estrutura", "related": "Relacionados"},
+}
+SECTION_NAMES: dict[str, dict[str, str]] = {
+    "en": {'overview': 'Overview', 'architecture': 'Architecture', 'features': 'Features', 'security': 'Security & Safety', 'interfaces': 'Interfaces', 'configuration': 'Configuration', 'quickstart': 'Quick start', 'testing': 'Testing', 'troubleshooting': 'Troubleshooting', 'structure': 'Repository Structure', 'related': 'Related Projects'},
+    "es": {'overview': 'Resumen', 'architecture': 'Arquitectura', 'features': 'Funciones', 'security': 'Seguridad y protección', 'interfaces': 'Interfaces', 'configuration': 'Configuración', 'quickstart': 'Inicio rápido', 'testing': 'Pruebas', 'troubleshooting': 'Resolución de problemas', 'structure': 'Estructura del repositorio', 'related': 'Proyectos relacionados'},
+    "de": {'overview': 'Überblick', 'architecture': 'Architektur', 'features': 'Funktionen', 'security': 'Sicherheit und Schutz', 'interfaces': 'Schnittstellen', 'configuration': 'Konfiguration', 'quickstart': 'Schnellstart', 'testing': 'Tests', 'troubleshooting': 'Fehlerbehebung', 'structure': 'Struktur des Repositorys', 'related': 'Verwandte Projekte'},
+    "fr": {'overview': 'Présentation', 'architecture': 'Architecture', 'features': 'Fonctionnalités', 'security': 'Sécurité et protection', 'interfaces': 'Interfaces', 'configuration': 'Configuration', 'quickstart': 'Démarrage rapide', 'testing': 'Tests', 'troubleshooting': 'Dépannage', 'structure': 'Structure du dépôt', 'related': 'Projets liés'},
+    "it": {'overview': 'Panoramica', 'architecture': 'Architettura', 'features': 'Funzionalità', 'security': 'Sicurezza e protezione', 'interfaces': 'Interfacce', 'configuration': 'Configurazione', 'quickstart': 'Avvio rapido', 'testing': 'Test', 'troubleshooting': 'Risoluzione dei problemi', 'structure': 'Struttura del repository', 'related': 'Progetti correlati'},
+    "ja": {'overview': '概要', 'architecture': 'アーキテクチャ', 'features': '機能', 'security': 'セキュリティと安全', 'interfaces': 'インターフェース', 'configuration': '設定', 'quickstart': 'クイックスタート', 'testing': 'テスト', 'troubleshooting': 'トラブルシューティング', 'structure': 'リポジトリの構成', 'related': '関連プロジェクト'},
+    "zh": {'overview': '概述', 'architecture': '架构', 'features': '功能', 'security': '安全与防护', 'interfaces': '接口', 'configuration': '配置', 'quickstart': '快速开始', 'testing': '测试', 'troubleshooting': '故障排除', 'structure': '仓库结构', 'related': '相关项目'},
+    "pt": {'overview': 'Visão geral', 'architecture': 'Arquitetura', 'features': 'Funcionalidades', 'security': 'Segurança e proteção', 'interfaces': 'Interfaces', 'configuration': 'Configuração', 'quickstart': 'Início rápido', 'testing': 'Testes', 'troubleshooting': 'Resolução de problemas', 'structure': 'Estrutura do repositório', 'related': 'Projetos relacionados'},
+}
+JUMP_ICONS = (("overview", "🎯"), ("architecture", "🏛"), ("features", "✨"), ("security", "🔒"), ("interfaces", "🔌"), ("configuration", "⚙"), ("quickstart", "🚀"),
+              ("testing", "🧪"), ("troubleshooting", "🩺"), ("structure", "📂"), ("related", "🔗"))
+
+
+def _slug(title: str) -> str:
+    return re.sub(r"[^\w\- ]", "", title.lower()).replace(" ", "-")
+
+
+def jump_line(code: str, text: str) -> str | None:
+    """The "Jump to" line for the sections of this README, or None when the README is not in the universal layout."""
+    lines, _ = _split(text)
+    found: dict[str, str] = {}
+    for index in _headings(lines):
+        match = re.match(r"^## (\S+)\s+(.*?)\s*$", lines[index])
+        if not match:
+            continue
+        icon, title = match.group(1).replace("\ufe0f", ""), match.group(2)
+        for key, wanted in JUMP_ICONS:
+            if icon == wanted and title == SECTION_NAMES[code][key]:
+                found[key] = title
+    if "architecture" not in found:
+        return None
+    labels = JUMP_LABELS[code]
+    items = [f"[{labels[key]}](#-{_slug(found[key])})" for key, _ in JUMP_ICONS if key in found]
+    return labels["prefix"] + " " + " · ".join(items)
+
+
+def with_jump(section: str, code: str, text: str) -> str:
+    """The section followed by the "Jump to" line when the README has the universal layout."""
+    line = jump_line(code, text)
+    return section if line is None else section + line + "\n\n"
+
+
 
 class GlanceError(Exception):
     """Something the table cannot be written from (unknown key, missing manifest, bad data file)."""
@@ -363,7 +418,7 @@ def apply_repo(repo: Path, entry: dict) -> list[str]:
     for code, section in expected_sections(repo, entry).items():
         path = readme_path(repo, code)
         original = path.read_bytes().decode("utf-8")
-        updated = apply_to_text(original, section)
+        updated = apply_to_text(original, with_jump(section, code, original))
         if updated != original:
             path.write_bytes(updated.encode("utf-8"))
             changed.append(path.name)
@@ -378,6 +433,7 @@ def check_repo(repo: Path, entry: dict) -> list[str]:
         if not path.is_file():
             problems.append(f"{repo.name}/{path.name}: the file is missing")
             continue
-        for problem in check_text(path.read_bytes().decode("utf-8"), section):
+        current = path.read_bytes().decode("utf-8")
+        for problem in check_text(current, with_jump(section, code, current)):
             problems.append(f"{repo.name}/{path.name}: {problem}")
     return problems

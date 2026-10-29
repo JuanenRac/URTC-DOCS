@@ -134,3 +134,18 @@ def test_the_command_applies_then_checks_a_workspace(tmp_path: Path, capsys):
     assert cli.make_glance([*arguments, "--apply", "--repo", "URTC-X"]) == 0
     assert "`3.0.0`" in (repo / "README_jpn.md").read_text(encoding="utf-8")
     assert cli.make_glance([*arguments, "--repo", "URTC-NOPE"]) == 1
+
+
+def test_the_jump_line_follows_the_names_of_the_universal_layout_and_only_there():
+    universal = "# T\n\n## 📋 At a glance\n\n| | |\n\n## 🎯 Overview\n\nx\n\n## 🏛️ Architecture\n\ny\n\n## 🔗 Related Projects\n\nz\n"
+    line = glance.jump_line("en", universal)
+    assert line == "**Jump to:** [Overview](#-overview) · [Architecture](#-architecture) · [Related](#-related-projects)"
+    assert glance.jump_line("es", universal.replace("Architecture", "Arquitectura")) is not None
+    assert glance.jump_line("en", README) is None   # an old README has no Architecture section: no line
+    for code in glance.LANGUAGE_FILES:
+        assert set(glance.JUMP_LABELS[code]) == set(glance.JUMP_LABELS["en"]), code
+        assert set(glance.SECTION_NAMES[code]) == set(glance.SECTION_NAMES["en"]), code
+    written = glance.apply_to_text(universal, glance.with_jump(section(), "en", universal))
+    assert written.count("**Jump to:**") == 1
+    assert glance.apply_to_text(written, glance.with_jump(section(), "en", written)) == written   # idempotent
+    assert glance.check_text(written, glance.with_jump(section(), "en", written)) == []

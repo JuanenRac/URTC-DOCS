@@ -28,7 +28,7 @@ def test_every_language_has_the_same_rows_and_the_same_lights():
 def test_the_section_of_this_repository_is_a_valid_table_in_every_language():
     for code in status.UI:
         section = status.render_own(code)
-        assert section.startswith("## 💡 ") and section.endswith("\n\n")
+        assert section.startswith("## 🚦 ") and section.endswith("\n\n")
         assert status.check_text(README + "\n" + section) == [], code
         assert len(status.lights(section)) == len(status.OWN_ROWS[code])
 

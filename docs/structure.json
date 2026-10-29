@@ -1,0 +1,431 @@
+{
+  "repo": "URTC-DOCS",
+  "ecosystem": "urtc",
+  "svg": "en",
+  "cards": [
+    {
+      "name": "docs/",
+      "span": 1,
+      "accent": "a",
+      "tree": {
+        "en": "architecture, interfaces, capability matrix, security baseline, threat model and the generated catalogue",
+        "es": "arquitectura, interfaces, matriz de capacidades, base de seguridad, modelo de amenazas y el catálogo generado",
+        "de": "Architektur, Schnittstellen, Fähigkeitenmatrix, Sicherheitsbasis, Bedrohungsmodell und der erzeugte Katalog",
+        "fr": "architecture, interfaces, matrice des capacités, socle de sécurité, modèle de menaces et catalogue généré",
+        "it": "architettura, interfacce, matrice delle capacità, base di sicurezza, modello delle minacce e catalogo generato",
+        "zh": "架构、接口、能力矩阵、安全基线、威胁模型和生成的目录",
+        "ja": "アーキテクチャ、インターフェース、機能マトリクス、セキュリティ基準、脅威モデル、生成されたカタログ",
+        "pt": "arquitetura, interfaces, matriz de capacidades, base de segurança, modelo de ameaças e o catálogo gerado"
+      },
+      "rows": [
+        {
+          "name": "CAPABILITY_MATRIX.md",
+          "desc": {
+            "en": "what is proven and what is not",
+            "es": "qué está probado y qué no",
+            "de": "was belegt ist und was nicht",
+            "fr": "ce qui est prouvé et ce qui ne l'est pas",
+            "it": "che cosa è provato e che cosa no",
+            "zh": "哪些已证明、哪些没有",
+            "ja": "証明済みのものとそうでないもの",
+            "pt": "o que está provado e o que não está"
+          }
+        },
+        {
+          "name": "SECURITY_BASELINE.md",
+          "desc": {
+            "en": "what the code enforces",
+            "es": "lo que el código impone",
+            "de": "was der Code durchsetzt",
+            "fr": "ce que le code impose",
+            "it": "ciò che il codice impone",
+            "zh": "代码强制执行的内容",
+            "ja": "コードが強制する内容",
+            "pt": "o que o código impõe"
+          }
+        },
+        {
+          "name": "PROJECT_CATALOG.md",
+          "desc": {
+            "en": "every repository, from its manifest",
+            "es": "cada repositorio, desde su manifiesto",
+            "de": "jedes Repository, aus seinem Manifest",
+            "fr": "chaque dépôt, depuis son manifeste",
+            "it": "ogni repository, dal suo manifesto",
+            "zh": "每个仓库，来自其清单",
+            "ja": "各リポジトリ（マニフェストから）",
+            "pt": "cada repositório, a partir do seu manifesto"
+          }
+        }
+      ]
+    },
+    {
+      "name": "src/urtc_docs/",
+      "span": 1,
+      "accent": "b",
+      "tree": {
+        "en": "the tools as a package: catalogue, brand, READMEs, At a glance, status, checks",
+        "es": "las herramientas como paquete: catálogo, marca, README, De un vistazo, estado y comprobaciones",
+        "de": "die Werkzeuge als Paket: Katalog, Marke, READMEs, Auf einen Blick, Status, Prüfungen",
+        "fr": "les outils sous forme de paquet : catalogue, marque, README, En un coup d'œil, état, contrôles",
+        "it": "gli strumenti come pacchetto: catalogo, marchio, README, In breve, stato, controlli",
+        "zh": "以软件包形式提供的工具：目录、品牌、README、速览、状态和检查",
+        "ja": "パッケージとしてのツール：カタログ、ブランド、README、ひと目で、状況、検査",
+        "pt": "as ferramentas como pacote: catálogo, marca, README, Num relance, estado, verificações"
+      },
+      "rows": [
+        {
+          "name": "glance.py  status.py",
+          "desc": {
+            "en": "the tables of every README",
+            "es": "las tablas de cada README",
+            "de": "die Tabellen jedes READMEs",
+            "fr": "les tableaux de chaque README",
+            "it": "le tabelle di ogni README",
+            "zh": "每个 README 的表格",
+            "ja": "各 README の表",
+            "pt": "as tabelas de cada README"
+          }
+        },
+        {
+          "name": "readmes.py",
+          "desc": {
+            "en": "the READMEs of this repository",
+            "es": "los README de este repositorio",
+            "de": "die READMEs dieses Repositorys",
+            "fr": "les README de ce dépôt",
+            "it": "i README di questo repository",
+            "zh": "本仓库的 README",
+            "ja": "このリポジトリの README",
+            "pt": "os README deste repositório"
+          }
+        },
+        {
+          "name": "claims.py  drift.py",
+          "desc": {
+            "en": "claims and shared files",
+            "es": "afirmaciones y archivos compartidos",
+            "de": "Aussagen und geteilte Dateien",
+            "fr": "affirmations et fichiers partagés",
+            "it": "affermazioni e file condivisi",
+            "zh": "声明与共用文件",
+            "ja": "主張と共有ファイル",
+            "pt": "afirmações e ficheiros partilhados"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tools/",
+      "span": 1,
+      "accent": "c",
+      "tree": {
+        "en": "thin scripts over the package, check_all.sh and the shared CI checks",
+        "es": "scripts finos sobre el paquete, check_all.sh y las comprobaciones de CI compartidas",
+        "de": "dünne Skripte über dem Paket, check_all.sh und die gemeinsamen CI-Prüfungen",
+        "fr": "scripts légers au-dessus du paquet, check_all.sh et les contrôles de CI partagés",
+        "it": "script sottili sopra il pacchetto, check_all.sh e i controlli di CI condivisi",
+        "zh": "封装在软件包之上的轻量脚本、check_all.sh 以及共用的 CI 检查",
+        "ja": "パッケージの上の薄いスクリプト、check_all.sh、共有 CI チェック",
+        "pt": "scripts finos sobre o pacote, check_all.sh e as verificações de CI partilhadas"
+      },
+      "rows": [
+        {
+          "name": "make_catalog.py",
+          "desc": {
+            "en": "writes the catalogue",
+            "es": "escribe el catálogo",
+            "de": "schreibt den Katalog",
+            "fr": "écrit le catalogue",
+            "it": "scrive il catalogo",
+            "zh": "生成目录",
+            "ja": "カタログを書き出す",
+            "pt": "escreve o catálogo"
+          }
+        },
+        {
+          "name": "check_all.sh",
+          "desc": {
+            "en": "one line per repository",
+            "es": "una línea por repositorio",
+            "de": "eine Zeile je Repository",
+            "fr": "une ligne par dépôt",
+            "it": "una riga per repository",
+            "zh": "每个仓库一行",
+            "ja": "リポジトリごとに 1 行",
+            "pt": "uma linha por repositório"
+          }
+        }
+      ]
+    },
+    {
+      "name": "data/ template/ tests/ brand/ images/ .github/",
+      "kind": "group",
+      "span": 3,
+      "columns": 2,
+      "rows": [
+        {
+          "name": "data/",
+          "desc": {
+            "en": "the numbers of At a glance and the reviewed claims",
+            "es": "los números de De un vistazo y las afirmaciones revisadas",
+            "de": "die Zahlen von Auf einen Blick und die geprüften Aussagen",
+            "fr": "les chiffres d'En un coup d'œil et les affirmations relues",
+            "it": "i numeri di In breve e le affermazioni riviste",
+            "zh": "速览中的数字和已审阅的声明",
+            "ja": "ひと目での数値と確認済みの主張",
+            "pt": "os números de Num relance e as afirmações revistas"
+          }
+        },
+        {
+          "name": "template/",
+          "desc": {
+            "en": "the canonical copy of the files every repository shares",
+            "es": "la copia canónica de los archivos que comparten todos los repositorios",
+            "de": "die kanonische Kopie der Dateien, die alle Repositorys teilen",
+            "fr": "la copie canonique des fichiers que partagent tous les dépôts",
+            "it": "la copia canonica dei file che ogni repository condivide",
+            "zh": "各仓库共用文件的标准副本",
+            "ja": "全リポジトリが共有するファイルの正本",
+            "pt": "a cópia canónica dos ficheiros que todos os repositórios partilham"
+          }
+        },
+        {
+          "name": "tests/",
+          "desc": {
+            "en": "unit tests of the tools",
+            "es": "pruebas unitarias de las herramientas",
+            "de": "Unit-Tests der Werkzeuge",
+            "fr": "tests unitaires des outils",
+            "it": "test unitari degli strumenti",
+            "zh": "工具的单元测试",
+            "ja": "ツールのユニットテスト",
+            "pt": "testes unitários das ferramentas"
+          }
+        },
+        {
+          "name": "brand/",
+          "desc": {
+            "en": "the icon",
+            "es": "el icono",
+            "de": "das Symbol",
+            "fr": "l'icône",
+            "it": "l'icona",
+            "zh": "图标",
+            "ja": "アイコン",
+            "pt": "o ícone"
+          }
+        },
+        {
+          "name": "images/",
+          "desc": {
+            "en": "banner and the pictures of this README",
+            "es": "banner e imágenes de este README",
+            "de": "Banner und Bilder dieses READMEs",
+            "fr": "bannière et images de ce README",
+            "it": "banner e immagini di questo README",
+            "zh": "横幅和本 README 的图片",
+            "ja": "バナーとこの README の画像",
+            "pt": "faixa e imagens deste README"
+          }
+        },
+        {
+          "name": ".github/",
+          "desc": {
+            "en": "CI workflow, issue and pull-request templates",
+            "es": "flujo de CI y plantillas de issues y pull requests",
+            "de": "CI-Workflow sowie Vorlagen für Issues und Pull Requests",
+            "fr": "workflow de CI et modèles d'issues et de pull requests",
+            "it": "workflow di CI e modelli per issue e pull request",
+            "zh": "CI 工作流以及 Issue 和 Pull Request 模板",
+            "ja": "CI ワークフローと Issue・プルリクエストのテンプレート",
+            "pt": "fluxo de CI e modelos de issues e pull requests"
+          }
+        }
+      ]
+    },
+    {
+      "name": {
+        "en": "Files at the root",
+        "es": "Archivos de la raíz",
+        "de": "Dateien im Wurzelverzeichnis",
+        "fr": "Fichiers à la racine",
+        "it": "File nella radice",
+        "zh": "根目录文件",
+        "ja": "ルートのファイル",
+        "pt": "Ficheiros na raiz"
+      },
+      "kind": "group",
+      "span": 3,
+      "columns": 2,
+      "rows": [
+        {
+          "name": "build.sh  build.bat",
+          "desc": {
+            "en": "build scripts",
+            "es": "scripts de compilación",
+            "de": "Build-Skripte",
+            "fr": "scripts de compilation",
+            "it": "script di compilazione",
+            "zh": "构建脚本",
+            "ja": "ビルドスクリプト",
+            "pt": "scripts de compilação"
+          },
+          "tree_name": "build.sh build.bat"
+        },
+        {
+          "name": "build-test.sh  build-test.bat",
+          "desc": {
+            "en": "build and test scripts that change nothing in the repository",
+            "es": "scripts de compilación y pruebas que no cambian nada en el repositorio",
+            "de": "Build- und Testskripte, die im Repository nichts ändern",
+            "fr": "scripts de compilation et de test qui ne changent rien dans le dépôt",
+            "it": "script di compilazione e test che non cambiano nulla nel repository",
+            "zh": "构建并测试的脚本，不会修改仓库内容",
+            "ja": "リポジトリを変更しないビルド・テストのスクリプト",
+            "pt": "scripts de compilação e testes que não alteram nada no repositório"
+          },
+          "tree_name": "build-test.sh build-test.bat"
+        },
+        {
+          "name": "test.sh  test.bat",
+          "desc": {
+            "en": "run the tests",
+            "es": "ejecutan las pruebas",
+            "de": "führen die Tests aus",
+            "fr": "lancent les tests",
+            "it": "eseguono i test",
+            "zh": "运行测试",
+            "ja": "テストを実行",
+            "pt": "executam os testes"
+          },
+          "tree_name": "test.sh test.bat"
+        },
+        {
+          "name": "run.sh  run.bat",
+          "desc": {
+            "en": "start the program",
+            "es": "arrancan el programa",
+            "de": "starten das Programm",
+            "fr": "lancent le programme",
+            "it": "avviano il programma",
+            "zh": "启动程序",
+            "ja": "プログラムを起動",
+            "pt": "arrancam o programa"
+          },
+          "tree_name": "run.sh run.bat"
+        },
+        {
+          "name": "urtc.project.json",
+          "desc": {
+            "en": "manifest: version, role, maturity and build command",
+            "es": "manifiesto: versión, papel, madurez y comando de compilación",
+            "de": "Manifest: Version, Rolle, Reifegrad und Build-Befehl",
+            "fr": "manifeste : version, rôle, maturité et commande de compilation",
+            "it": "manifesto: versione, ruolo, maturità e comando di compilazione",
+            "zh": "清单：版本、角色、成熟度和构建命令",
+            "ja": "マニフェスト：バージョン、役割、成熟度、ビルドコマンド",
+            "pt": "manifesto: versão, papel, maturidade e comando de compilação"
+          }
+        },
+        {
+          "name": "CHANGELOG.md",
+          "desc": {
+            "en": "what changed in each version",
+            "es": "qué cambió en cada versión",
+            "de": "was sich in jeder Version geändert hat",
+            "fr": "ce qui a changé à chaque version",
+            "it": "che cosa è cambiato in ogni versione",
+            "zh": "每个版本的变更",
+            "ja": "各バージョンの変更内容",
+            "pt": "o que mudou em cada versão"
+          }
+        },
+        {
+          "name": "SECURITY.md  SUPPORT.md",
+          "tree_name": "SECURITY.md SUPPORT.md",
+          "desc": {
+            "en": "security policy and support",
+            "es": "política de seguridad y soporte",
+            "de": "Sicherheitsrichtlinie und Support",
+            "fr": "politique de sécurité et assistance",
+            "it": "politica di sicurezza e supporto",
+            "zh": "安全政策和支持",
+            "ja": "セキュリティポリシーとサポート",
+            "pt": "política de segurança e suporte"
+          }
+        },
+        {
+          "name": "CONTRIBUTING.md  CODE_OF_CONDUCT.md",
+          "desc": {
+            "en": "how to contribute and the code of conduct",
+            "es": "cómo contribuir y código de conducta",
+            "de": "wie man mitwirkt, und der Verhaltenskodex",
+            "fr": "comment contribuer et code de conduite",
+            "it": "come contribuire e codice di condotta",
+            "zh": "如何参与贡献和行为准则",
+            "ja": "貢献方法と行動規範",
+            "pt": "como contribuir e código de conduta"
+          },
+          "tree_name": "CONTRIBUTING.md CODE_OF_CONDUCT.md"
+        },
+        {
+          "name": ".gitattributes  .gitignore",
+          "desc": {
+            "en": "Git settings",
+            "es": "ajustes de Git",
+            "de": "Git-Einstellungen",
+            "fr": "réglages Git",
+            "it": "impostazioni di Git",
+            "zh": "Git 设置",
+            "ja": "Git の設定",
+            "pt": "definições do Git"
+          },
+          "tree_name": ".gitattributes .gitignore"
+        },
+        {
+          "name": "bump.py  bump_version.py  bump_manifest_version.py",
+          "desc": {
+            "en": "scripts that raise the version",
+            "es": "scripts que suben la versión",
+            "de": "Skripte, die die Version erhöhen",
+            "fr": "scripts qui augmentent la version",
+            "it": "script che alzano la versione",
+            "zh": "提升版本号的脚本",
+            "ja": "バージョンを上げるスクリプト",
+            "pt": "scripts que sobem a versão"
+          },
+          "tree_name": "bump.py bump_version.py bump_manifest_version.py"
+        },
+        {
+          "name": "LICENSE  LICENSE.md",
+          "tree_name": "LICENSE LICENSE.md",
+          "desc": {
+            "en": "software license and documentation license",
+            "es": "licencia del software y de la documentación",
+            "de": "Software- und Dokumentationslizenz",
+            "fr": "licence du logiciel et de la documentation",
+            "it": "licenza del software e della documentazione",
+            "zh": "软件许可证和文档许可证",
+            "ja": "ソフトウェアとドキュメントのライセンス",
+            "pt": "licença do software e da documentação"
+          }
+        },
+        {
+          "name": "pyproject.toml  requirements-dev.lock  ruff.toml",
+          "tree_name": "pyproject.toml requirements-dev.lock ruff.toml",
+          "desc": {
+            "en": "package, locked tools and lint settings",
+            "es": "paquete, herramientas fijadas y ajustes de lint",
+            "de": "Paket, festgelegte Werkzeuge und Lint-Einstellungen",
+            "fr": "paquet, outils figés et réglages de lint",
+            "it": "pacchetto, strumenti bloccati e impostazioni di lint",
+            "zh": "软件包、锁定的工具和 lint 设置",
+            "ja": "パッケージ、固定されたツール、lint 設定",
+            "pt": "pacote, ferramentas fixadas e definições de lint"
+          }
+        }
+      ]
+    }
+  ]
+}

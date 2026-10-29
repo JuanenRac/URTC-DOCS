@@ -4,6 +4,7 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The README of this repository follows the universal layout in the eight languages,** written by `tools/make_readmes.py`: Project status is the second section, and Architecture and Repository Structure are drawn from `docs/architecture.json` and `docs/structure.json` by the shared picture tools, which every repository of the family now carries (and the template holds). `tools/make_glance.py` also writes the "Jump to" line that follows the At a glance table once a README has the Architecture section.
 - **The layout of the README is checked in the CI:** the validator runs `tools/universal_readme_check.py` and lists, as a warning, what differs from the universal layout of the README.
 
 - **The At a glance and Project status checks follow the universal layout:** Project status may sit right after At a glance with the traffic-light icon (the shared README sections put it there), and the marker comment that opens it is not read as part of the At a glance table.

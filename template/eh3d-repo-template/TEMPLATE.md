@@ -8,6 +8,7 @@ written `<REPO>` here and replaced by the real name when a file is put into a re
 | `tools/_doc_policy.py` | the documentation policy check |
 | `tools/_readme_parity.py` | the check that the eight READMEs have the same sections and links |
 | `tools/_tracked_names.py` | the check for versioned files named like a Windows path |
+| `tools/pretty_run.py` | the live panel of the build and test scripts (a line per step, the number of tests, a summary) |
 | `bump_manifest_version.py` | the manifest version bumper |
 | `.github/workflows/dashboard-dispatch.yml` | the notice to the central dashboard, sent after a green CI on `main` |
 

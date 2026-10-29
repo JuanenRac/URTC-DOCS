@@ -29,6 +29,7 @@ SHARED_FILES: tuple[str, ...] = (
     "bump_manifest_version.py",
     ".github/workflows/dashboard-dispatch.yml",
     "tools/_tracked_names.py",
+    "tools/pretty_run.py",
 )
 
 _PLACEHOLDER = "<REPO>"

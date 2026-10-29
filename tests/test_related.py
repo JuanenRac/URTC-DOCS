@@ -45,3 +45,12 @@ def test_check_and_apply_on_a_workspace(tmp_path):
     assert cli.make_related([*base, "--apply"]) == 0
     assert cli.make_related([*base, "--check"]) == 0
     assert cli.make_related([*base, "--repo", "URTC-NOPE", "--check"]) == 1
+
+@pytest.mark.parametrize("code", sorted(related.FILES))
+def test_every_repository_has_one_line_in_every_language(code):
+    from urtc_docs.readme_related_text import DESCRIPTIONS
+
+    assert set(DESCRIPTIONS[code]) == all_names()
+    out = "\n".join(related.apply_to_text(SAMPLE, code, "URTC"). split("\n"))
+    for name, line in DESCRIPTIONS[code].items():
+        assert line and "\n" not in line and f" - {line}" in out

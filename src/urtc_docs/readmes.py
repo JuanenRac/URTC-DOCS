@@ -21,6 +21,7 @@ from .readme_claims_text import COMMENT as CLAIMS_COMMENT, NOTE as CLAIMS_NOTE, 
 from .readme_drift_text import COMMENT as DRIFT_COMMENT, TOOLS as DRIFT_TOOLS
 from .readme_doctor_text import COMMENT as DOCTOR_COMMENT, TOOLS as DOCTOR_TOOLS
 from .readme_family import FAMILY_REPOS
+from .readme_related_text import DESCRIPTIONS
 from .readme_text import LANGUAGES, TEXT
 from .readme_universal_text import CONTRIBUTING, ICONS, LANGUAGES_TEXT, ROADMAP, SECTION_NAMES, TESTING
 
@@ -63,14 +64,12 @@ def related_lines(code: str, name: str) -> list[str]:
     """The body of Related Projects for the repository `name`, ending with a blank line: the family by group, then the sister projects."""
     text = TEXT[code]
     out = [str(text["related_intro"]), ""]
+    lines_of = DESCRIPTIONS[code]
     for family_name, names_in_family in FAMILY_REPOS:
-        entries = []
+        out.append(f"* **{family_name}:**")
         for member in names_in_family:
-            if member == name:
-                entries.append(f"**{member}** ({text['related_this']})")
-            else:
-                entries.append(f"[{member}]({URL.format(name=member)})")
-        out.append(f"* **{family_name}:** " + ", ".join(entries))
+            label = f"**{member}** ({text['related_this']})" if member == name else f"[{member}]({URL.format(name=member)})"
+            out.append(f"  * {label} - {lines_of[member]}")
     out += ["", f"**{text['related_beyond']}**", ""]
     for other, url, description in cast("list[tuple[str, str, str]]", text["beyond"]):
         out.append(f"* **[{other}]({url})** - {description}")

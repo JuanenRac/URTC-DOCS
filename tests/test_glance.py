@@ -66,6 +66,15 @@ def test_a_stale_section_is_rewritten_in_place_not_duplicated():
     assert "`0.2.0`" in twice and "`0.1.0`" not in twice and twice.count("## 📋") == 1
 
 
+def test_the_marker_of_the_shared_section_that_follows_is_not_part_of_the_section():
+    """Project status sits right after At a glance, opened by a marker comment: rewriting the table must keep it, and it must not make the table look stale."""
+    marked = glance.apply_to_text(README, section()).replace("## Overview", "<!-- urtc-section:status_x -->\n## 🚦 Project status\n\nrows\n<!-- /urtc-section:status_x -->\n\n## Overview", 1)
+    assert glance.check_text(marked, section()) == []
+    newer = glance.render_section("en", make_manifest("X", version="0.2.0"), ENTRY)
+    rewritten = glance.apply_to_text(marked, newer)
+    assert "<!-- urtc-section:status_x -->\n## 🚦 Project status" in rewritten and "`0.2.0`" in rewritten and rewritten.count("## 📋") == 1
+
+
 def test_crlf_files_stay_crlf_and_lf_files_stay_lf():
     crlf = README.replace("\n", "\r\n")
     out = glance.apply_to_text(crlf, section())

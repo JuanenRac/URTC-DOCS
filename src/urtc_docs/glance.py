@@ -311,6 +311,9 @@ def locate(lines: list[str]) -> tuple[int | None, int | None, int | None]:
         if heading and heading.group(1) in ALL_HEADINGS:
             start = index
             end = headings[position + 1] if position + 1 < len(headings) else len(lines)
+            # a shared section that follows (Project status) opens with a marker comment right above its heading: it is not part of this one
+            while end - 1 > index and lines[end - 1].startswith("<!-- ") and lines[end - 1].rstrip().endswith("-->"):
+                end -= 1
             break
     others = [index for index in headings if index != start]
     return start, end, (others[0] if others else None)

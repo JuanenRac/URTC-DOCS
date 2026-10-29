@@ -21,7 +21,7 @@ from . import glance
 
 LIGHTS = ("🟢", "🟡", "🟠", "🔴")
 MIN_ROWS = 3
-HEADING = re.compile(r"^## 💡 \S")
+HEADING = re.compile(r"^## (?:💡|🚦) \S")   # the shared sections write it with the traffic-light icon (universal layout); this repository's own README still has the bulb
 ANY_H2 = re.compile(r"^## ")
 FENCE = re.compile(r"^\s*(```|~~~)")
 

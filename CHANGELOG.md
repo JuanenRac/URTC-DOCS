@@ -4,6 +4,7 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The numbers of At a glance and the reviewed claims follow the new READMEs of the family:** the test counts of the repositories that state them (718, 153, 500, 79, 467, 183, 425, 560 and 531 tests) are in `data/glance.json`, and the sentences about security and safety that the new Security & Safety sections add were read and entered in `data/claims_reviewed.json`.
 - **The README of this repository follows the universal layout in the eight languages,** written by `tools/make_readmes.py`: Project status is the second section, and Architecture and Repository Structure are drawn from `docs/architecture.json` and `docs/structure.json` by the shared picture tools, which every repository of the family now carries (and the template holds). `tools/make_glance.py` also writes the "Jump to" line that follows the At a glance table once a README has the Architecture section.
 - **The layout of the README is checked in the CI:** the validator runs `tools/universal_readme_check.py` and lists, as a warning, what differs from the universal layout of the README.
 

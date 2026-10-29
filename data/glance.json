@@ -7,7 +7,7 @@
     "URTC-COMMON": {
       "hardware": "simulated",
       "tests": {
-        "count": 713
+        "count": 718
       }
     },
     "URTC-DOCS": {
@@ -19,7 +19,8 @@
     "URTC-FLASHER": {
       "hardware": "simulated",
       "tests": {
-        "count": 515
+        "count": 500,
+        "command": "python -m pytest tests -q"
       }
     },
     "URTC-GATEWAY": {
@@ -30,21 +31,40 @@
     },
     "URTC-SMART-RACK": {
       "hardware": "not_run",
-      "target": "board"
+      "target": "board",
+      "tests": {
+        "count": 467
+      }
     },
     "URTC-TESTER": {
-      "hardware": "simulated"
+      "hardware": "simulated",
+      "tests": {
+        "count": 531,
+        "command": "python -m pytest -q"
+      }
     },
     "URTC-UPDATER": {
-      "hardware": "not_applicable"
+      "hardware": "not_applicable",
+      "tests": {
+        "count": 425,
+        "command": "python -m pytest"
+      }
     },
     "URTC-VISION-TOOL": {
       "hardware": "not_run",
-      "target": "board"
+      "target": "board",
+      "tests": {
+        "count": 183,
+        "command": "pytest"
+      }
     },
     "URTC-WEB-STUDIO": {
       "hardware": "simulated",
-      "target": "browser"
+      "target": "browser",
+      "tests": {
+        "count": 560,
+        "command": "npm test"
+      }
     }
   }
 }

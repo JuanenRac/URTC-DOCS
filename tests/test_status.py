@@ -36,11 +36,11 @@ def test_the_section_of_this_repository_is_a_valid_table_in_every_language():
 def test_check_says_what_is_wrong():
     good = status.render_own("en")
     assert status.check_text(README) == ["the 'Project status' section is missing"]
-    assert any("not 'ok'" in p or "only a light" in p for p in status.check_text(README + good.replace("| 🟢 |", "| ok |", 1)))
-    assert any("Status column must hold only a light" in p for p in status.check_text(README + good.replace("| 🟢 | The test", "| 🟢 done | The test")))
+    assert any("not 'ok'" in p or "only a light" in p for p in status.check_text(README + good.replace("| 🟡 |", "| ok |", 1)))
+    assert any("Status column must hold only a light" in p for p in status.check_text(README + good.replace("| 🟡 | The test", "| 🟡 done | The test")))
     short = "## 💡 Project status\n\nlegend\n\n| Part | Status | Note |\n| --- | :---: | --- |\n| A | 🟡 | note |\n"
     assert any("at least" in p for p in status.check_text(README + short))
-    empty_note = good.replace("| 🟢 | The test suite passes in the CI, on Linux and on Windows, on every push. |", "| 🟢 |  |")
+    empty_note = good.replace("| 🟡 | The test suite passes in the CI, on Linux and on Windows, on every push. |", "| 🟡 |  |")
     assert any("does not have a part" in p for p in status.check_text(README + empty_note))
 
 

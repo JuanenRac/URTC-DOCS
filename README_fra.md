@@ -44,7 +44,7 @@
 | Partie | État | Ce que le dépôt peut démontrer |
 | --- | :---: | --- |
 | Logiciel | 🟡 | Les générateurs du catalogue, de la marque et des README, et les vérifications de la publication, des affirmations et de la famille, tournent sur un ordinateur ; aucun matériel impliqué. |
-| Tests | 🟢 | La suite de tests passe dans la CI, sous Linux et sous Windows, à chaque push. |
+| Tests | 🟡 | La suite de tests passe dans la CI, sous Linux et sous Windows, à chaque push. |
 | Vérifications sur toute la famille | 🟡 | L'exécution de nuit récupère chaque dépôt de la famille et compare leurs tableaux de synthèse, leurs affirmations et la structure du catalogue ; une version périmée dans le catalogue est signalée mais ne fait pas échouer la nuit. |
 | Documents de sécurité | 🟡 | La base de sécurité et le modèle de menaces sont écrits à partir des autres dépôts tels qu'ils ont été lus ; personne en dehors du projet ne les a relus. |
 | Documentation | 🟡 | README en huit langues et documents de référence ; les traductions n'ont pas été relues par des locuteurs natifs. |

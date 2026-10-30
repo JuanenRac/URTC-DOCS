@@ -33,6 +33,7 @@ SHARED_FILES: tuple[str, ...] = (
     "tools/_readme_svg.py",
     "tools/make_architecture.py",
     "tools/make_structure.py",
+    "tools/status_lights.py",
 )
 
 _PLACEHOLDER = "<REPO>"

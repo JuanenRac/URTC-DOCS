@@ -103,6 +103,13 @@ TEMPLATE_NAME = "eh3d-repo-template"
 TEMPLATE_DIR = Path(__file__).resolve().parents[2] / "template" / TEMPLATE_NAME
 
 
+def source_dir(workspace: Path) -> Path:
+    """Where the canonical files come from: ``files/`` of URTC-DEVTOOLS when that repository is next to the others (it is the source of the set),
+    otherwise the template kept here, which only stays so that this repository can check itself alone (for example in CI)."""
+    devtools = workspace / "URTC-DEVTOOLS" / "files"
+    return devtools if devtools.is_dir() else TEMPLATE_DIR
+
+
 def template_text(relative: str, template_dir: Path | None = None) -> str | None:
     """The canonical text of a shared file (the name of the repository written as <REPO>), or None when the template has none."""
     path = (template_dir or TEMPLATE_DIR) / relative

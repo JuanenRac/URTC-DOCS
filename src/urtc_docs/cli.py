@@ -242,7 +242,7 @@ def check_repo_tools(argv: list[str] | None = None) -> int:
     parser.add_argument("--workspace", help="the folder that holds the repositories (default: the parent of this repository)")
     args = parser.parse_args(argv)
     workspace = _workspace(args)
-    found, count = drift.check_workspace(workspace, template_dir=drift.TEMPLATE_DIR if workspace.resolve() == REPO.resolve().parent else None)
+    found, count = drift.check_workspace(workspace, template_dir=drift.source_dir(workspace) if workspace.resolve() == REPO.resolve().parent else None)
     if count < 2:
         message = f"fewer than two repositories of the ecosystem were found in {workspace}"
         if args.require_siblings:
@@ -263,12 +263,12 @@ def check_repo_tools(argv: list[str] | None = None) -> int:
 
 
 def sync_repo_tools(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="sync_repo_tools.py", description="Put the canonical copy of every shared file (template/eh3d-repo-template) into the repositories next to this one and, when URTC-DEVTOOLS is next to them, write tools/devtools.lock.json (the version of the set and the SHA-256 of each file). Without --apply it only lists what would change.")
+    parser = argparse.ArgumentParser(prog="sync_repo_tools.py", description="Put the canonical copy of every shared file (files/ of URTC-DEVTOOLS when it is next to this repository, otherwise template/eh3d-repo-template) into the repositories next to this one and, when URTC-DEVTOOLS is next to them, write tools/devtools.lock.json (the version of the set and the SHA-256 of each file). Without --apply it only lists what would change.")
     parser.add_argument("--apply", action="store_true", help="write the files (the line endings of each copy are kept)")
     parser.add_argument("--workspace", help="the folder that holds the repositories (default: the parent of this repository)")
     args = parser.parse_args(argv)
     workspace = _workspace(args)
-    items = drift.plan_sync(workspace, template_dir=drift.TEMPLATE_DIR)
+    items = drift.plan_sync(workspace, template_dir=drift.source_dir(workspace))
     items += drift.plan_locks(workspace, items)
     items += drift.plan_locks(workspace, items)
     for item in items:

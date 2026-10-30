@@ -190,3 +190,9 @@ def test_the_check_command_reports_the_lock_problems(tmp_path, capsys):
     put(ws / "URTC-A", "tools/devtools.lock.json", "{}")
     assert cli.check_repo_tools(["--workspace", str(ws)]) == 1
     assert "devtools.lock.json" in capsys.readouterr().err
+
+
+def test_the_source_of_the_shared_files_is_urtc_devtools_when_it_is_next_to_the_repositories(tmp_path):
+    assert drift.source_dir(tmp_path) == drift.TEMPLATE_DIR
+    (tmp_path / "URTC-DEVTOOLS" / "files").mkdir(parents=True)
+    assert drift.source_dir(tmp_path) == tmp_path / "URTC-DEVTOOLS" / "files"

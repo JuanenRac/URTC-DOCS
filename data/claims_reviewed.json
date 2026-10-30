@@ -1,16 +1,14 @@
 {
  "reviewed": {
   "*": {
-   "0a28eafebde8": "— iOS/iPadOS control app (Flutter) with real-time WebSocket sync.",
+   "091ee9a5265d": "architecture, interfaces, security baseline and generated catalogue of the ecosystem, plus the tools that comp",
    "19df42ee4a6f": "how to report a vulnerability, and this project's own real security focus areas.",
-   "21c5810d1c26": "— web control dashboard with real-time multi-robot 3D visualization.",
-   "25f4e9b361b2": "— a gateway in front of the CAN bus that lets only listed identifiers through, limits their rate and asks for ",
+   "3deb99ce3f47": "sister project: the documentation hub of A.R.M.O.R., the security ecosystem, also independent and on the same ",
+   "3e72520983cc": "gateway in front of the CAN bus: lets only listed identifiers through, limits their rate and asks for a sessio",
    "416cfb6dbbca": "🔒 Security & Safety",
-   "5b10e71477f5": "— real forward kinematics and joint-limit validation over a real URDF subset.",
    "5bbc7070d092": "Jump to: Overview · Architecture · Features · Security · Interfaces · Quick start · Testing · Structure · Rela",
    "667ee408d2dc": "SECURITY.md",
-   "7c6d999c3b51": "Report a vulnerability privately: SECURITY.md.",
-   "ecd0a62c2932": "— real procedural 2D scene generator with YOLO/COCO annotation export."
+   "7c6d999c3b51": "Report a vulnerability privately: SECURITY.md."
   },
   "URTC": {
    "0422ae7f3835": "Dedicated inputs for reflective optical proximity sensors like the TCRT5000, plus a generic active-low endstop",
@@ -18,9 +16,6 @@
    "cdd84258c26d": "PCB Advanced Inspection: thermal imaging (MLX9064x-family array - all 3 family members, MLX90640/MLX90641/MLX9",
    "e2651c733589": "The master sends the expected HMAC-SHA256 signature as four frames (8 bytes each, in order)",
    "fab5f62863cd": "Signature."
-  },
-  "URTC-COMMON": {
-   "76913d540948": "the same idea for the A.R.M.O.R. security ecosystem"
   },
   "URTC-FLASHER": {
    "1ba4c30df686": "Specific verify-failure reasons: if verification fails during a CAN update, sends a reason byte alongside stat",
@@ -31,8 +26,8 @@
   },
   "URTC-GATEWAY": {
    "1794eaf69028": "Rate limit: a token bucket per identifier and for the whole link, and a harder one for an unlocked dangerous i",
+   "39c3d72fb733": "(this repository) - gateway in front of the CAN bus: lets only listed identifiers through, limits their rate a",
    "6aef6d90aaf5": "Jump to: Overview · Architecture · Security · Interfaces · Configuration · Quick start · Testing · Structure ·",
-   "76913d540948": "the same idea for the A.R.M.O.R. security ecosystem",
    "787f8ddd8a13": "A gateway in front of the CAN bus: the identifiers a host may send, a rate limit and a session key",
    "928cfd52e54c": "Stack | Python / CAN / HMAC",
    "94db5f474bf2": "A recorded message is sent again | The session key: an HMAC over a nonce of the connection, a counter that mus",
@@ -49,7 +44,6 @@
    "327c4d86725f": "sequential batch actions built from the same live state and safety path.",
    "69381d120c8a": "Maturity | Established",
    "6fe3075c1a89": "Jump to: Overview · Architecture · Security · Interfaces · Quick start · Testing · Troubleshooting · Structure",
-   "9fa0a4ce65cd": "— the architecture, interfaces, security baseline, capability matrix and generated project catalogue of the ec",
    "a650c5b9d252": "Updates | 🟡 | Installs from signed packages with a rollback; tried on a PC only."
   },
   "URTC-WEB-STUDIO": {

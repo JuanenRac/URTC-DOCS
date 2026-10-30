@@ -17,12 +17,13 @@ Every repository of the ecosystem, written by `tools/make_catalog.py` from the `
 * Regenerate with `python tools/make_catalog.py` (the repositories must sit next to this one); `--check` fails when the table is stale and `--check-structure` fails only when a repository appeared or disappeared or changed kind.
 
 <!-- catalog:begin -->
-**10 repositories** in 2 families: 3 scaffolding, 6 functional, 1 established.
+**11 repositories** in 2 families: 4 scaffolding, 6 functional, 1 established.
 
 ### Ecosystem Operations
 
 | Repository | Version | Maturity | Role | Stack | Target | Parent | What it is |
 |---|---|---|---|---|---|---|---|
+| [URTC-DEVTOOLS](https://github.com/JuanenRac/URTC-DEVTOOLS) | 0.0.1 | Scaffolding | tool | python | user-pc | - | The shared repository tools of the family (README and documentation checks, picture generators, version bumper) as one versioned set with a lock file; no repository has taken the lock yet. |
 | [URTC-DOCS](https://github.com/JuanenRac/URTC-DOCS) | 0.1.2 | Scaffolding | tool | python | user-pc | - | Architecture, interfaces, security baseline, capability matrix and generated project catalogue of the ecosystem, plus the tools that compare all repositories. |
 | [URTC-UPDATER](https://github.com/JuanenRac/URTC-UPDATER) | 0.1.9 | Established | tool | python | user-pc | - | Finds the ecosystem repositories on a machine from their manifests and installs or updates them after an explicit confirmation. |
 
@@ -30,7 +31,7 @@ Every repository of the ecosystem, written by `tools/make_catalog.py` from the `
 
 | Repository | Version | Maturity | Role | Stack | Target | Parent | What it is |
 |---|---|---|---|---|---|---|---|
-| [URTC](https://github.com/JuanenRac/URTC) | 0.4.1 | Functional | firmware | firmware-c | mcu | - | Firmware of the tool-head board (STM32F303, 25 tool profiles, CAN bootloader, expansion slave) and the CAN protocol reference; no populated board exists yet. |
+| [URTC](https://github.com/JuanenRac/URTC) | 0.4.2 | Functional | firmware | firmware-c | mcu | - | Firmware of the tool-head board (STM32F303, 25 tool profiles, CAN bootloader, expansion slave) and the CAN protocol reference; no populated board exists yet. |
 | [URTC-COMMON](https://github.com/JuanenRac/URTC-COMMON) | 0.0.9 | Scaffolding | library | python | user-pc | - | The CAN protocol as data: a specification with generated C, TypeScript and Python code, conformance vectors and the Python transports; nothing uses it yet. |
 | [URTC-GATEWAY](https://github.com/JuanenRac/URTC-GATEWAY) | 0.0.3 | Scaffolding | tool | python | user-pc | - | Gateway in front of the CAN bus: the identifiers a host may send (made from the specification), a payload check, a rate limit and a session key, each one switchable; tested on the host only. |
 | [URTC-SMART-RACK](https://github.com/JuanenRac/URTC-SMART-RACK) | 0.2.2 | Functional | firmware | firmware-c | user-pc | - | Hardware-independent C logic and rack command protocol for a tool rack with pre-heating and lifecycle tracking; no board exists yet. |

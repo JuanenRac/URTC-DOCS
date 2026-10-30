@@ -4,6 +4,7 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The shared tools have a lock file:** `tools/sync_repo_tools.py` writes `tools/devtools.lock.json` in each repository (the version of the set and the SHA-256 of every shared file it carries) when URTC-DEVTOOLS, the repository that now versions the set, is next to the repositories, and `tools/check_repo_tools.py` compares the lock with the files (an edited copy, a missing file, a file the lock does not list) and with the version of the set (a copy that fell behind). A repository without a lock is not an error yet. URTC-DEVTOOLS is listed in Related Projects, the catalogue and the map of the ecosystem.
 - **`status_lights.py` is a shared file of the family:** the template carries it, `check_repo_tools` compares the copies, and the validator of every repository fails when a light of the Project status table is above what the manifest (`maturity`, `evidence`) allows; the own table of this repository follows it.
 - **A design note on packaging the shared repository tooling:** `docs/REPOSITORY_TOOLING.md` says what the repositories copy today, what is wrong with copies, the options (copies, a package from git, a subtree or submodule, a package index) and a proposal that keeps the copies and adds a version and a lock file to the set; it is a note, nothing is built, and the copies shared with the sister ecosystems stay out of any change made in one place.
 

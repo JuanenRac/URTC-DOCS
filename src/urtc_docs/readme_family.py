@@ -29,6 +29,7 @@ FAMILY_REPOS: tuple[tuple[str, tuple[str, ...]], ...] = (
     (
         "Ecosystem Operations",
         (
+            "URTC-DEVTOOLS",
             "URTC-DOCS",
             "URTC-UPDATER",
         ),

@@ -49,6 +49,10 @@ If the number of copies keeps growing, the least risky step is not to remove the
 
 This keeps what works (a repository stands alone), and adds what is missing (a version for the set and a way to tell a copy that was edited from one that is behind). It needs one new repository and a change of two tools; it does not need a package index, a submodule or a network at build time.
 
+## What exists now
+
+The repository `URTC-DEVTOOLS` holds the files of `SHARED_FILES` under `files/`, with the version of the repository as the version of the set and its own changelog. `tools/sync_repo_tools.py` writes `tools/devtools.lock.json` (the format is in the documentation of that repository) and `tools/check_repo_tools.py` compares it with the files and with the version of the set. The template of this repository (`template/eh3d-repo-template`) is still the source the synchroniser reads; the two are compared by a test of URTC-DEVTOOLS when both are next to each other. No other repository has taken the lock yet, and the copies shared with the sister ecosystems have not moved.
+
 ## Not decided
 
 * Whether the tools repository is public or stays inside the template repository as a folder with a version.

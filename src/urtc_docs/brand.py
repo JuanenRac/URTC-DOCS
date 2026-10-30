@@ -32,6 +32,7 @@ NODES: dict[str, tuple[int, int, str]] = {
     "URTC-COMMON": (600, 3, "the CAN protocol as data"),
     "URTC-GATEWAY": (1000, 3, "filters the frames to the bus"),
     "URTC-UPDATER": (350, 4, "reads the manifests"),
+    "URTC-DEVTOOLS": (600, 4, "the shared tools, versioned"),
     "URTC-DOCS": (850, 4, "this repository"),
 }
 SOLID_ON_BUS = ("URTC", "URTC-FLASHER", "URTC-TESTER", "URTC-WEB-STUDIO")

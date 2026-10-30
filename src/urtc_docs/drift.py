@@ -19,7 +19,7 @@ from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 
-from . import family
+from . import devtools_lock, family
 
 # Relative to the root of each repository. The community templates under .github/ are written by the central
 # synchronisation of the profile repository and are not compared here.
@@ -149,3 +149,24 @@ def plan_sync(workspace: Path, files: tuple[str, ...] = SHARED_FILES, template_d
 def apply_sync(items: list[SyncItem]) -> None:
     for item in items:
         item.path.write_bytes(item.new_text.encode("utf-8"))
+
+
+def plan_locks(workspace: Path, items: list[SyncItem], files: tuple[str, ...] = SHARED_FILES) -> list[SyncItem]:
+    """The lock file (``tools/devtools.lock.json``) each repository should have once ``items`` are written: the version of the set (the one of
+    URTC-DEVTOOLS next to the repositories) and the hash of every shared file it carries. Nothing is planned when URTC-DEVTOOLS is not there to name the version."""
+    version = devtools_lock.set_version(workspace)
+    if version is None:
+        return []
+    planned: list[SyncItem] = []
+    for repo in family.discover(workspace):
+        overrides = {item.file: item.new_text for item in items if item.repository == repo.name}
+        hashes = devtools_lock.hashes_of(repo, files, overrides)
+        if not hashes:
+            continue
+        path = repo / devtools_lock.LOCK_FILE
+        current = path.read_bytes().decode("utf-8", errors="replace") if path.is_file() else None
+        newline = "\r\n" if current is not None and "\r\n" in current else "\n"
+        wanted = devtools_lock.render(version, hashes)
+        if current is None or current.replace("\r\n", "\n") != wanted:
+            planned.append(SyncItem(repo.name, devtools_lock.LOCK_FILE, path, wanted.replace("\n", newline), newline))
+    return planned

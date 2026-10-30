@@ -10,7 +10,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import __version__, brand, catalog, claims, doctor as doctor_module, drift, family, glance, publication, readmes, related, status
+from . import __version__, brand, catalog, claims, devtools_lock, doctor as doctor_module, drift, family, glance, publication, readmes, related, status
 
 REPO = Path(__file__).resolve().parents[2]
 CATALOG_FILE = REPO / "docs" / "PROJECT_CATALOG.md"
@@ -252,20 +252,25 @@ def check_repo_tools(argv: list[str] | None = None) -> int:
         return 0
     for item in found:
         print(f"{item.repository}/{item.file}: {item.detail}", file=sys.stderr)
-    if found:
-        print(f"REPO_TOOLS=FAIL {len(found)} copy(ies) differ from the others ({count} repositories, {len(drift.SHARED_FILES)} shared files)", file=sys.stderr)
+    lock_problems, locked = devtools_lock.check_workspace(workspace, family.discover(workspace), drift.SHARED_FILES)
+    for repository, problem in lock_problems:
+        print(f"{repository}/{devtools_lock.LOCK_FILE}: {problem}", file=sys.stderr)
+    if found or lock_problems:
+        print(f"REPO_TOOLS=FAIL {len(found)} copy(ies) differ from the others and {len(lock_problems)} lock problem(s) ({count} repositories, {len(drift.SHARED_FILES)} shared files)", file=sys.stderr)
         return 1
-    print(f"REPO_TOOLS=PASS {len(drift.SHARED_FILES)} shared files are the same in {count} repositories")
+    print(f"REPO_TOOLS=PASS {len(drift.SHARED_FILES)} shared files are the same in {count} repositories; {locked} carry a lock")
     return 0
 
 
 def sync_repo_tools(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="sync_repo_tools.py", description="Put the canonical copy of every shared file (template/eh3d-repo-template) into the repositories next to this one. Without --apply it only lists what would change.")
+    parser = argparse.ArgumentParser(prog="sync_repo_tools.py", description="Put the canonical copy of every shared file (template/eh3d-repo-template) into the repositories next to this one and, when URTC-DEVTOOLS is next to them, write tools/devtools.lock.json (the version of the set and the SHA-256 of each file). Without --apply it only lists what would change.")
     parser.add_argument("--apply", action="store_true", help="write the files (the line endings of each copy are kept)")
     parser.add_argument("--workspace", help="the folder that holds the repositories (default: the parent of this repository)")
     args = parser.parse_args(argv)
     workspace = _workspace(args)
     items = drift.plan_sync(workspace, template_dir=drift.TEMPLATE_DIR)
+    items += drift.plan_locks(workspace, items)
+    items += drift.plan_locks(workspace, items)
     for item in items:
         print(f"{item.repository}/{item.file}: {'written' if args.apply else 'would be written'}")
     if args.apply:

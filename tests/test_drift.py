@@ -6,10 +6,11 @@
 """The shared-file check: the copies may differ in the name of their repository and nothing else."""
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from conftest import write_repo
-from urtc_docs import cli, drift
+from urtc_docs import cli, devtools_lock, drift
 
 
 def put(repo: Path, relative: str, text: str) -> None:
@@ -117,3 +118,75 @@ def test_the_real_template_covers_every_shared_file():
     for relative in drift.SHARED_FILES:
         assert drift.template_text(relative) is not None, relative
     assert (drift.TEMPLATE_DIR / "TEMPLATE.md").is_file()
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# The lock: the version of the set of shared tools and the hash of each file a repository carries.
+# ---------------------------------------------------------------------------------------------------------------
+def _locked_workspace(tmp_path: Path, version: str = "0.0.1") -> tuple[Path, Path]:
+    template = tmp_path / "tpl"
+    put(template, "tools/_x.py", "# <REPO>\nprint(1)\n")
+    ws = tmp_path / "ws"
+    ws.mkdir()
+    write_repo(ws, "URTC-DEVTOOLS", version=version)
+    _workspace(ws, {"URTC-A": "# URTC-A\nprint(0)\n", "URTC-B": "# URTC-B\r\nprint(1)\r\n"})
+    return ws, template
+
+
+def _take_the_set(ws: Path, template: Path) -> None:
+    items = drift.plan_sync(ws, ("tools/_x.py",), template)
+    drift.apply_sync(items + drift.plan_locks(ws, items, ("tools/_x.py",)))
+
+
+def test_the_sync_writes_a_lock_with_the_version_of_the_set_and_the_hash_of_what_the_file_becomes(tmp_path):
+    ws, template = _locked_workspace(tmp_path)
+    items = drift.plan_sync(ws, ("tools/_x.py",), template)
+    locks = drift.plan_locks(ws, items, ("tools/_x.py",))
+    assert sorted(item.repository for item in locks) == ["URTC-A", "URTC-B"]
+    drift.apply_sync(items + locks)
+    lock = json.loads((ws / "URTC-A" / "tools" / "devtools.lock.json").read_text(encoding="utf-8"))
+    assert lock["version"] == "0.0.1" and lock["source"] == "URTC-DEVTOOLS"
+    assert lock["files"] == {"tools/_x.py": devtools_lock.digest("# URTC-A\nprint(1)\n")}
+    # the CRLF copy is hashed as the same text with newlines
+    assert json.loads((ws / "URTC-B" / "tools" / "devtools.lock.json").read_text(encoding="utf-8"))["files"] == {"tools/_x.py": devtools_lock.digest("# URTC-B\nprint(1)\n")}
+    assert drift.plan_locks(ws, drift.plan_sync(ws, ("tools/_x.py",), template), ("tools/_x.py",)) == []
+
+
+def test_no_lock_is_planned_when_the_tools_repository_is_not_there_to_name_the_version(tmp_path):
+    ws = tmp_path / "ws"
+    ws.mkdir()
+    _workspace(ws, {"URTC-A": "# URTC-A\nprint(0)\n"})
+    assert drift.plan_locks(ws, [], ("tools/_x.py",)) == []
+
+
+def test_the_check_finds_an_edited_copy_a_missing_file_and_a_copy_that_fell_behind(tmp_path):
+    ws, template = _locked_workspace(tmp_path)
+    _take_the_set(ws, template)
+    repos = [ws / "URTC-A", ws / "URTC-B"]
+    assert devtools_lock.check_workspace(ws, repos, ("tools/_x.py",)) == ([], 2)
+    put(ws / "URTC-A", "tools/_x.py", "# URTC-A\nedited\n")
+    (ws / "URTC-B" / "tools" / "_x.py").unlink()
+    problems, locked = devtools_lock.check_workspace(ws, repos, ("tools/_x.py",))
+    assert locked == 2
+    assert ("URTC-A", "tools/_x.py: edited after the set was taken (it differs from the lock)") in problems
+    assert ("URTC-B", "tools/_x.py: in the lock but missing") in problems
+    (ws / "URTC-DEVTOOLS" / "urtc.project.json").write_text(json.dumps({"version": "0.0.2"}), encoding="utf-8")
+    behind, _ = devtools_lock.check_workspace(ws, repos, ("tools/_x.py",))
+    assert any("URTC-DEVTOOLS is at '0.0.2'" in problem for _repo, problem in behind)
+
+
+def test_a_repository_without_a_lock_is_not_a_failure_yet_and_an_unreadable_lock_is(tmp_path):
+    ws, _template = _locked_workspace(tmp_path)
+    repos = [ws / "URTC-A", ws / "URTC-B"]
+    assert devtools_lock.check_workspace(ws, repos, ("tools/_x.py",)) == ([], 0)
+    put(ws / "URTC-A", "tools/devtools.lock.json", "not json")
+    problems, locked = devtools_lock.check_workspace(ws, repos, ("tools/_x.py",))
+    assert locked == 1 and problems and "cannot be read" in problems[0][1]
+
+
+def test_the_check_command_reports_the_lock_problems(tmp_path, capsys):
+    ws, template = _locked_workspace(tmp_path)
+    _take_the_set(ws, template)
+    put(ws / "URTC-A", "tools/devtools.lock.json", "{}")
+    assert cli.check_repo_tools(["--workspace", str(ws)]) == 1
+    assert "devtools.lock.json" in capsys.readouterr().err

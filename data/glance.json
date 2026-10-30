@@ -10,6 +10,13 @@
         "count": 718
       }
     },
+    "URTC-DEVTOOLS": {
+      "hardware": "not_applicable",
+      "tests": {
+        "count": 15,
+        "command": "python -m unittest discover -s tests"
+      }
+    },
     "URTC-DOCS": {
       "hardware": "not_applicable",
       "tests": {

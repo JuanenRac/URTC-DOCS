@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented here.
 
+## [Unreleased]
+
+- **A design note on packaging the shared repository tooling:** `docs/REPOSITORY_TOOLING.md` says what the repositories copy today, what is wrong with copies, the options (copies, a package from git, a subtree or submodule, a package index) and a proposal that keeps the copies and adds a version and a lock file to the set; it is a note, nothing is built, and the copies shared with the sister ecosystems stay out of any change made in one place.
+
 ## [0.1.2] - Related projects with a line for each repository, the nightly checks and the universal README
 
 - **Related Projects lists the URTC family:** the section names the repositories of URTC by group, each with one short line about what it is for, and, in one short line each, the sister projects (independent ecosystems of the same author that share the base and the tools), in the eight languages. It no longer says that URTC is part of another ecosystem. The section is written from one text and one list: `tools/make_related.py` puts it in the READMEs of the other repositories of the family (`--check` fails when one differs, and the nightly run does it), and `docs/ARCHITECTURE.md` describes HYDRA-UMC as a sister project.

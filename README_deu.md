@@ -30,7 +30,7 @@
 |---|---|
 | Version | `0.1.2` |
 | Reifegrad | Gerüst |
-| Tests | 178 |
+| Tests | 183 |
 | Technik | Markdown / Mermaid / Python / SVG |
 | Ziel | Der PC der Person, die es benutzt |
 | Auf echter Hardware | Nicht zutreffend: nichts hiervon läuft auf Hardware |
@@ -97,7 +97,7 @@ python -m pytest tests -q                            # die Unit-Tests der Werkze
 
 ## 🧪 Tests
 
-Die Suite hat 178 Tests (`python -m pytest tests -q`). Sie führen die Generatoren für Katalog, Marke, Auf-einen-Blick-Tabellen, Statustabellen und READMEs auf Testdaten aus, die Prüfungen von Aussagen, geteilten Dateien, Veröffentlichung und den Doctor, die Konformitätsvektoren der CAN-Notizen und stellen sicher, dass die READMEs dieses Repositorys genau das sind, was der Generator schreibt.
+Die Suite hat 183 Tests (`python -m pytest tests -q`). Sie führen die Generatoren für Katalog, Marke, Auf-einen-Blick-Tabellen, Statustabellen und READMEs auf Testdaten aus, die Prüfungen von Aussagen, geteilten Dateien, Veröffentlichung und den Doctor, die Konformitätsvektoren der CAN-Notizen und stellen sicher, dass die READMEs dieses Repositorys genau das sind, was der Generator schreibt.
 
 ## 🏗️ Build und Veröffentlichung
 

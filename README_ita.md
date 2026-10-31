@@ -30,7 +30,7 @@
 |---|---|
 | Versione | `0.1.2` |
 | Maturità | Impalcatura |
-| Test | 178 |
+| Test | 183 |
 | Tecnologia | Markdown / Mermaid / Python / SVG |
 | Destinazione | Il PC di chi lo usa |
 | Su hardware reale | Non applicabile: nulla qui gira su hardware |
@@ -97,7 +97,7 @@ python -m pytest tests -q                            # i test unitari degli stru
 
 ## 🧪 Test
 
-La suite ha 178 test (`python -m pytest tests -q`). Eseguono su dati di prova i generatori del catalogo, del marchio, delle tabelle In breve, delle tabelle di stato e dei README, i controlli di affermazioni, file condivisi, pubblicazione e il doctor, i vettori di conformità delle note CAN, e verificano che i README di questo repository siano esattamente ciò che scrive il generatore.
+La suite ha 183 test (`python -m pytest tests -q`). Eseguono su dati di prova i generatori del catalogo, del marchio, delle tabelle In breve, delle tabelle di stato e dei README, i controlli di affermazioni, file condivisi, pubblicazione e il doctor, i vettori di conformità delle note CAN, e verificano che i README di questo repository siano esattamente ciò che scrive il generatore.
 
 ## 🏗️ Compilazione e rilascio
 

@@ -30,7 +30,7 @@
 |---|---|
 | Version | `0.1.2` |
 | Maturité | Ébauche |
-| Tests | 178 |
+| Tests | 183 |
 | Technologie | Markdown / Mermaid / Python / SVG |
 | Cible | Le PC de la personne qui l'utilise |
 | Sur matériel réel | Sans objet : rien ici ne s'exécute sur du matériel |
@@ -97,7 +97,7 @@ python -m pytest tests -q                            # les tests unitaires des o
 
 ## 🧪 Tests
 
-La suite compte 178 tests (`python -m pytest tests -q`). Ils exécutent sur des jeux d'essai les générateurs du catalogue, de la marque, des tableaux En un coup d'œil, des tableaux d'état et des README, les contrôles des affirmations, des fichiers partagés, de la publication et le doctor, les vecteurs de conformité des notes CAN, et vérifient que les README de ce dépôt sont exactement ce qu'écrit le générateur.
+La suite compte 183 tests (`python -m pytest tests -q`). Ils exécutent sur des jeux d'essai les générateurs du catalogue, de la marque, des tableaux En un coup d'œil, des tableaux d'état et des README, les contrôles des affirmations, des fichiers partagés, de la publication et le doctor, les vecteurs de conformité des notes CAN, et vérifient que les README de ce dépôt sont exactement ce qu'écrit le générateur.
 
 ## 🏗️ Compilation et publication
 

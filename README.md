@@ -30,7 +30,7 @@
 |---|---|
 | Version | `0.1.2` |
 | Maturity | Scaffolding |
-| Tests | 178 |
+| Tests | 183 |
 | Stack | Markdown / Mermaid / Python / SVG |
 | Target | The PC of the person using it |
 | On real hardware | Not applicable: nothing here runs on hardware |
@@ -97,7 +97,7 @@ python -m pytest tests -q                            # the unit tests of the too
 
 ## 🧪 Testing
 
-The suite has 178 tests (`python -m pytest tests -q`). They run the generators of the catalogue, the brand, the At a glance tables, the status tables and the READMEs on fixtures, the checks of the claims, the shared files, the publication and the doctor, the conformance vectors of the CAN notes, and check that the READMEs of this repository are exactly what the generator writes.
+The suite has 183 tests (`python -m pytest tests -q`). They run the generators of the catalogue, the brand, the At a glance tables, the status tables and the READMEs on fixtures, the checks of the claims, the shared files, the publication and the doctor, the conformance vectors of the CAN notes, and check that the READMEs of this repository are exactly what the generator writes.
 
 ## 🏗️ Build & Release
 

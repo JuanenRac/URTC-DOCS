@@ -69,7 +69,7 @@ A desk analysis of who could do what to the URTC ecosystem, what stops them toda
 
 | # | Scenario | What stops it | Kind | What does not |
 |---|---|---|---|---|
-| R1 | The GitHub account or a repository is compromised and a malicious commit is published. | The updater asks for an explicit confirmation of each project action, builds in a staging directory and keeps a backup; with `require` it refuses an unsigned candidate before reading the manifest. | setting | By default (`warn`) an unsigned commit is installed with a warning, and the build script runs on the user's PC. |
+| R1 | The GitHub account or a repository is compromised and a malicious commit is published. | The updater asks for an explicit confirmation of each project action, builds in a staging directory and keeps a backup; by default (`require`) it refuses an unsigned candidate before reading the manifest and shows the commit, author, signature and changed build scripts before the build check runs. Without a window or a terminal to ask it fails closed. | setting | Both protections can be lowered on purpose (`signature_policy: warn`, `confirm_before_build: false`, or an explicit unattended answer), and then an unsigned commit is installed and the build script runs on the user's PC. A signed commit from a compromised account still passes the signature check. |
 | R2 | The dashboard installs a changed updater. | The profile workflow installs the updaters from a fixed revision. | code | The pins are moved by hand. |
 | R3 | A private key, address or note reaches a public file. | The public/private boundary check in each CI, the `.gitignore` rule for `.env` files, and `tools/publication_check.py` (with `--history` for removed lines). | code | A secret with no recognisable shape; the check says it proves nothing about absence. |
 | R4 | An operator edits a generated file (catalogue, README, banner) and it drifts. | The unit tests and `--check` modes compare the generated files with their source. | code | Nothing prevents the edit, only its survival. |
@@ -95,7 +95,7 @@ What changed: every README says what is planned and what has only been tested ag
 1. The bus carries unauthenticated commands for devices that can burn or injure; the only mitigation is the installation (R1-R5), which nothing verifies.
 2. The firmware signing key in use is the public development key.
 3. The scheme is symmetric, so physical access to one board is access to the signing key.
-4. The updater runs remote build scripts; the safer policy is opt-in.
+4. The updater runs remote build scripts; the safer policy (signed commits required, a question before the build check) is the default, but anyone who lowers it, or answers yes for unattended runs, accepts that the repository's scripts run with their permissions.
 5. Everything above is described for software that has never run on the board it is for. A first bring-up will test the watchdogs, the thermal guard, the bootloader copy and the interlock for the first time.
 
 ## Out of scope here

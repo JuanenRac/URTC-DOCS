@@ -7,7 +7,7 @@
     "URTC-COMMON": {
       "hardware": "simulated",
       "tests": {
-        "count": 948
+        "count": 1398
       }
     },
     "URTC-DEVTOOLS": {
@@ -26,7 +26,7 @@
     "URTC-FLASHER": {
       "hardware": "simulated",
       "tests": {
-        "count": 561,
+        "count": 602,
         "command": "python -m pytest tests -q"
       }
     },
@@ -46,7 +46,7 @@
     "URTC-TESTER": {
       "hardware": "simulated",
       "tests": {
-        "count": 597,
+        "count": 633,
         "command": "python -m pytest -q"
       }
     },

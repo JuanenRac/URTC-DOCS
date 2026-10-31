@@ -28,7 +28,7 @@
 
 | | |
 |---|---|
-| Versión | `0.1.2` |
+| Versión | `0.1.3` |
 | Madurez | Andamiaje |
 | Tests | 183 |
 | Tecnología | Markdown / Mermaid / Python / SVG |

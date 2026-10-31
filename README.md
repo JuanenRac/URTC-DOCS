@@ -28,7 +28,7 @@
 
 | | |
 |---|---|
-| Version | `0.1.2` |
+| Version | `0.1.3` |
 | Maturity | Scaffolding |
 | Tests | 183 |
 | Stack | Markdown / Mermaid / Python / SVG |

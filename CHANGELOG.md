@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented here.
 
-## [Unreleased]
+## [0.1.3] - The threat model and the security baseline follow the new defaults of the updater, the shared tools have a lock file and a design note covers packaging the shared tooling
 
 - **The threat model and the security baseline follow the updater's new defaults:** signed commits and the question before the build check are on by default, a run with nobody to ask fails closed, and the residual risk about remote build scripts says what lowering the protections means.
 - **The shared tools have a lock file:** `tools/sync_repo_tools.py` writes `tools/devtools.lock.json` in each repository (the version of the set and the SHA-256 of every shared file it carries) when URTC-DEVTOOLS, the repository that now versions the set, is next to the repositories, and `tools/check_repo_tools.py` compares the lock with the files (an edited copy, a missing file, a file the lock does not list) and with the version of the set (a copy that fell behind). A repository without a lock is not an error yet. URTC-DEVTOOLS is listed in Related Projects, the catalogue and the map of the ecosystem.

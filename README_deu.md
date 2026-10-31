@@ -28,7 +28,7 @@
 
 | | |
 |---|---|
-| Version | `0.1.2` |
+| Version | `0.1.3` |
 | Reifegrad | Gerüst |
 | Tests | 183 |
 | Technik | Markdown / Mermaid / Python / SVG |

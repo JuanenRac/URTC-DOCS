@@ -30,7 +30,7 @@
 |---|---|
 | Versão | `0.1.2` |
 | Maturidade | Estrutura inicial |
-| Testes | 153 |
+| Testes | 178 |
 | Tecnologia | Markdown / Mermaid / Python / SVG |
 | Destino | O PC de quem o usa |
 | Em hardware real | Não aplicável: nada aqui corre em hardware |
@@ -97,7 +97,7 @@ python -m pytest tests -q                            # os testes unitários das 
 
 ## 🧪 Testes
 
-O conjunto tem 153 testes (`python -m pytest tests -q`). Executam, sobre dados de teste, os geradores do catálogo, da marca, das tabelas Num relance, das tabelas de estado e dos README, as verificações de afirmações, ficheiros partilhados, publicação e o doctor, os vetores de conformidade das notas CAN, e verificam que os README deste repositório são exatamente o que o gerador escreve.
+O conjunto tem 178 testes (`python -m pytest tests -q`). Executam, sobre dados de teste, os geradores do catálogo, da marca, das tabelas Num relance, das tabelas de estado e dos README, as verificações de afirmações, ficheiros partilhados, publicação e o doctor, os vetores de conformidade das notas CAN, e verificam que os README deste repositório são exatamente o que o gerador escreve.
 
 ## 🏗️ Compilação e publicação
 

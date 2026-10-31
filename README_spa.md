@@ -30,7 +30,7 @@
 |---|---|
 | Versión | `0.1.2` |
 | Madurez | Andamiaje |
-| Tests | 153 |
+| Tests | 178 |
 | Tecnología | Markdown / Mermaid / Python / SVG |
 | Destino | El PC de quien lo usa |
 | En hardware real | No aplica: nada de esto se ejecuta en hardware |
@@ -97,7 +97,7 @@ python -m pytest tests -q                            # las pruebas unitarias de 
 
 ## 🧪 Pruebas
 
-La suite tiene 153 pruebas (`python -m pytest tests -q`). Ejecutan sobre ejemplos de prueba los generadores del catálogo, la marca, las tablas De un vistazo, las de estado y los README; las comprobaciones de afirmaciones, archivos compartidos, publicación y el doctor; los vectores de conformidad de las notas CAN, y comprueban que los README de este repositorio son exactamente lo que escribe el generador.
+La suite tiene 178 pruebas (`python -m pytest tests -q`). Ejecutan sobre ejemplos de prueba los generadores del catálogo, la marca, las tablas De un vistazo, las de estado y los README; las comprobaciones de afirmaciones, archivos compartidos, publicación y el doctor; los vectores de conformidad de las notas CAN, y comprueban que los README de este repositorio son exactamente lo que escribe el generador.
 
 ## 🏗️ Compilación y publicación
 

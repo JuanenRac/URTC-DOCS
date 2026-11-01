@@ -81,6 +81,15 @@ CAPTIONS = {
         "更新ウィンドウ：新しい署名付きパッケージは、確認した後にのみインストールされます。",
         "更新窗口：只有在你确认之后，才会安装较新的已签名软件包。",
         "A janela de atualizações: um pacote assinado mais recente só é instalado depois de o confirmar."),
+    "history": _c(
+        "The history window: every record the programs wrote about each board, newest first, each checked on its own, with a Signature column that says whether it is signed, by which of your keys, or not valid.",
+        "La ventana del historial: todos los registros que los programas escribieron de cada placa, el más reciente primero, cada uno comprobado por separado, con una columna Firma que dice si está firmado, con cuál de tus claves, o si no es válido.",
+        "Das Verlaufsfenster: alle Protokolle, die die Programme zu jeder Platine geschrieben haben, das neueste zuerst, jedes für sich geprüft, mit einer Spalte Signatur, die sagt, ob es signiert ist, mit welchem deiner Schlüssel, oder ob es ungültig ist.",
+        "La fenêtre de l'historique : tous les enregistrements que les programmes ont écrits pour chaque carte, le plus récent d'abord, chacun vérifié séparément, avec une colonne Signature qui dit s'il est signé, par laquelle de vos clés, ou s'il n'est pas valide.",
+        "La finestra della cronologia: tutti i record che i programmi hanno scritto per ogni scheda, il più recente per primo, ciascuno verificato a sé, con una colonna Firma che dice se è firmato, con quale delle tue chiavi, o se non è valido.",
+        "履歴ウィンドウ：各ボードについてプログラムが書いた記録を新しい順に表示し、それぞれを個別に検証します。署名列には、署名の有無、どの鍵で署名されたか、または無効かが表示されます。",
+        "历史窗口：程序为每块板子写下的所有记录，最新的在前，每条单独校验；“签名”列显示它是否已签名、由您的哪把密钥签名，或是否无效。",
+        "A janela do histórico: todos os registos que os programas escreveram sobre cada placa, o mais recente primeiro, cada um verificado por si, com uma coluna Assinatura que diz se está assinado, com qual das suas chaves, ou se não é válido."),
     "updater_deck": _c(
         "The window over a workspace with the family in it: every project with its maturity, stack and local version, and the safe update actions.",
         "La ventana sobre un espacio de trabajo con la familia: cada proyecto con su madurez, pila y versión local, y las acciones de actualización segura.",
@@ -148,8 +157,8 @@ CAPTIONS = {
 
 # repository -> [(file in images/screenshots/, caption key)]
 SHOTS = {
-    "URTC-FLASHER": [("deck", "flasher_deck"), ("heads", "heads"), ("help", "help"), ("updates", "updates")],
-    "URTC-TESTER": [("deck", "tester_deck"), ("heads", "heads"), ("help", "help"), ("updates", "updates")],
-    "URTC-UPDATER": [("deck", "updater_deck"), ("packages", "packages"), ("help", "help"), ("updates", "updates")],
+    "URTC-FLASHER": [("deck", "flasher_deck"), ("heads", "heads"), ("history", "history"), ("help", "help"), ("updates", "updates")],
+    "URTC-TESTER": [("deck", "tester_deck"), ("heads", "heads"), ("history", "history"), ("help", "help"), ("updates", "updates")],
+    "URTC-UPDATER": [("deck", "updater_deck"), ("packages", "packages"), ("history", "history"), ("help", "help"), ("updates", "updates")],
     "URTC-WEB-STUDIO": [("control", "web_control"), ("oled", "web_oled"), ("flasher", "web_flasher"), ("thermal", "web_thermal"), ("tester", "web_tester")],
 }

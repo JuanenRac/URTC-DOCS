@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/Format-Markdown-083fa1.svg" alt="Format">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
   <img src="https://img.shields.io/badge/Version-0.1.3-0f6cbd.svg" alt="Version">
-  <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
+  <img src="https://img.shields.io/badge/Maturity-functional-0F6CBD.svg" alt="Maturity">
 </p>
 
 ---
@@ -29,7 +29,7 @@
 | | |
 |---|---|
 | バージョン | `0.1.3` |
-| 成熟度 | 足場段階 |
+| 成熟度 | 機能する |
 | テスト | 184 |
 | 技術 | Markdown / Mermaid / Python / SVG |
 | 対象 | 利用者の PC |
@@ -43,8 +43,8 @@
 
 | 項目 | 状態 | リポジトリが示せること |
 | --- | :---: | --- |
-| ソフトウェア | 🟡 | カタログ、ブランド、README のジェネレーターと、公開前・主張・ファミリー全体の検査はコンピューター上で動作します。ハードウェアは関与しません。 |
-| テスト | 🟡 | テストスイートはプッシュごとに CI で、Linux と Windows の両方で通ります。 |
+| ソフトウェア | 🟢 | カタログ、ブランド、README のジェネレーターと、公開前・主張・ファミリー全体の検査はコンピューター上で動作します。ハードウェアは関与しません。 |
+| テスト | 🟢 | テストスイートはプッシュごとに CI で、Linux と Windows の両方で通ります。 |
 | ファミリー全体の検査 | 🟡 | 夜間の実行でファミリーのすべてのリポジトリを取得し、概要表、主張、カタログの構造を比較します。カタログのバージョンが古い場合は報告されますが、夜間の実行は失敗扱いになりません。 |
 | セキュリティ文書 | 🟡 | セキュリティの基準と脅威モデルは、読み取った時点の他のリポジトリをもとに書かれています。プロジェクト外の人によるレビューは受けていません。 |
 | ドキュメント | 🟡 | 8 言語の README と参照ドキュメントがあります。翻訳はネイティブによるレビューを受けていません。 |

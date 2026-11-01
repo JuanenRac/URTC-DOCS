@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/Format-Markdown-083fa1.svg" alt="Format">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
   <img src="https://img.shields.io/badge/Version-0.1.3-0f6cbd.svg" alt="Version">
-  <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
+  <img src="https://img.shields.io/badge/Maturity-functional-0F6CBD.svg" alt="Maturity">
 </p>
 
 ---
@@ -29,7 +29,7 @@
 | | |
 |---|---|
 | Versión | `0.1.3` |
-| Madurez | Andamiaje |
+| Madurez | Funcional |
 | Tests | 184 |
 | Tecnología | Markdown / Mermaid / Python / SVG |
 | Destino | El PC de quien lo usa |
@@ -43,8 +43,8 @@
 
 | Parte | Estado | Lo que el repositorio puede demostrar |
 | --- | :---: | --- |
-| Software | 🟡 | Los generadores del catálogo, de la marca y de los README, y las comprobaciones de la publicación, de las afirmaciones y de la familia, funcionan en un ordenador; no interviene hardware. |
-| Pruebas | 🟡 | La batería de pruebas pasa en la CI, en Linux y en Windows, en cada subida. |
+| Software | 🟢 | Los generadores del catálogo, de la marca y de los README, y las comprobaciones de la publicación, de las afirmaciones y de la familia, funcionan en un ordenador; no interviene hardware. |
+| Pruebas | 🟢 | La batería de pruebas pasa en la CI, en Linux y en Windows, en cada subida. |
 | Comprobaciones de toda la familia | 🟡 | La ejecución nocturna descarga cada repositorio de la familia y compara sus tablas resumen, afirmaciones y estructura del catálogo; una versión desfasada en el catálogo se avisa pero no hace fallar la noche. |
 | Documentos de seguridad | 🟡 | La base de seguridad y el modelo de amenazas se escriben a partir de los demás repositorios tal como se leyeron; nadie ajeno al proyecto los ha revisado. |
 | Documentación | 🟡 | README en ocho idiomas y documentos de referencia; las traducciones no las ha revisado ningún hablante nativo. |

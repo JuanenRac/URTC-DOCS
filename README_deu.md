@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/Format-Markdown-083fa1.svg" alt="Format">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
   <img src="https://img.shields.io/badge/Version-0.1.3-0f6cbd.svg" alt="Version">
-  <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
+  <img src="https://img.shields.io/badge/Maturity-functional-0F6CBD.svg" alt="Maturity">
 </p>
 
 ---
@@ -29,7 +29,7 @@
 | | |
 |---|---|
 | Version | `0.1.3` |
-| Reifegrad | Gerüst |
+| Reifegrad | Funktionsfähig |
 | Tests | 184 |
 | Technik | Markdown / Mermaid / Python / SVG |
 | Ziel | Der PC der Person, die es benutzt |
@@ -43,8 +43,8 @@
 
 | Teil | Status | Was das Repository belegen kann |
 | --- | :---: | --- |
-| Software | 🟡 | Die Generatoren für Katalog, Marke und READMEs sowie die Prüfungen von Veröffentlichung, Aussagen und Familie laufen auf einem Computer; keine Hardware beteiligt. |
-| Tests | 🟡 | Die Testsuite besteht bei jedem Push in der CI, unter Linux und unter Windows. |
+| Software | 🟢 | Die Generatoren für Katalog, Marke und READMEs sowie die Prüfungen von Veröffentlichung, Aussagen und Familie laufen auf einem Computer; keine Hardware beteiligt. |
+| Tests | 🟢 | Die Testsuite besteht bei jedem Push in der CI, unter Linux und unter Windows. |
 | Prüfungen über die Familie | 🟡 | Der nächtliche Lauf holt jedes Repository der Familie und vergleicht deren Übersichtstabellen, Aussagen und die Struktur des Katalogs; eine veraltete Version im Katalog wird gemeldet, lässt die Nacht aber nicht scheitern. |
 | Sicherheitsdokumente | 🟡 | Die Sicherheitsgrundlage und das Bedrohungsmodell sind aus den anderen Repositorys geschrieben, so wie sie gelesen wurden; niemand außerhalb des Projekts hat sie geprüft. |
 | Dokumentation | 🟡 | README in acht Sprachen und Referenzdokumente; die Übersetzungen wurden nicht von Muttersprachlern geprüft. |

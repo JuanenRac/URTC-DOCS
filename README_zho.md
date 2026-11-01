@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/Format-Markdown-083fa1.svg" alt="Format">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
   <img src="https://img.shields.io/badge/Version-0.1.3-0f6cbd.svg" alt="Version">
-  <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
+  <img src="https://img.shields.io/badge/Maturity-functional-0F6CBD.svg" alt="Maturity">
 </p>
 
 ---
@@ -29,7 +29,7 @@
 | | |
 |---|---|
 | 版本 | `0.1.3` |
-| 成熟度 | 雏形 |
+| 成熟度 | 可用 |
 | 测试 | 184 |
 | 技术栈 | Markdown / Mermaid / Python / SVG |
 | 目标 | 使用者的电脑 |
@@ -43,8 +43,8 @@
 
 | 部分 | 状态 | 仓库能够证明的内容 |
 | --- | :---: | --- |
-| 软件 | 🟡 | 目录、品牌和 README 的生成器，以及发布、声明和整个系列的检查，都在电脑上运行；不涉及硬件。 |
-| 测试 | 🟡 | 每次推送时，测试套件都会在 CI 中通过，Linux 和 Windows 均如此。 |
+| 软件 | 🟢 | 目录、品牌和 README 的生成器，以及发布、声明和整个系列的检查，都在电脑上运行；不涉及硬件。 |
+| 测试 | 🟢 | 每次推送时，测试套件都会在 CI 中通过，Linux 和 Windows 均如此。 |
 | 整个系列的检查 | 🟡 | 每晚的运行会取回系列中的每个仓库，并比较它们的概览表、声明和目录结构；目录中过期的版本会被报告，但不会让当晚的运行失败。 |
 | 安全文档 | 🟡 | 安全基线和威胁模型是根据读到的其他仓库内容写成的；项目之外没有人审阅过。 |
 | 文档 | 🟡 | 提供八种语言的 README 和参考文档；翻译未经母语者审阅。 |

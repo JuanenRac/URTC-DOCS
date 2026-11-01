@@ -12,8 +12,9 @@
     "SVG"
   ],
   "deployment_target": "user-pc",
-  "maturity": "scaffolding",
+  "maturity": "functional",
   "evidence": "host-test",
+  "hardware_bound": false,
   "family": "Ecosystem Operations",
   "parent": null,
   "build": "python tools/build_test.py",

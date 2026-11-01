@@ -28,6 +28,7 @@ SHARED_FILES: tuple[str, ...] = (
     "tools/_readme_parity.py",
     "bump_manifest_version.py",
     ".github/workflows/dashboard-dispatch.yml",
+    ".github/actions/urtc-baseline/action.yml",
     "tools/_tracked_names.py",
     "tools/pretty_run.py",
     "tools/_readme_svg.py",

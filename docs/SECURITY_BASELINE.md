@@ -53,6 +53,7 @@ The sources are named in each line: `URTC` (`docs/CAN_THREAT_MODEL.TXT`, `docs/F
 
 ## What is a setting that is off, or only advice
 
+* **`sign_evidence`** in URTC-TESTER and URTC-FLASHER (and in the settings of URTC-UPDATER for its export): off by default; anything other than the plain value `true` keeps it off. When it is on the evidence records carry an Ed25519 signature of a key that stays on the computer (`record_key_file`, never printed); if the key cannot be used nothing is written. The programs that read records say "signed by <alias>" or "unknown key" with a list of public keys (`trusted_keys`) and always show a signature that fails.
 * **`require_production_signature`** in URTC-FLASHER: off by default.
 * **Every protection of URTC-GATEWAY** can be switched off from its configuration file or command line.
 * **The release signing key** (`URTC_SIGNING_KEY_FILE`, `URTC_RELEASE=1`): the build supports it and refuses the development key in release mode, but the newest published release manifest says `signing_key_kind: dev` for both application images.

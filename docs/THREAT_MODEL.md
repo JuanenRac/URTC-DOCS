@@ -74,6 +74,17 @@ A desk analysis of who could do what to the URTC ecosystem, what stops them toda
 | R3 | A private key, address or note reaches a public file. | The public/private boundary check in each CI, the `.gitignore` rule for `.env` files, and `tools/publication_check.py` (with `--history` for removed lines). | code | A secret with no recognisable shape; the check says it proves nothing about absence. |
 | R4 | An operator edits a generated file (catalogue, README, banner) and it drifts. | The unit tests and `--check` modes compare the generated files with their source. | code | Nothing prevents the edit, only its survival. |
 
+### On the records of what the programs did (evidence)
+
+| # | Scenario | What stops it | Kind | What does not |
+|---|---|---|---|---|
+| E1 | A record of a flash, a test or an install is edited after it was written (a failed test made to read as passed). | Every record carries a SHA-256 over all its other fields (`evidence_sha256`); the history, the report and `--verify` list a record whose digest no longer matches as NOT VALID, never leave it out and exit with status 1. | code | Whoever edits a record can also recompute its digest: the digest alone shows an edit by accident, not by a person who knows the shape. |
+| E2 | A person who knows the shape edits a record and fixes its digest. | An optional Ed25519 signature over the digest, made with a key that stays on the computer of the user (never printed, never in a record or a repository); an edited record no longer matches it. | setting | Off by default in the tester and the flasher (`sign_evidence`); the exporting updater signs only when asked. An unsigned record proves nothing about who wrote it. |
+| E3 | A record is signed by a key that is not the person's. | The reader says whose key it is only by comparison: `--public-key` (a signature by any other key fails the status) or the trusted keys by alias (`trusted_keys`, public keys only); a good signature by a key not in the list is shown as "unknown key". | setting | The alias is a name the reader chose; nothing proves who holds the key, and an unknown key only warns (it does not fail the status). The key is made on first use and nobody vouches for it. |
+| E4 | The key file is stolen or a seed is pasted into the trusted keys. | The key file is made with owner-only permissions and its content is never printed; the trusted keys accept only 64 hexadecimal digits under an alias; an error names the file, not the key. | code | A seed is also 32 bytes and cannot be told from a public key by looking; the help says "public keys only". A stolen key file signs anything until the key is replaced and the old one removed from every list. |
+| E5 | Signing fails (an unreadable key file) and an unsigned record is taken for a signed one. | Signing fails closed in the tester, the flasher and the updater: nothing is written and the reason is printed; a reader that cannot check a signature says "not checked", never "valid". | code | A reader that does not look at the signature column. |
+| E6 | A hostile file is opened in a history, a report or the trace and key lists of WEB-STUDIO (a record nested thousands of levels, a huge line, a value that is not a text, an alias made of markup). | The parsers answer with their own refusal and count it: deterministic property tests with noise and mutated valid inputs hold that none raises, none accepts what it should refuse and everything listed as valid really is; a file of keys is taken whole or not at all; the report escapes every text and carries a policy that forbids scripts and external resources. | code | The tests are samples, not a proof; a parser outside the ones listed is not covered. |
+
 ## External review of this ecosystem
 
 A reader from outside the project read the READMEs of the family and concluded that the platform has capabilities that do not exist. The cause was documentation, not code: planned capabilities were written in the present tense, some badges promised more than the code does, and some pages contradicted their own status box. The table puts each claim next to what the repositories contain.
@@ -96,7 +107,8 @@ What changed: every README says what is planned and what has only been tested ag
 2. The firmware signing key in use is the public development key.
 3. The scheme is symmetric, so physical access to one board is access to the signing key.
 4. The updater runs remote build scripts; the safer policy (signed commits required, a question before the build check) is the default, but anyone who lowers it, or answers yes for unattended runs, accepts that the repository's scripts run with their permissions.
-5. Everything above is described for software that has never run on the board it is for. A first bring-up will test the watchdogs, the thermal guard, the bootloader copy and the interlock for the first time.
+5. The signature of a record proves that a key and a record belong together, and nothing about who holds the key; the trust store is a list the reader writes. Nothing is signed unless the setting is on.
+6. Everything above is described for software that has never run on the board it is for. A first bring-up will test the watchdogs, the thermal guard, the bootloader copy and the interlock for the first time.
 
 ## Out of scope here
 

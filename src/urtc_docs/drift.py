@@ -31,6 +31,7 @@ SHARED_FILES: tuple[str, ...] = (
     ".github/actions/urtc-baseline/action.yml",
     "tools/_tracked_names.py",
     "tools/pretty_run.py",
+    "tools/run_host_tests.py",
     "tools/_readme_svg.py",
     "tools/make_architecture.py",
     "tools/make_structure.py",

@@ -35,9 +35,16 @@ SHARED_FILES: tuple[str, ...] = (
     "tools/make_architecture.py",
     "tools/make_structure.py",
     "tools/status_lights.py",
+    "tools/universal_readme_check.py",
+    "test.sh",
+    "test.bat",
 )
 
 _PLACEHOLDER = "<REPO>"
+
+# Files that carry no name of a repository: they are the same text, byte for byte, in every repository and in the other families. A word of the family in
+# them ("URTC" in a list of families) is text, not the name of a repository, so it is not turned into the placeholder.
+VERBATIM_FILES = frozenset({"bump_manifest_version.py", "tools/universal_readme_check.py"})
 
 
 @dataclass(frozen=True)
@@ -50,10 +57,12 @@ class Drift:
 _FAMILY_NAME = re.compile(r"(?<![A-Za-z0-9_-])URTC(?:-[A-Z0-9]+)*(?![A-Za-z0-9_])")
 
 
-def normalize(text: str) -> str:
+def normalize(text: str, relative: str | None = None) -> str:
     """The text with Windows line endings turned into newlines and every name of a repository of the family (a
-    header says which repository the file sits in) made generic: the name is the one thing allowed to differ."""
-    return _FAMILY_NAME.sub(_PLACEHOLDER, text.replace("\r\n", "\n"))
+    header says which repository the file sits in) made generic: the name is the one thing allowed to differ.
+    A verbatim file (``VERBATIM_FILES``) keeps its words."""
+    text = text.replace("\r\n", "\n")
+    return text if relative in VERBATIM_FILES else _FAMILY_NAME.sub(_PLACEHOLDER, text)
 
 
 def _first_difference(reference: str, other: str) -> str:
@@ -64,10 +73,10 @@ def _first_difference(reference: str, other: str) -> str:
     return "different"
 
 
-def compare(copies: dict[str, str], reference_text: str | None = None) -> list[Drift]:
+def compare(copies: dict[str, str], reference_text: str | None = None, relative: str | None = None) -> list[Drift]:
     """``copies`` maps a repository name to the text of one shared file. Returns the repositories that differ from
     the text most of them share (a tie is settled in favour of the text that sorts first by repository name)."""
-    normalized = {name: normalize(text) for name, text in copies.items()}
+    normalized = {name: normalize(text, relative) for name, text in copies.items()}
     if reference_text is not None:
         return [Drift("", name, f"differs from the template: {_first_difference(reference_text, text)}") for name, text in sorted(normalized.items()) if text != reference_text]
     if len(normalized) < 2:
@@ -93,7 +102,7 @@ def check_workspace(workspace: Path, files: tuple[str, ...] = SHARED_FILES, temp
             path = repo / relative
             if path.is_file():
                 copies[repo.name] = path.read_text(encoding="utf-8", errors="replace")
-        found += [Drift(relative, d.repository, d.detail) for d in compare(copies, template_text(relative, template_dir) if template_dir else None)]
+        found += [Drift(relative, d.repository, d.detail) for d in compare(copies, template_text(relative, template_dir) if template_dir else None, relative)]
     return found, len(repos)
 
 
@@ -149,7 +158,7 @@ def plan_sync(workspace: Path, files: tuple[str, ...] = SHARED_FILES, template_d
                 continue
             raw = path.read_bytes().decode("utf-8", errors="replace")
             newline = "\r\n" if "\r\n" in raw else "\n"
-            if normalize(raw) != canonical:
+            if normalize(raw, relative) != canonical:
                 items.append(SyncItem(repo.name, relative, path, render_for(repo.name, canonical, newline), newline))
     return items
 

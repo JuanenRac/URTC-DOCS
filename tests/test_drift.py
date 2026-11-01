@@ -59,7 +59,8 @@ def test_the_command_fails_on_a_changed_copy_and_passes_on_equal_ones(tmp_path, 
     for name in ("URTC-A", "URTC-B", "URTC-C"):
         write_repo(tmp_path, name)
         for relative in drift.SHARED_FILES:
-            put(tmp_path / name, relative, f"# {name}\nsame\n")
+            # a verbatim file names no repository, so it is the same text in every one
+            put(tmp_path / name, relative, "same\n" if relative in drift.VERBATIM_FILES else f"# {name}\nsame\n")
     assert cli.check_repo_tools(["--workspace", str(tmp_path)]) == 0
     assert "REPO_TOOLS=PASS" in capsys.readouterr().out
     put(tmp_path / "URTC-C", "bump_manifest_version.py", "# URTC-C\nedited\n")
@@ -196,3 +197,9 @@ def test_the_source_of_the_shared_files_is_urtc_devtools_when_it_is_next_to_the_
     assert drift.source_dir(tmp_path) == drift.TEMPLATE_DIR
     (tmp_path / "URTC-DEVTOOLS" / "files").mkdir(parents=True)
     assert drift.source_dir(tmp_path) == tmp_path / "URTC-DEVTOOLS" / "files"
+
+
+def test_a_verbatim_file_keeps_the_words_of_the_family_and_the_others_become_the_placeholder():
+    text = 'FAMILIES = ("URTC", "HYDRA")  # URTC-TESTER\n'
+    assert drift.normalize(text, "tools/universal_readme_check.py") == text
+    assert drift.normalize(text, "tools/pretty_run.py") == 'FAMILIES = ("<REPO>", "HYDRA")  # <REPO>\n'

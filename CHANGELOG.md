@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented here.
 
+## [Unreleased]
+
+- **The set of shared tools has three more files and a verbatim rule:** `test.sh`, `test.bat` and `tools/universal_readme_check.py` are shared files of the family (the lock and `check_repo_tools` cover them), and `bump_manifest_version.py` is now one text for the URTC and HYDRA-UMC families. A file that names no repository (`VERBATIM_FILES`) is compared word for word, so a word of the family inside it ("URTC" in a list of families) is never read as the name of a repository.
+
 ## [0.1.3] - The threat model and the security baseline follow the new defaults of the updater, the shared tools have a lock file and a design note covers packaging the shared tooling
 
 - **The threat model and the security baseline follow the updater's new defaults:** signed commits and the question before the build check are on by default, a run with nobody to ask fails closed, and the residual risk about remote build scripts says what lowering the protections means.

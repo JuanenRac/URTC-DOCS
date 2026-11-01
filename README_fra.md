@@ -30,7 +30,7 @@
 |---|---|
 | Version | `0.1.3` |
 | Maturité | Ébauche |
-| Tests | 183 |
+| Tests | 184 |
 | Technologie | Markdown / Mermaid / Python / SVG |
 | Cible | Le PC de la personne qui l'utilise |
 | Sur matériel réel | Sans objet : rien ici ne s'exécute sur du matériel |

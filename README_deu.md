@@ -30,7 +30,7 @@
 |---|---|
 | Version | `0.1.3` |
 | Reifegrad | Gerüst |
-| Tests | 183 |
+| Tests | 184 |
 | Technik | Markdown / Mermaid / Python / SVG |
 | Ziel | Der PC der Person, die es benutzt |
 | Auf echter Hardware | Nicht zutreffend: nichts hiervon läuft auf Hardware |

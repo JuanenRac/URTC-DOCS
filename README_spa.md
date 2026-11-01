@@ -30,7 +30,7 @@
 |---|---|
 | Versión | `0.1.3` |
 | Madurez | Andamiaje |
-| Tests | 183 |
+| Tests | 184 |
 | Tecnología | Markdown / Mermaid / Python / SVG |
 | Destino | El PC de quien lo usa |
 | En hardware real | No aplica: nada de esto se ejecuta en hardware |

@@ -8,7 +8,8 @@
    "416cfb6dbbca": "🔒 Security & Safety",
    "5bbc7070d092": "Jump to: Overview · Architecture · Features · Security · Interfaces · Quick start · Testing · Structure · Rela",
    "667ee408d2dc": "SECURITY.md",
-   "7c6d999c3b51": "Report a vulnerability privately: SECURITY.md."
+   "7c6d999c3b51": "Report a vulnerability privately: SECURITY.md.",
+   "c3275b5df045": "The update window: a newer signed package is installed only after you confirm it."
   },
   "URTC": {
    "0422ae7f3835": "Dedicated inputs for reflective optical proximity sensors like the TCRT5000, plus a generic active-low endstop",
@@ -38,15 +39,18 @@
    "d55d1ce35e89": "Jump to: Overview · Architecture · Security · Interfaces · Quick start · Testing · Structure · Related"
   },
   "URTC-TESTER": {
+   "6def1addc37a": "The window as it opens: the transport gate, the listen-only safety mode, the tool profiles and the identity an",
    "71df8c9816ec": "None of this has been tried on a real board, and none of it is a certified safety function; see the limitation"
   },
   "URTC-UPDATER": {
    "327c4d86725f": "sequential batch actions built from the same live state and safety path.",
    "69381d120c8a": "Maturity | Established",
    "6fe3075c1a89": "Jump to: Overview · Architecture · Security · Interfaces · Quick start · Testing · Troubleshooting · Structure",
-   "a650c5b9d252": "Updates | 🟡 | Installs from signed packages with a rollback; tried on a PC only."
+   "a650c5b9d252": "Updates | 🟡 | Installs from signed packages with a rollback; tried on a PC only.",
+   "faefd31a46ba": "The Packages window: the programs of the family that a release publishes as a signed package, each checking it"
   },
   "URTC-WEB-STUDIO": {
+   "1ff0e7a12949": "— what the CAN Traces tab reads, how it names and marks each frame, its limits and the CSV and JSON it writes.",
    "21cf1d0a2038": "An action that acts on the board by mistake | Laser, drill, UV curing, welding, heaters, motion, paste jetting",
    "38fbe9803aa3": "A page that loads code from elsewhere | A content security policy: scripts only from the page itself, connecti"
   }

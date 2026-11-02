@@ -10,7 +10,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import __version__, brand, catalog, claims, devtools_lock, doctor as doctor_module, drift, family, glance, publication, readmes, related, status
+from . import __version__, brand, catalog, claims, count_tests, devtools_lock, doctor as doctor_module, drift, family, glance, publication, readmes, related, status
 
 REPO = Path(__file__).resolve().parents[2]
 CATALOG_FILE = REPO / "docs" / "PROJECT_CATALOG.md"
@@ -296,14 +296,43 @@ def doctor(argv: list[str] | None = None) -> int:
     return status
 
 
+def check_test_counts(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(prog="check_test_counts.py", description="Count the tests of the repositories next to this one (collected, not run) and compare with data/glance.json.")
+    parser.add_argument("--apply", action="store_true", help="write the exact counts into the data file (then run make_glance.py --apply to rewrite the READMEs)")
+    parser.add_argument("--repo", action="append", metavar="NAME", help="only this repository (repeat the option for several)")
+    parser.add_argument("--workspace", help="the folder that holds the repositories (default: the parent of this repository)")
+    parser.add_argument("--data", default=str(GLANCE_FILE), help="the data file (default: data/glance.json)")
+    args = parser.parse_args(argv)
+    data = Path(args.data)
+    try:
+        results = count_tests.compare(_workspace(args), data, args.repo)
+        changed = count_tests.apply_counts(data, results) if args.apply else []
+    except (count_tests.CountError, OSError, ValueError) as error:
+        print(f"TEST_COUNTS=FAIL {error}", file=sys.stderr)
+        return 1
+    stale = 0
+    for result in results:
+        if result.exact:
+            verdict = "OK" if result.agrees else ("FIXED" if result.repo in changed else "DIFFERS")
+            stale += 0 if result.agrees or result.repo in changed else 1
+            print(f"{verdict} {result.repo}: documented {result.documented}, counted {result.counted}")
+        else:
+            print(f"SKIP {result.repo}: documented {result.documented}; {result.note}")
+    if stale:
+        print(f"TEST_COUNTS=FAIL {stale} repository(ies) document a different number than they have", file=sys.stderr)
+        return 1
+    print(f"TEST_COUNTS=PASS {sum(r.exact for r in results)} counted exactly, {sum(not r.exact for r in results)} not countable here")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     """`run.sh` / `run.bat`: without arguments, say what this is; with one, run that tool."""
-    commands = {"catalog": make_catalog, "brand": make_brand, "readmes": make_readmes, "glance": make_glance, "claims": check_claims, "repo-tools": check_repo_tools, "sync-repo-tools": sync_repo_tools, "publication": publication_check, "doctor": doctor}
+    commands = {"catalog": make_catalog, "brand": make_brand, "readmes": make_readmes, "glance": make_glance, "test-counts": check_test_counts, "claims": check_claims, "repo-tools": check_repo_tools, "sync-repo-tools": sync_repo_tools, "publication": publication_check, "doctor": doctor}
     arguments = list(sys.argv[1:] if argv is None else argv)
     if not arguments or arguments[0] in {"-h", "--help", "help"}:
         print(f"URTC-DOCS v{__version__}")
         print("Documentation and cross-repository tooling hub of the URTC ecosystem.")
-        print("usage: run.sh <catalog|brand|readmes|glance|claims|repo-tools|publication|doctor> [options]")
+        print("usage: run.sh <catalog|brand|readmes|glance|test-counts|claims|repo-tools|publication|doctor> [options]")
         return 0
     if arguments[0] not in commands:
         print(f"unknown command {arguments[0]!r}; expected one of: {', '.join(commands)}", file=sys.stderr)

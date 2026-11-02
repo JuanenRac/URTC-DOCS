@@ -30,7 +30,7 @@
 |---|---|
 | Versione | `0.1.3` |
 | Maturità | Funzionale |
-| Test | 184 |
+| Test | 191 |
 | Tecnologia | Markdown / Mermaid / Python / SVG |
 | Destinazione | Il PC di chi lo usa |
 | Su hardware reale | Non applicabile: nulla qui gira su hardware |

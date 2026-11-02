@@ -112,6 +112,19 @@
             "ja": "主張と共有ファイル",
             "pt": "afirmações e ficheiros partilhados"
           }
+        },
+        {
+          "name": "count_tests.py",
+          "desc": {
+            "en": "test counts of the family",
+            "es": "recuentos de pruebas de la familia",
+            "de": "Testzahlen der Familie",
+            "fr": "nombres de tests de la famille",
+            "it": "conteggi dei test della famiglia",
+            "zh": "各仓库的测试数量",
+            "ja": "ファミリーのテスト数",
+            "pt": "contagens de testes da família"
+          }
         }
       ]
     },

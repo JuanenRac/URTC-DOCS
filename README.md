@@ -30,7 +30,7 @@
 |---|---|
 | Version | `0.1.3` |
 | Maturity | Functional |
-| Tests | 184 |
+| Tests | 191 |
 | Stack | Markdown / Mermaid / Python / SVG |
 | Target | The PC of the person using it |
 | On real hardware | Not applicable: nothing here runs on hardware |

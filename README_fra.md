@@ -28,7 +28,7 @@
 
 | | |
 |---|---|
-| Version | `0.1.3` |
+| Version | `0.1.4` |
 | Maturité | Fonctionnel |
 | Tests | 191 |
 | Technologie | Markdown / Mermaid / Python / SVG |

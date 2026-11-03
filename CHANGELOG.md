@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented here.
 
-## [Unreleased]
+## [0.1.4] - A tool counts the tests of the whole family without running them and the set of shared tools has three more files under a verbatim rule
 
 - **A tool counts the tests of the family without running them:** `tools/check_test_counts.py` collects the tests of every repository next to this one (pytest and unittest suites; a suite that needs a C compiler or npm is reported as not countable here, never as zero) and compares the number with `data/glance.json`, failing when a repository documents a different number than it has. `--apply` writes the exact counts into the data file, after which `make_glance.py --apply` rewrites the READMEs.
 - **The set of shared tools has three more files and a verbatim rule:** `test.sh`, `test.bat` and `tools/universal_readme_check.py` are shared files of the family (the lock and `check_repo_tools` cover them), and `bump_manifest_version.py` is now one text for the URTC and HYDRA-UMC families. A file that names no repository (`VERBATIM_FILES`) is compared word for word, so a word of the family inside it ("URTC" in a list of families) is never read as the name of a repository.

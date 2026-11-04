@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented here.
 
+## [Unreleased]
+
+- **The build check of the repository is one text for the whole family, with a light mode that CI runs:** `tools/build_test.py` is the same file in every repository of the family (taken from the shared set); what used to differ between its seven variants is data in an optional `tools/build_test.json`. `python tools/build_test.py --check` looks at the manifest, the stack and the files the full check needs and compiles the Python sources, builds and runs nothing, and the baseline step of the workflow now runs it.
+
 ## [0.1.4] - A tool counts the tests of the whole family without running them and the set of shared tools has three more files under a verbatim rule
 
 - **A tool counts the tests of the family without running them:** `tools/check_test_counts.py` collects the tests of every repository next to this one (pytest and unittest suites; a suite that needs a C compiler or npm is reported as not countable here, never as zero) and compares the number with `data/glance.json`, failing when a repository documents a different number than it has. `--apply` writes the exact counts into the data file, after which `make_glance.py --apply` rewrites the READMEs.

@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The full build check compiles only on CI or when allowed:** `tools/build_test.py` prints `BUILD_TEST=SKIPPED` (exit status 2) for the stacks that compile unless it runs on a CI runner or `ALLOW_LOCAL_BUILD=1` says so; the light check is not locked.
+
 - **The template carries the lock on local builds in `tools/run_host_tests.py`:** the host C suites compile only on a CI runner or when `ALLOW_LOCAL_BUILD=1` says so, and say SKIPPED anywhere else.
 
 - **The data of the nightly checks follow the repositories again:** the copy of the shared protocol vectors carries the new bootloader frames, `data/glance.json` holds the exact test counts of URTC-COMMON, URTC-DEVTOOLS, URTC-FLASHER and URTC-TESTER and the vitest count of the web studio, and the reviewed list of risky claims holds the sentences about the Ed25519 record that replaced the ones about the HMAC.

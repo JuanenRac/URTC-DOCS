@@ -13,17 +13,19 @@
   },
   "URTC": {
    "0422ae7f3835": "Dedicated inputs for reflective optical proximity sensors like the TCRT5000, plus a generic active-low endstop",
-   "082721c71e97": "The bootloader checks the backup slot's size, computes its CRC32 and HMAC-SHA256 and compares both against wha",
+   "3b51dde5cb64": "Every asset of an official release also carries a detached Ed25519 release signature ( , public key in ); the ",
+   "468b7872a05f": "The bootloader checks the backup slot's size, computes its CRC32 and checks the Ed25519 record against what th",
    "cdd84258c26d": "PCB Advanced Inspection: thermal imaging (MLX9064x-family array - all 3 family members, MLX90640/MLX90641/MLX9",
-   "e2651c733589": "The master sends the expected HMAC-SHA256 signature as four frames (8 bytes each, in order)",
    "fab5f62863cd": "Signature."
   },
   "URTC-FLASHER": {
-   "1ba4c30df686": "Specific verify-failure reasons: if verification fails during a CAN update, sends a reason byte alongside stat",
+   "3514c6d17b9f": "The manifest carries the version, the and, for application images, the value the bootloader expects (a shared-",
+   "381567d36264": "It implements the exact bootloader protocol from (in the sibling URTC repository this tool implements against ",
    "547042fd0bda": "Deliberately installing an older version: the bootloader normally rejects a validly-signed image if it declare",
    "7d01ac50f111": "Jump to: Overview · Architecture · Features · Security · Interfaces · Configuration · Quick start · Testing · ",
    "83c845f842c3": "Whichever source is active gets logged at startup, so it's always visible which values a given session actuall",
-   "964dc47be6ef": "The memory-map and HardwareID overrides only apply to the main board's own constants (the one exception is , t"
+   "964dc47be6ef": "The memory-map and HardwareID overrides only apply to the main board's own constants (the one exception is , t",
+   "fdbf21d9d1b1": "Specific verify-failure reasons: if verification fails during a CAN update, sends a reason byte alongside stat"
   },
   "URTC-GATEWAY": {
    "1794eaf69028": "Rate limit: a token bucket per identifier and for the whole link, and a harder one for an unlocked dangerous i",

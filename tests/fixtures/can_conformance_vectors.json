@@ -327,8 +327,8 @@
   {
    "id": "0x212",
    "names": {
-    "flasher": "CAN_ID_SLAVE_HMAC_CHUNK",
-    "web": "CAN_ID_SLAVE_HMAC_CHUNK"
+    "flasher": "CAN_ID_SLAVE_DIGEST_CHUNK",
+    "web": "CAN_ID_SLAVE_DIGEST_CHUNK"
    }
   },
   {

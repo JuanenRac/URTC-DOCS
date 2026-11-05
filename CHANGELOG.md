@@ -4,6 +4,7 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The data of the nightly checks follow the repositories again:** the copy of the shared protocol vectors carries the new bootloader frames, `data/glance.json` holds the exact test counts of URTC-COMMON, URTC-DEVTOOLS, URTC-FLASHER and URTC-TESTER and the vitest count of the web studio, and the reviewed list of risky claims holds the sentences about the Ed25519 record that replaced the ones about the HMAC.
 - **The build check of the repository is one text for the whole family, with a light mode that CI runs:** `tools/build_test.py` is the same file in every repository of the family (taken from the shared set); what used to differ between its seven variants is data in an optional `tools/build_test.json`. `python tools/build_test.py --check` looks at the manifest, the stack and the files the full check needs and compiles the Python sources, builds and runs nothing, and the baseline step of the workflow now runs it.
 
 ## [0.1.4] - A tool counts the tests of the whole family without running them and the set of shared tools has three more files under a verbatim rule

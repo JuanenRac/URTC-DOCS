@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The template carries the lock on local builds in `tools/run_host_tests.py`:** the host C suites compile only on a CI runner or when `ALLOW_LOCAL_BUILD=1` says so, and say SKIPPED anywhere else.
+
 - **The data of the nightly checks follow the repositories again:** the copy of the shared protocol vectors carries the new bootloader frames, `data/glance.json` holds the exact test counts of URTC-COMMON, URTC-DEVTOOLS, URTC-FLASHER and URTC-TESTER and the vitest count of the web studio, and the reviewed list of risky claims holds the sentences about the Ed25519 record that replaced the ones about the HMAC.
 - **The build check of the repository is one text for the whole family, with a light mode that CI runs:** `tools/build_test.py` is the same file in every repository of the family (taken from the shared set); what used to differ between its seven variants is data in an optional `tools/build_test.json`. `python tools/build_test.py --check` looks at the manifest, the stack and the files the full check needs and compiles the Python sources, builds and runs nothing, and the baseline step of the workflow now runs it.
 

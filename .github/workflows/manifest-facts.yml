@@ -1,0 +1,96 @@
+# =============================================================================
+# URTC-DOCS - the manifests of the family against the facts that can be computed (nightly)
+# Copyright (C) 2026 JuanenRac (Electro Hobby 3D) <electrohobby3d@gmail.com>
+# GPL-3.0-or-later - see LICENSE
+# =============================================================================
+# Every night every repository of the family is fetched next to this one and tools/sync_manifests.py compares its manifest with what can be
+# computed (shipped version, changelog, tests, simulation in CI, newest release, last run of main). A contradiction fails the night and
+# opens one issue. When data/manifest_facts.json changed, ONE grouped pull request carries it; nothing is committed to main directly.
+# Judgements (maturity, evidence, anything tried on real hardware) are never written here.
+name: URTC manifest facts
+
+on:
+  schedule:
+    - cron: "31 4 * * *"
+  workflow_dispatch:
+    inputs:
+      max_calls:
+        description: "Most GitHub API calls of the run"
+        default: "150"
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  facts:
+    name: Compare every manifest with the computed facts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out this repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          path: URTC-DOCS
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+
+      - name: Fetch the other repositories next to it
+        working-directory: URTC-DOCS
+        run: |
+          python - <<'PY' > ../family.txt
+          import sys
+          sys.path.insert(0, "src")
+          from urtc_docs.readme_family import all_names
+          print("\n".join(sorted(all_names() - {"URTC-DOCS"})))
+          PY
+          cd ..
+          while read -r repository; do
+            git clone --quiet --depth 1 "https://github.com/JuanenRac/${repository}.git" "${repository}" || echo "::warning::could not fetch ${repository}"
+          done < family.txt
+
+      - name: Compare the manifests with the facts
+        working-directory: URTC-DOCS
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/sync_manifests.py --check --online --max-calls "${{ inputs.max_calls || '150' }}" --workspace ..
+
+      - name: Write the facts file
+        if: ${{ always() }}
+        working-directory: URTC-DOCS
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/sync_manifests.py --apply --online --max-calls "${{ inputs.max_calls || '150' }}" --workspace ..
+
+      - name: Open one grouped pull request when the facts changed
+        if: ${{ always() }}
+        working-directory: URTC-DOCS
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- data/manifest_facts.json; then echo "No fact changed."; exit 0; fi
+          branch="manifest-facts"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$branch"
+          git add data/manifest_facts.json
+          git commit -m "Refresh the computed facts of the manifests"
+          git push --force "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" "$branch"
+          if [ -z "$(gh pr list --repo "${{ github.repository }}" --head "$branch" --json number --jq '.[0].number')" ]; then
+            gh pr create --repo "${{ github.repository }}" --head "$branch" --base main --title "Refresh the computed facts of the manifests" \
+              --body "The nightly comparison of the manifests with the shipped versions, changelogs, tests, simulation jobs and releases changed data/manifest_facts.json. Only computed facts are in it; no judgement is written."
+          fi
+
+      - name: Open an issue when a manifest contradicts the facts
+        if: ${{ failure() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="A manifest contradicts the computed facts"
+          existing=$(gh issue list --repo "${{ github.repository }}" --state open --search "${title} in:title" --json number --jq '.[0].number')
+          body="The nightly comparison found a manifest that disagrees with its repository: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          if [ -n "$existing" ]; then gh issue comment "$existing" --repo "${{ github.repository }}" --body "$body"; else gh issue create --repo "${{ github.repository }}" --title "$title" --body "$body"; fi

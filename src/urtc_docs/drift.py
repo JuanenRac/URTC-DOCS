@@ -37,6 +37,7 @@ SHARED_FILES: tuple[str, ...] = (
     "tools/make_architecture.py",
     "tools/make_structure.py",
     "tools/status_lights.py",
+    "tools/sync_manifests.py",
     "tools/universal_readme_check.py",
     "test.sh",
     "test.bat",
@@ -46,7 +47,10 @@ _PLACEHOLDER = "<REPO>"
 
 # Files that carry no name of a repository: they are the same text, byte for byte, in every repository and in the other families. A word of the family in
 # them ("URTC" in a list of families) is text, not the name of a repository, so it is not turned into the placeholder.
-VERBATIM_FILES = frozenset({"bump_manifest_version.py", "tools/universal_readme_check.py"})
+VERBATIM_FILES = frozenset({"bump_manifest_version.py", "tools/universal_readme_check.py", "tools/sync_manifests.py"})
+
+# Shared files that only the set of URTC-DEVTOOLS carries: the template kept here (for the repositories of the other ecosystem) does not have them.
+NOT_IN_TEMPLATE = frozenset({"tools/sync_manifests.py"})
 
 
 @dataclass(frozen=True)

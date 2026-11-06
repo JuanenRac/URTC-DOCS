@@ -1,4 +1,3 @@
 {
-  "_comment": "Findings of tools/sync_manifests.py that a repository accepts for now: {\"REPOSITORY\": [\"CODE\", ...]}. An entry is removed as soon as the repository agrees with its manifest.",
-  "URTC-UPDATER": ["SIMULATOR_NO_CI_JOB"]
+  "_comment": "Findings of tools/sync_manifests.py that a repository accepts for now: {\"REPOSITORY\": [\"CODE\", ...]}. An entry is removed as soon as the repository agrees with its manifest."
 }

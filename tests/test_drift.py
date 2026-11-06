@@ -116,7 +116,7 @@ def test_a_sync_plan_lists_only_the_copies_that_differ_and_keeps_their_line_endi
 
 
 def test_the_real_template_covers_every_shared_file():
-    for relative in drift.SHARED_FILES:
+    for relative in set(drift.SHARED_FILES) - drift.NOT_IN_TEMPLATE:
         assert drift.template_text(relative) is not None, relative
     assert (drift.TEMPLATE_DIR / "TEMPLATE.md").is_file()
 

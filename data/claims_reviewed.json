@@ -25,6 +25,7 @@
    "7d01ac50f111": "Jump to: Overview · Architecture · Features · Security · Interfaces · Configuration · Quick start · Testing · ",
    "83c845f842c3": "Whichever source is active gets logged at startup, so it's always visible which values a given session actuall",
    "964dc47be6ef": "The memory-map and HardwareID overrides only apply to the main board's own constants (the one exception is , t",
+   "98447526f95c": "Every file is checked against the release signature ( , Ed25519) and its digests before it is used.",
    "fdbf21d9d1b1": "Specific verify-failure reasons: if verification fails during a CAN update, sends a reason byte alongside stat"
   },
   "URTC-GATEWAY": {

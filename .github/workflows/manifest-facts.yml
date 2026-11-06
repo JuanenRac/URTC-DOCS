@@ -81,8 +81,14 @@ jobs:
           git commit -m "Refresh the computed facts of the manifests"
           git push --force "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" "$branch"
           if [ -z "$(gh pr list --repo "${{ github.repository }}" --head "$branch" --json number --jq '.[0].number')" ]; then
-            gh pr create --repo "${{ github.repository }}" --head "$branch" --base main --title "Refresh the computed facts of the manifests" \
-              --body "The nightly comparison of the manifests with the shipped versions, changelogs, tests, simulation jobs and releases changed data/manifest_facts.json. Only computed facts are in it; no judgement is written."
+            if ! gh pr create --repo "${{ github.repository }}" --head "$branch" --base main --title "Refresh the computed facts of the manifests" \
+              --body "The nightly comparison of the manifests with the shipped versions, changelogs, tests, simulation jobs and releases changed data/manifest_facts.json. Only computed facts are in it; no judgement is written."; then
+              # The repository may not allow Actions to open pull requests: the branch is pushed, so say where to open it.
+              title="Computed manifest facts are ready for a pull request"
+              existing=$(gh issue list --repo "${{ github.repository }}" --state open --search "${title} in:title" --json number --jq '.[0].number')
+              body="The branch ${branch} holds the refreshed data/manifest_facts.json: ${{ github.server_url }}/${{ github.repository }}/compare/main...${branch}?expand=1"
+              if [ -n "$existing" ]; then gh issue comment "$existing" --repo "${{ github.repository }}" --body "$body"; else gh issue create --repo "${{ github.repository }}" --title "$title" --body "$body"; fi
+            fi
           fi
 
       - name: Open an issue when a manifest contradicts the facts

@@ -125,7 +125,7 @@ TARGETS: dict[str, dict[str, str]] = {
         "android": "Android のスマートフォンまたはタブレット",
         "ios": "iPhone または iPad",
         "wearos": "Wear OS ウォッチ（スマートフォンとペアリング）",
-        "board": "マイコン基板（ファームウェア）。ビルドは PC で行います",
+        "board": "マイコンボード（ファームウェア）。ビルドは PC で行います",
         "browser": "利用者の PC 上の Web ブラウザー",
     },
     "zh": {

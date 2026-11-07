@@ -88,7 +88,7 @@ CAPTIONS = {
         "La fenêtre de l'historique : tous les enregistrements que les programmes ont écrits pour chaque carte, le plus récent d'abord, chacun vérifié séparément, avec une colonne Signature qui dit s'il est signé, par laquelle de vos clés, ou s'il n'est pas valide.",
         "La finestra della cronologia: tutti i record che i programmi hanno scritto per ogni scheda, il più recente per primo, ciascuno verificato a sé, con una colonna Firma che dice se è firmato, con quale delle tue chiavi, o se non è valido.",
         "履歴ウィンドウ：各ボードについてプログラムが書いた記録を新しい順に表示し、それぞれを個別に検証します。署名列には、署名の有無、どの鍵で署名されたか、または無効かが表示されます。",
-        "历史窗口：程序为每块板子写下的所有记录，最新的在前，每条单独校验；“签名”列显示它是否已签名、由您的哪把密钥签名，或是否无效。",
+        "历史窗口：程序为每块板卡写下的所有记录，最新的在前，每条单独校验；“签名”列显示它是否已签名、由您的哪把密钥签名，或是否无效。",
         "A janela do histórico: todos os registos que os programas escreveram sobre cada placa, o mais recente primeiro, cada um verificado por si, com uma coluna Assinatura que diz se está assinado, com qual das suas chaves, ou se não é válido."),
     "updater_deck": _c(
         "The window over a workspace with the family in it: every project with its maturity, stack and local version, and the safe update actions.",
@@ -133,7 +133,7 @@ CAPTIONS = {
         "Flasher : la carte flash de la carte, l'image et son manifeste prêts à l'envoi, et les options d'une mise à jour CAN-OTA (carte modélisée ; rien n'est envoyé).",
         "Flasher: la mappa flash della scheda, l'immagine e il suo manifesto pronti all'invio e le opzioni di un aggiornamento CAN-OTA (scheda modellata; non si invia nulla).",
         "フラッシャー：ボードのフラッシュマップ、送信準備が整ったイメージとそのマニフェスト、CAN-OTA 更新のオプション（モデル化したボード。何も送信しません）。",
-        "刷写器：电路板的闪存映射、准备发送的映像及其清单，以及 CAN-OTA 更新的选项（模拟电路板，不发送任何内容）。",
+        "刷写器：板卡的闪存映射、准备发送的映像及其清单，以及 CAN-OTA 更新的选项（模拟板卡，不发送任何内容）。",
         "Flasher: o mapa de flash da placa, a imagem e o seu manifesto prontos a enviar e as opções de uma atualização CAN-OTA (placa modelada; não se envia nada)."),
     "web_thermal": _c(
         "Thermal inspection: a false-colour image of a 32×24 infrared array with a simulated hot spot (a simulator tab).",
@@ -151,7 +151,7 @@ CAPTIONS = {
         "Diagnostic du testeur : la boîte noire et les compteurs thermiques dans le temps, lus sur une carte modélisée.",
         "Diagnostica del tester: la scatola nera e i contatori termici nel tempo, letti da una scheda modellata.",
         "テスター診断：ブラックボックスと、時間経過に伴う温度カウンター（モデル化したボードから読み取り）。",
-        "测试器诊断：黑匣子和随时间变化的热计数器，读取自模拟电路板。",
+        "测试器诊断：黑匣子和随时间变化的热计数器，读取自模拟板卡。",
         "Diagnóstico do testador: a caixa negra e os contadores térmicos ao longo do tempo, lidos de uma placa modelada."),
 }
 

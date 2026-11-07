@@ -58,7 +58,7 @@
 La imagen siguiente muestra los repositorios de URTC, el bus CAN que une las placas y las herramientas del ordenador, y los vínculos que afirman sus documentos.
 
 * [Arquitectura](docs/ARCHITECTURE.md): capas, flujos de datos, puertos y fronteras de confianza.
-* [Interfaces](docs/INTERFACES.md): quién es dueño de cada contrato y dónde está documentado.
+* [Interfaces](docs/INTERFACES.md): quién es responsable de cada contrato y dónde está documentado.
 * [Matriz de capacidades](docs/CAPABILITY_MATRIX.md): qué está probado en software y qué necesita hardware, proyecto a proyecto.
 * [Base de seguridad](docs/SECURITY_BASELINE.md): lo que el código impone y lo que aún falta; y el [modelo de amenazas](docs/THREAT_MODEL.md).
 * [Primer corte vertical](docs/FIRST_VERTICAL_SLICE.md): el camino de extremo a extremo más pequeño que existe hoy.

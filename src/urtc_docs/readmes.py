@@ -164,7 +164,7 @@ def render(code: str, manifest: dict, entry: dict) -> str:
     add(str(text["overview_intro"]))
     add("")
     for label, path, description in cast("list[tuple[str, str, str]]", text["overview"]):
-        add(f"* [{label}]({path}): {description}")
+        add(f"* [{label}]({path}){' :' if code == 'fr' else ':'} {description}")
     add(f"* **{text['tools_label']}** {text['tools']}{CLAIMS_TOOLS[code]}{DRIFT_TOOLS[code]}{DOCTOR_TOOLS[code]}")
     add("")
     section("role", str(text["h_role"]))

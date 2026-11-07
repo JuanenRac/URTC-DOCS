@@ -150,7 +150,7 @@ TEXT: dict[str, dict[str, object]] = {
             [
                 "Interfaces",
                 "docs/INTERFACES.md",
-                "quién es dueño de cada contrato y dónde está documentado."
+                "quién es responsable de cada contrato y dónde está documentado."
             ],
             [
                 "Matriz de capacidades",

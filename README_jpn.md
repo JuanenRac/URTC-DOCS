@@ -22,7 +22,7 @@
 
 ---
 
-> **安全性とセキュリティの現状:** このエコシステムは認証された安全システムではなく、実装済みの URTC ボードもまだ存在しません。ブートローダーはファームウェアイメージを CRC32 と共有鍵の HMAC-SHA256 で検査しており、非対称署名ではありません(予定)。公開されているアプリケーションイメージは公開の開発用鍵(`signing_key_kind: dev`)で署名されているため、誰でもブートローダーが受け入れるイメージを作れます。実際のボードには何も送信されていません。ここに書かれた内容を人の安全のために頼る前に、[セキュリティベースライン](docs/SECURITY_BASELINE.md)と[脅威モデル](docs/THREAT_MODEL.md)をお読みください。
+> **安全性とセキュリティの現状：** このエコシステムは認証された安全システムではなく、実装済みの URTC ボードもまだ存在しません。ブートローダーはファームウェアイメージを CRC32 と共有鍵の HMAC-SHA256 で検査しており、非対称署名ではありません（予定）。公開されているアプリケーションイメージは公開の開発用鍵（`signing_key_kind: dev`）で署名されているため、誰でもブートローダーが受け入れるイメージを作れます。実際のボードには何も送信されていません。ここに書かれた内容を人の安全のために頼る前に、[セキュリティベースライン](docs/SECURITY_BASELINE.md)と[脅威モデル](docs/THREAT_MODEL.md)をお読みください。
 
 ## 📋 ひと目で
 
@@ -64,7 +64,7 @@
 * [最初の垂直スライス](docs/FIRST_VERTICAL_SLICE.md): 今日存在する最小のエンドツーエンド経路。
 * [CAN プロトコルの重複実装](docs/CAN_PROTOCOL_DUPLICATION.md): プロトコルは文章の説明から三回実装されています。共有仕様に含まれるはずの内容。
 * [プロジェクトカタログ](docs/PROJECT_CATALOG.md): エコシステムの全リポジトリを、それぞれのマニフェストから生成。
-* **ツール：** `make_catalog.py` はカタログを、`make_brand.py` はバナー・アイコン・ファミリーマップを、`make_readmes.py` はこのリポジトリの 8 つの README を書きます。`publication_check.py` は公開前に非公開のものを探し、`check_all.sh` はファミリーの各リポジトリ自身のチェックを実行して、1 件ごとに PASS、FAIL、SKIP の 1 行を出力します。 `make_glance.py` は各リポジトリのマニフェストと `data/glance.json` から「ひと目で」の表を書きます（`--check` は比較、`--apply` は書き込み）。バージョンを上げた後は `python tools/make_glance.py --apply --repo NAME` でそのリポジトリの表を更新します。`check_claims.py` は、ファミリーの各リポジトリの英語 README を読み、リスクのある語(E-STOP、インターロック、リアルタイム、署名済み、mTLS、FDCAN、YOLO、AI 駆動、自律、認証済みなど)を含む文の隣に状態の印(計画中、未実装、任意、既定で無効、シミュレーション、テスト済みなど)がなく、かつ担当者がコードと突き合わせて読み `data/claims_reviewed.json` に登録した行でもない場合に失敗します。 `check_repo_tools.py` は、各リポジトリが同一のコピーとして持つファイル(ドキュメント方針と README 同等性の検査、マニフェストのバージョン更新ツール、ダッシュボードへ通知するワークフロー)を比較し、どれかが異なると失敗します。 `sync_repo_tools.py` は、それらのファイルの正規コピー(`template/eh3d-repo-template`)を各ファイルの改行コードを保ったまま全リポジトリへ書き込みます。`--apply` を付けない場合は、変更される内容を一覧表示するだけです。 同じツールが、各リポジトリに `tools/devtools.lock.json` というロックファイル(URTC-DEVTOOLS の共有セットのバージョンと、共有ファイルごとの SHA-256)を書き込んで検査し、編集されたコピー、欠けているファイル、ロックに載っていないファイル、セットより古いままのコピーを報告します。`status_lights.py` も共有ファイルの一つで、各リポジトリのバリデーターは、Project status 表のランプがマニフェスト(`maturity`、`evidence`)の許す範囲を超えていると失敗します。 `urtc_doctor.py` は唯一の入口です。マシンのツール（Python、git、Node、ARM コンパイラー、PySide6、シリアルポート）、各リポジトリのバージョン（マニフェスト、ソースファイル、changelog の最新エントリ）、URTC-COMMON のコピー、フラッシャーと Web スタジオに同梱されたファームウェア、各リポジトリの検証、そしてこのリポジトリのチェックを 1 つのレポートにまとめます。`--fast` は検証を省略し、`--online` は同梱ファームウェアを最新リリースと比較します。
+* **ツール：** `make_catalog.py` はカタログを、`make_brand.py` はバナー・アイコン・ファミリーマップを、`make_readmes.py` はこのリポジトリの 8 つの README を書きます。`publication_check.py` は公開前に非公開のものを探し、`check_all.sh` はファミリーの各リポジトリ自身のチェックを実行して、1 件ごとに PASS、FAIL、SKIP の 1 行を出力します。 `make_glance.py` は各リポジトリのマニフェストと `data/glance.json` から「ひと目で」の表を書きます（`--check` は比較、`--apply` は書き込み）。バージョンを上げた後は `python tools/make_glance.py --apply --repo NAME` でそのリポジトリの表を更新します。`check_claims.py` は、ファミリーの各リポジトリの英語 README を読み、リスクのある語（E-STOP、インターロック、リアルタイム、署名済み、mTLS、FDCAN、YOLO、AI 駆動、自律、認証済みなど）を含む文の隣に状態の印（計画中、未実装、任意、既定で無効、シミュレーション、テスト済みなど）がなく、かつ担当者がコードと突き合わせて読み `data/claims_reviewed.json` に登録した行でもない場合に失敗します。 `check_repo_tools.py` は、各リポジトリが同一のコピーとして持つファイル（ドキュメント方針と README 同等性の検査、マニフェストのバージョン更新ツール、ダッシュボードへ通知するワークフロー）を比較し、どれかが異なると失敗します。 `sync_repo_tools.py` は、それらのファイルの正規コピー（`template/eh3d-repo-template`）を各ファイルの改行コードを保ったまま全リポジトリへ書き込みます。`--apply` を付けない場合は、変更される内容を一覧表示するだけです。 同じツールが、各リポジトリに `tools/devtools.lock.json` というロックファイル（URTC-DEVTOOLS の共有セットのバージョンと、共有ファイルごとの SHA-256）を書き込んで検査し、編集されたコピー、欠けているファイル、ロックに載っていないファイル、セットより古いままのコピーを報告します。`status_lights.py` も共有ファイルの一つで、各リポジトリのバリデーターは、Project status 表のランプがマニフェスト（`maturity`、`evidence`）の許す範囲を超えていると失敗します。 `urtc_doctor.py` は唯一の入口です。マシンのツール（Python、git、Node、ARM コンパイラー、PySide6、シリアルポート）、各リポジトリのバージョン（マニフェスト、ソースファイル、changelog の最新エントリ）、URTC-COMMON のコピー、フラッシャーと Web スタジオに同梱されたファームウェア、各リポジトリの検証、そしてこのリポジトリのチェックを 1 つのレポートにまとめます。`--fast` は検証を省略し、`--online` は同梱ファームウェアを最新リリースと比較します。
 
 ## 🧩 URTC での役割
 
@@ -88,8 +88,8 @@ python tools/make_brand.py --check                   # バナー、アイコン�
 python tools/make_readmes.py --check                 # 8 つの README が最新
 python tools/make_glance.py --check                  # ファミリー全体の「ひと目で」の表が最新（このリポジトリの隣に他のリポジトリが必要）
 python tools/publication_check.py                    # 公開で非公開のものが外に出ない
-python tools/check_claims.py --require-siblings      # どの README も、状態を示さずにリスクのある機能を主張していない(このリポジトリの隣に他のリポジトリが必要)
-python tools/check_repo_tools.py --require-siblings  # 各リポジトリが同一コピーとして持つファイルは同じ内容(このリポジトリの隣に他のリポジトリが必要)
+python tools/check_claims.py --require-siblings      # どの README も、状態を示さずにリスクのある機能を主張していない（このリポジトリの隣に他のリポジトリが必要）
+python tools/check_repo_tools.py --require-siblings  # 各リポジトリが同一コピーとして持つファイルは同じ内容（このリポジトリの隣に他のリポジトリが必要）
 bash tools/check_all.sh                              # 各リポジトリのチェックを 1 行ずつ
 python tools/urtc_doctor.py                          # ドクター：このマシンと各リポジトリについての 1 つのレポート
 python -m pytest tests -q                            # ツールの単体テスト
@@ -160,8 +160,8 @@ README とテキストは、英語、スペイン語、フランス語、イタ�
 URTC は独立したリポジトリで構成され、それぞれに固有のバージョン、テスト、README があります。グループ別のファミリーは次のとおりです：
 
 * **URTC Tool Platform:**
-  * [URTC](https://github.com/JuanenRac/URTC) - ツールヘッドボードのファームウェア(25 のツールプロファイル、CAN ブートローダー)と CAN プロトコルのリファレンス。
-  * [URTC-COMMON](https://github.com/JuanenRac/URTC-COMMON) - 一度だけデータとして書かれた CAN プロトコル(仕様、生成された表、適合ベクトル)と、各プログラムが共有するコード。
+  * [URTC](https://github.com/JuanenRac/URTC) - ツールヘッドボードのファームウェア（25 のツールプロファイル、CAN ブートローダー）と CAN プロトコルのリファレンス。
+  * [URTC-COMMON](https://github.com/JuanenRac/URTC-COMMON) - 一度だけデータとして書かれた CAN プロトコル（仕様、生成された表、適合ベクトル）と、各プログラムが共有するコード。
   * [URTC-FLASHER](https://github.com/JuanenRac/URTC-FLASHER) - CAN または SWD/JTAG でボードのファームウェアを更新するデスクトップツール。
   * [URTC-GATEWAY](https://github.com/JuanenRac/URTC-GATEWAY) - CAN バスの手前に置くゲートウェイ。一覧にある識別子だけを通し、レートを制限し、セッション鍵を求めます。
   * [URTC-SMART-RACK](https://github.com/JuanenRac/URTC-SMART-RACK) - 予熱とライフサイクル追跡を備えたツールラック向けの、ハードウェア非依存の C ロジックとコマンドプロトコル。

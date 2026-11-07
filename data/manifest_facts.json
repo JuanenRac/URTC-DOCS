@@ -1,32 +1,32 @@
 {
  "repos": {
   "URTC": {
-   "changelog_head": "0.4.5",
+   "changelog_head": "0.4.6",
    "ci_simulation": true,
    "evidence": "simulator",
    "hardware_bound": true,
-   "latest_release": "v0.4.5",
-   "manifest_version": "0.4.5",
+   "latest_release": "v0.4.6",
+   "manifest_version": "0.4.6",
    "maturity": "functional",
    "native": {
-    "src/F303-master/firmware_common.h": "0.4.5.0"
+    "src/F303-master/firmware_common.h": "0.4.6.0"
    },
    "tests_present": true,
-   "unreleased_entries": 6
+   "unreleased_entries": 20
   },
   "URTC-COMMON": {
-   "changelog_head": "0.2.3",
+   "changelog_head": "0.2.4",
    "ci_simulation": true,
    "evidence": "simulator",
    "hardware_bound": true,
    "latest_release": "v0.2.3",
-   "manifest_version": "0.2.3",
+   "manifest_version": "0.2.4",
    "maturity": "functional",
    "native": {
-    "pyproject.toml": "0.2.3"
+    "pyproject.toml": "0.2.4"
    },
    "tests_present": true,
-   "unreleased_entries": 0
+   "unreleased_entries": 1
   },
   "URTC-DEVTOOLS": {
    "changelog_head": "0.0.3",
@@ -40,7 +40,7 @@
     "pyproject.toml": "0.0.3"
    },
    "tests_present": true,
-   "unreleased_entries": 1
+   "unreleased_entries": 3
   },
   "URTC-DOCS": {
    "changelog_head": "0.1.5",
@@ -54,35 +54,35 @@
     "pyproject.toml": "0.1.5"
    },
    "tests_present": true,
-   "unreleased_entries": 0
+   "unreleased_entries": 2
   },
   "URTC-FLASHER": {
-   "changelog_head": "0.5.3",
+   "changelog_head": "0.5.4",
    "ci_simulation": true,
    "evidence": "simulator",
    "hardware_bound": true,
    "latest_release": "v0.5.3",
-   "manifest_version": "0.5.3",
+   "manifest_version": "0.5.4",
    "maturity": "functional",
    "native": {
-    "flasher_config.py": "0.5.3"
+    "flasher_config.py": "0.5.4"
    },
    "tests_present": true,
-   "unreleased_entries": 0
+   "unreleased_entries": 2
   },
   "URTC-GATEWAY": {
-   "changelog_head": "0.0.5",
+   "changelog_head": "0.0.6",
    "ci_simulation": true,
    "evidence": "simulator",
    "hardware_bound": true,
-   "latest_release": "v0.0.5",
-   "manifest_version": "0.0.5",
+   "latest_release": "v0.0.6",
+   "manifest_version": "0.0.6",
    "maturity": "scaffolding",
    "native": {
-    "pyproject.toml": "0.0.5"
+    "pyproject.toml": "0.0.6"
    },
    "tests_present": true,
-   "unreleased_entries": 1
+   "unreleased_entries": 0
   },
   "URTC-SMART-RACK": {
    "changelog_head": "0.2.6",
@@ -96,25 +96,25 @@
     "src/firmware_common.h": "0.2.6.0"
    },
    "tests_present": true,
-   "unreleased_entries": 0
+   "unreleased_entries": 3
   },
   "URTC-TESTER": {
-   "changelog_head": "0.5.2",
+   "changelog_head": "0.5.3",
    "ci_simulation": true,
    "evidence": "simulator",
    "hardware_bound": true,
    "latest_release": "v0.5.2",
-   "manifest_version": "0.5.2",
+   "manifest_version": "0.5.3",
    "maturity": "functional",
    "native": {
-    "tester_config.py": "0.5.2"
+    "tester_config.py": "0.5.3"
    },
    "tests_present": true,
-   "unreleased_entries": 0
+   "unreleased_entries": 3
   },
   "URTC-UPDATER": {
    "changelog_head": "0.2.8",
-   "ci_simulation": false,
+   "ci_simulation": true,
    "evidence": "simulator",
    "hardware_bound": false,
    "latest_release": "v0.2.8",
@@ -124,7 +124,7 @@
     "pyproject.toml": "0.2.8"
    },
    "tests_present": true,
-   "unreleased_entries": 0
+   "unreleased_entries": 3
   },
   "URTC-VISION-TOOL": {
    "changelog_head": "0.1.9",
@@ -138,21 +138,21 @@
     "src/firmware_common.h": "0.1.9.0"
    },
    "tests_present": true,
-   "unreleased_entries": 1
+   "unreleased_entries": 5
   },
   "URTC-WEB-STUDIO": {
-   "changelog_head": "0.4.8",
+   "changelog_head": "0.4.9",
    "ci_simulation": true,
    "evidence": "simulator",
    "hardware_bound": true,
-   "latest_release": "v0.4.8",
-   "manifest_version": "0.4.8",
+   "latest_release": "v0.4.9",
+   "manifest_version": "0.4.9",
    "maturity": "functional",
    "native": {
-    "package.json": "0.4.8"
+    "package.json": "0.4.9"
    },
    "tests_present": true,
-   "unreleased_entries": 0
+   "unreleased_entries": 1
   }
  }
 }

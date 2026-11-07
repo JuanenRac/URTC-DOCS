@@ -86,7 +86,7 @@ def load_documented(path: Path) -> dict[str, int | None]:
         data = json.loads(path.read_text(encoding="utf-8"))
         repos = data["repos"]
         return {name: (entry.get("tests") or {}).get("count") for name, entry in repos.items()}
-    except (OSError, ValueError, KeyError, AttributeError) as error:
+    except (OSError, ValueError, KeyError, AttributeError, TypeError) as error:
         raise CountError(f"cannot read {path}: {error}") from error
 
 

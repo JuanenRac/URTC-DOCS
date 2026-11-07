@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The test counter reports a data file of the wrong shape as an error instead of crashing, and its failures are tested:** a data file that is a list now gives the same clear message as any unreadable one; a runner that cannot start or times out, a repository counted with unittest, a missing test folder and a repository with no tests documented are covered. The suite has 222 tests.
+
 - **The repository check compares the manifest with what can be computed:** `tools/ci_validate.py` now also runs the shared `tools/sync_manifests.py` offline, which compares the shipped version, the newest released heading of this changelog, the presence of tests and the claimed level of evidence with the manifest. It is part of the shared set of tools, so the copy is pinned by the lock.
 
 - **`tools/sync_manifests.py` is one of the shared files compared and locked in every repository:** the sync tool copies it with the rest of the set. The acceptance of the missing simulation job of the updater is removed because that repository now has the job.

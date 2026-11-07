@@ -30,7 +30,7 @@
 |---|---|
 | Version | `0.1.5` |
 | Reifegrad | Funktionsfähig |
-| Tests | 191 |
+| Tests | 222 |
 | Technik | Markdown / Mermaid / Python / SVG |
 | Ziel | Der PC der Person, die es benutzt |
 | Auf echter Hardware | Nicht zutreffend: nichts hiervon läuft auf Hardware |

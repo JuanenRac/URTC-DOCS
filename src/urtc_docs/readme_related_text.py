@@ -99,7 +99,7 @@ DESCRIPTIONS: dict[str, dict[str, str]] = {
         "URTC-SMART-RACK": "用于带预热和生命周期跟踪的工具架的、与硬件无关的 C 逻辑和命令协议。",
         "URTC-TESTER": "桌面实时 CAN 总线测试器，显示板卡所报告工具配置的控件和遥测。",
         "URTC-VISION-TOOL": "C 语言的传感器帧协议，以及用于检测工具头的 Python 热成像/RGB 配套程序。",
-        "URTC-WEB-STUDIO": "通过 Web Serial 和 SLCAN 烧录并测试板卡的浏览器应用，无需安装。",
+        "URTC-WEB-STUDIO": "通过 Web Serial 和 SLCAN 刷写并测试板卡的浏览器应用，无需安装。",
         "URTC-DEVTOOLS": "家族共用的仓库工具，作为带版本的整套工具，并用锁文件区分被改动的副本和已过时的副本。",
         "URTC-DOCS": "生态系统的架构、接口、安全基线和生成的目录，以及比较所有仓库的工具。",
         "URTC-UPDATER": "检测、安装并更新 URTC 家族仓库的桌面工具，每次只执行一个明确的操作。",

@@ -18,7 +18,7 @@
 
 ---
 
-**诚实性检查 - 今天真正能运行的部分：** 本仓库包含文档和小工具。这些工具（目录生成器、品牌素材生成器、README 生成器、发布检查和家族检查）是真实的，并有在 CI 中运行的单元测试；夜间工作流会针对家族中的其他仓库运行它们。文档依据这些仓库的 README、清单、变更日志和文档编写，以为本版本阅读时的内容为准，无法追溯到某个仓库的说法会被如实标明。这里的任何内容都不是硬件测试：能力矩阵会对每项能力说明它只是被模拟、在计算机上测试过，还是在真实硬件上运行过，固件仓库也说明目前尚不存在已焊装的板卡。
+**诚实性检查 - 今天真正能运行的部分：** 本仓库包含文档和小工具。这些工具（目录生成器、品牌素材生成器、README 生成器、发布检查和家族检查）是真实的，并有在 CI 中运行的单元测试；夜间工作流会针对家族中的其他仓库运行它们。文档依据这些仓库的 README、清单、变更日志和文档编写，内容以撰写本版本时读到的为准，无法追溯到某个仓库的说法会被如实标明。这里的任何内容都不是硬件测试：能力矩阵会对每项能力说明它只是被模拟、在计算机上测试过，还是在真实硬件上运行过，固件仓库也说明目前尚不存在已组装的板卡。
 
 ---
 
@@ -57,14 +57,14 @@
 
 下图显示 URTC 的各个仓库、连接板卡与电脑端工具的 CAN 总线，以及它们的文档所陈述的联系。
 
-* [架构](docs/ARCHITECTURE.md): 分层、数据流、端口和信任边界。
-* [接口](docs/INTERFACES.md): 每份契约归谁所有，以及记录在哪里。
-* [能力矩阵](docs/CAPABILITY_MATRIX.md): 哪些在软件中已证实、哪些需要硬件，逐个项目说明。
-* [安全基线](docs/SECURITY_BASELINE.md): 代码已强制执行的内容和仍然缺少的内容；以及[威胁模型](docs/THREAT_MODEL.md)。
-* [第一个垂直切片](docs/FIRST_VERTICAL_SLICE.md): 今天已存在的最小端到端路径。
-* [CAN 协议的重复实现](docs/CAN_PROTOCOL_DUPLICATION.md): 该协议依据一份文字说明被实现了三次；共享规范将包含什么。
-* [项目目录](docs/PROJECT_CATALOG.md): 生态中的每个仓库，依据其自身清单生成。
-* **工具：** `make_catalog.py` 生成目录，`make_brand.py` 生成横幅、图标和家族图，`make_readmes.py` 生成本仓库的八份 README，`publication_check.py` 在发布前查找任何私有内容，`check_all.sh` 运行家族中每个仓库自己的检查，并为每个仓库输出一行 PASS、FAIL 或 SKIP。`make_glance.py` 根据每个仓库的清单和 `data/glance.json` 生成其“速览”表（`--check` 比较，`--apply` 写入）；提升版本后，运行 `python tools/make_glance.py --apply --repo NAME` 即可刷新该仓库的表。`check_claims.py` 读取该系列每个仓库的英文 README，当某个句子含有风险词（E-STOP、联锁、实时、已签名、mTLS、FDCAN、YOLO、AI 驱动、自主、已认证等）而旁边没有状态标记（计划中、未实现、可选、默认关闭、模拟、已测试等），且不在人工对照代码读过并登记于 `data/claims_reviewed.json` 的行中时，检查失败。 `check_repo_tools.py` 比较每个仓库作为同一份副本携带的文件（文档策略与 README 一致性检查、清单版本升级工具、通知仪表板的工作流），任何一个不同就会失败。 `sync_repo_tools.py` 会把这些文件的规范副本（`template/eh3d-repo-template`）写入每个仓库，并保留各文件的换行符；不带 `--apply` 时只列出将会改变的内容。 同样的工具会在每个仓库中写入并检查锁文件 `tools/devtools.lock.json`（来自 URTC-DEVTOOLS 的共享集合版本以及每个共享文件的 SHA-256）：被编辑的副本、缺失的文件、锁中未列出的文件或落后于集合的副本都会被报告。`status_lights.py` 也是共享文件之一：当某个仓库 Project status 表中的灯高于其清单（`maturity`、`evidence`）所允许的程度时，该仓库的校验器会失败。 `urtc_doctor.py` 是唯一的入口：它生成一份报告，包含本机工具（Python、git、Node、ARM 编译器、PySide6、串口）、每个仓库的版本（清单、源文件和最新的 changelog 条目）、URTC-COMMON 的副本以及烧录工具和 Web 工作室内置的固件、每个仓库的验证和本仓库的检查；`--fast` 跳过验证，`--online` 将内置固件与最新发布版本比较。
+* [架构](docs/ARCHITECTURE.md)：分层、数据流、端口和信任边界。
+* [接口](docs/INTERFACES.md)：每份契约归谁所有，以及记录在哪里。
+* [能力矩阵](docs/CAPABILITY_MATRIX.md)：哪些在软件中已证实、哪些需要硬件，逐个项目说明。
+* [安全基线](docs/SECURITY_BASELINE.md)：代码已强制执行的内容和仍然缺少的内容；以及[威胁模型](docs/THREAT_MODEL.md)。
+* [第一个垂直切片](docs/FIRST_VERTICAL_SLICE.md)：今天已存在的最小端到端路径。
+* [CAN 协议的重复实现](docs/CAN_PROTOCOL_DUPLICATION.md)：该协议依据一份文字说明被实现了三次；共享规范将包含什么。
+* [项目目录](docs/PROJECT_CATALOG.md)：生态中的每个仓库，依据其自身清单生成。
+* **工具：** `make_catalog.py` 生成目录，`make_brand.py` 生成横幅、图标和家族图，`make_readmes.py` 生成本仓库的八份 README，`publication_check.py` 在发布前查找任何私有内容，`check_all.sh` 运行家族中每个仓库自己的检查，并为每个仓库输出一行 PASS、FAIL 或 SKIP。`make_glance.py` 根据每个仓库的清单和 `data/glance.json` 生成其“速览”表（`--check` 比较，`--apply` 写入）；提升版本后，运行 `python tools/make_glance.py --apply --repo NAME` 即可刷新该仓库的表。`check_claims.py` 读取家族中每个仓库的英文 README，当某个句子含有风险词（E-STOP、联锁、实时、已签名、mTLS、FDCAN、YOLO、AI 驱动、自主、已认证等）而旁边没有状态标记（计划中、未实现、可选、默认关闭、模拟、已测试等），且不在人工对照代码读过并登记于 `data/claims_reviewed.json` 的行中时，检查失败。`check_repo_tools.py` 比较每个仓库作为同一份副本携带的文件（文档策略与 README 一致性检查、清单版本升级工具、通知仪表板的工作流），任何一个不同就会失败。`sync_repo_tools.py` 会把这些文件的规范副本（`template/eh3d-repo-template`）写入每个仓库，并保留各文件的换行符；不带 `--apply` 时只列出将会改变的内容。 同样的工具会在每个仓库中写入并检查锁文件 `tools/devtools.lock.json`（来自 URTC-DEVTOOLS 的共享集合版本以及每个共享文件的 SHA-256）：被编辑的副本、缺失的文件、锁中未列出的文件或落后于集合的副本都会被报告。`status_lights.py` 也是共享文件之一：当某个仓库 Project status 表中的灯高于其清单（`maturity`、`evidence`）所允许的程度时，该仓库的校验器会失败。`urtc_doctor.py` 是唯一的入口：它生成一份报告，包含本机工具（Python、git、Node、ARM 编译器、PySide6、串口）、每个仓库的版本（清单、源文件和最新的 changelog 条目）、URTC-COMMON 的副本以及烧录工具和 Web 工作室内置的固件、每个仓库的验证和本仓库的检查；`--fast` 跳过验证，`--online` 将内置固件与最新发布版本比较。
 
 ## 🧩 在 URTC 中的角色
 
@@ -91,7 +91,7 @@ python tools/publication_check.py                    # 发布时不会带出任�
 python tools/check_claims.py --require-siblings      # 没有任何 README 在不说明状态的情况下声称具备高风险能力（需要与本仓库相邻的其他仓库）
 python tools/check_repo_tools.py --require-siblings  # 每个仓库作为同一份副本携带的文件内容一致（需要与本仓库相邻的其他仓库）
 bash tools/check_all.sh                              # 每个仓库的检查，每个一行
-python tools/urtc_doctor.py                          # 医生：关于本机和每个仓库的一份报告
+python tools/urtc_doctor.py                          # 诊断工具（doctor）：关于本机和每个仓库的一份报告
 python -m pytest tests -q                            # 工具的单元测试
 ```
 

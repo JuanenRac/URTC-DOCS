@@ -27,7 +27,7 @@ COMMENT: dict[str, str] = {
     "de": "der Doctor: ein Bericht über diesen Rechner und jedes Repository",
     "fr": "le doctor : un rapport sur cette machine et sur chaque dépôt",
     "it": "il doctor: un rapporto su questa macchina e su ogni repository",
-    "ja": "ドクター：このマシンと各リポジトリについての 1 つのレポート",
-    "zh": "医生：关于本机和每个仓库的一份报告",
+    "ja": "診断ツール（doctor）：このマシンと各リポジトリについての 1 つのレポート",
+    "zh": "诊断工具（doctor）：关于本机和每个仓库的一份报告",
     "pt": "o doctor: um relatório sobre esta máquina e sobre cada repositório",
 }

@@ -164,8 +164,13 @@ def render(code: str, manifest: dict, entry: dict) -> str:
     add(str(text["overview_intro"]))
     add("")
     for label, path, description in cast("list[tuple[str, str, str]]", text["overview"]):
-        add(f"* [{label}]({path}){' :' if code == 'fr' else ':'} {description}")
-    add(f"* **{text['tools_label']}** {text['tools']}{CLAIMS_TOOLS[code]}{DRIFT_TOOLS[code]}{DOCTOR_TOOLS[code]}")
+        colon = {"fr": " :", "ja": "：", "zh": "："}.get(code, ":")
+        sep = "" if code in ("ja", "zh") else " "
+        add(f"* [{label}]({path}){colon}{sep}{description}")
+    tools_line = f"* **{text['tools_label']}** {text['tools']}{CLAIMS_TOOLS[code]}{DRIFT_TOOLS[code]}{DOCTOR_TOOLS[code]}"
+    if code in ("ja", "zh"):
+        tools_line = tools_line.replace("。 `", "。`")  # no space after a full-width full stop
+    add(tools_line)
     add("")
     section("role", str(text["h_role"]))
     add(str(text["role"]))

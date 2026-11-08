@@ -28,7 +28,7 @@
 
 | | |
 |---|---|
-| Version | `0.1.5` |
+| Version | `0.1.6` |
 | Reifegrad | Funktionsfähig |
 | Tests | 222 |
 | Technik | Markdown / Mermaid / Python / SVG |

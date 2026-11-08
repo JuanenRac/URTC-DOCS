@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented here.
 
-## [Unreleased]
+## [0.1.6] - The family check also verifies mincommon: tools/checkall.sh runs the check of URTC-COMMON that compares the mincommon of every manifest with the oldest copy of the shared contracts the repository carries. (and 3 more changes)
 
 - **The family check also verifies `min_common`:** `tools/check_all.sh` runs the check of URTC-COMMON that compares the `min_common` of every manifest with the oldest copy of the shared contracts the repository carries.
 

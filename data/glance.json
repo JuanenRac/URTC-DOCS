@@ -13,7 +13,7 @@
     "URTC-DEVTOOLS": {
       "hardware": "not_applicable",
       "tests": {
-        "count": 95,
+        "count": 109,
         "command": "python -m unittest discover -s tests"
       }
     },

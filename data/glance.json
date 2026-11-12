@@ -13,7 +13,7 @@
     "URTC-DEVTOOLS": {
       "hardware": "not_applicable",
       "tests": {
-        "count": 109,
+        "count": 131,
         "command": "python -m unittest discover -s tests"
       }
     },
@@ -26,34 +26,34 @@
     "URTC-FLASHER": {
       "hardware": "simulated",
       "tests": {
-        "count": 857,
+        "count": 901,
         "command": "python -m pytest tests -q"
       }
     },
     "URTC-GATEWAY": {
       "hardware": "simulated",
       "tests": {
-        "count": 177
+        "count": 200
       }
     },
     "URTC-SMART-RACK": {
       "hardware": "not_run",
       "target": "board",
       "tests": {
-        "count": 739
+        "count": 772
       }
     },
     "URTC-TESTER": {
       "hardware": "simulated",
       "tests": {
-        "count": 946,
+        "count": 957,
         "command": "python -m pytest -q"
       }
     },
     "URTC-UPDATER": {
       "hardware": "not_applicable",
       "tests": {
-        "count": 643,
+        "count": 695,
         "command": "python -m pytest"
       }
     },
@@ -61,7 +61,7 @@
       "hardware": "not_run",
       "target": "board",
       "tests": {
-        "count": 200,
+        "count": 234,
         "command": "pytest"
       }
     },
@@ -69,7 +69,7 @@
       "hardware": "simulated",
       "target": "browser",
       "tests": {
-        "count": 1502,
+        "count": 1712,
         "command": "npm test"
       }
     }

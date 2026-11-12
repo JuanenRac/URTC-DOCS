@@ -7,7 +7,7 @@
     "URTC-COMMON": {
       "hardware": "simulated",
       "tests": {
-        "count": 2727
+        "count": 2754
       }
     },
     "URTC-DEVTOOLS": {
@@ -26,14 +26,14 @@
     "URTC-FLASHER": {
       "hardware": "simulated",
       "tests": {
-        "count": 843,
+        "count": 847,
         "command": "python -m pytest tests -q"
       }
     },
     "URTC-GATEWAY": {
       "hardware": "simulated",
       "tests": {
-        "count": 159
+        "count": 162
       }
     },
     "URTC-SMART-RACK": {
@@ -46,7 +46,7 @@
     "URTC-TESTER": {
       "hardware": "simulated",
       "tests": {
-        "count": 929,
+        "count": 933,
         "command": "python -m pytest -q"
       }
     },
@@ -69,7 +69,7 @@
       "hardware": "simulated",
       "target": "browser",
       "tests": {
-        "count": 1486,
+        "count": 1489,
         "command": "npm test"
       }
     }

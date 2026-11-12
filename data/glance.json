@@ -33,7 +33,7 @@
     "URTC-GATEWAY": {
       "hardware": "simulated",
       "tests": {
-        "count": 139
+        "count": 159
       }
     },
     "URTC-SMART-RACK": {
@@ -69,7 +69,7 @@
       "hardware": "simulated",
       "target": "browser",
       "tests": {
-        "count": 1458,
+        "count": 1486,
         "command": "npm test"
       }
     }

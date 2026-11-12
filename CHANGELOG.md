@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented here.
 
+## [Unreleased]
+
+- **The shared document policy check is refreshed:** `tools/_doc_policy.py` and `tools/ci_validate.py` are the current copies, which also fail when a build script changes a version and when a script switches into a virtual environment instead of running its python directly. The build and run scripts run the python of the virtual environment directly.
+
 ## [0.1.6] - The family check also verifies mincommon: tools/checkall.sh runs the check of URTC-COMMON that compares the mincommon of every manifest with the oldest copy of the shared contracts the repository carries. (and 3 more changes)
 
 - **The family check also verifies `min_common`:** `tools/check_all.sh` runs the check of URTC-COMMON that compares the `min_common` of every manifest with the oldest copy of the shared contracts the repository carries.

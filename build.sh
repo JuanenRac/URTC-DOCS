@@ -61,38 +61,37 @@ echo "      Done."
 echo
 
 echo "[2/5] Creating/activating virtual environment..."
-if [ ! -d .venv ]; then
-    python3 -m venv .venv
+# The venv is made with python3 (or python); the scripts use the python of the venv directly instead of an activate script: the python that is first on the PATH
+# may be a stripped one (for example the one of ESP-IDF) whose venv has none.
+if [ ! -x .venv/bin/python ] && [ ! -x .venv/Scripts/python.exe ]; then
+    (python3 -m venv .venv 2>/dev/null || python -m venv .venv)
 fi
-# shellcheck disable=SC1091
-# venv layout differs by OS: bin/activate on Linux/macOS, Scripts/activate
-# on Windows (also true for a Windows Python venv used from Git Bash).
-if [ -f .venv/bin/activate ]; then
-    source .venv/bin/activate
-elif [ -f .venv/Scripts/activate ]; then
-    source .venv/Scripts/activate
+if [ -x .venv/bin/python ]; then
+    VPY=".venv/bin/python"
+elif [ -x .venv/Scripts/python.exe ]; then
+    VPY=".venv/Scripts/python.exe"
 else
-    echo "ERROR: could not find the venv activate script." >&2
+    echo "ERROR: the venv has no python; delete the .venv folder and run this again." >&2
     exit 1
 fi
 echo "      Done."
 echo
 
 echo "[3/5] Installing project (editable) and the pinned dev dependencies into the venv..."
-python -m pip install --upgrade pip >/dev/null
-python -m pip install --require-hashes -r requirements-dev.lock
-python -m pip install --no-deps -e .
+"$VPY" -m pip install --upgrade pip >/dev/null
+"$VPY" -m pip install --require-hashes -r requirements-dev.lock
+"$VPY" -m pip install --no-deps -e .
 echo "      Done."
 echo
 
 echo "[4/5] Verifying the package compiles/imports without errors..."
-python -m py_compile src/urtc_docs/__init__.py src/urtc_docs/cli.py src/urtc_docs/catalog.py src/urtc_docs/publication.py
-python -c "import urtc_docs; print('import OK - version', urtc_docs.__version__)"
+"$VPY" -m py_compile src/urtc_docs/__init__.py src/urtc_docs/cli.py src/urtc_docs/catalog.py src/urtc_docs/publication.py
+"$VPY" -c "import urtc_docs; print('import OK - version', urtc_docs.__version__)"
 echo "      Done."
 echo
 
 echo "[5/5] Running the real test suite (pytest)..."
-python -m pytest tests/ -q
+"$VPY" -m pytest tests/ -q
 echo "      Done."
 echo
 

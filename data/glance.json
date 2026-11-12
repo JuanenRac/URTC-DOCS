@@ -46,7 +46,7 @@
     "URTC-TESTER": {
       "hardware": "simulated",
       "tests": {
-        "count": 905,
+        "count": 929,
         "command": "python -m pytest -q"
       }
     },

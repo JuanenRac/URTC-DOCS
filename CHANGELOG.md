@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The synchroniser of the shared tools keeps the names a copy already has:** a workflow that is triggered by `URTC CI baseline` is no longer rewritten with the name of the folder, and `tools/run_host_tests.py`, which the repository that owns the host tests improves first, is never overwritten by the template (its lock hash still follows the real file). Both are covered by tests.
+
 - **The Spanish, German, French and European Portuguese texts of the README and of the Related Projects section were read sentence by sentence:** the programs are called the same way in every language (tester, updater, Web Studio, flasher), the rate of the gateway is a frequency and never a bit rate, capitals in headings and mixed words of another language were corrected, and the generated sections of the other repositories follow the same texts.
 
 - **The shared document policy check is refreshed:** `tools/_doc_policy.py` and `tools/ci_validate.py` are the current copies, which also fail when a build script changes a version and when a script switches into a virtual environment instead of running its python directly. The build and run scripts run the python of the virtual environment directly.

@@ -49,6 +49,10 @@ _PLACEHOLDER = "<REPO>"
 # them ("URTC" in a list of families) is text, not the name of a repository, so it is not turned into the placeholder.
 VERBATIM_FILES = frozenset({"bump_manifest_version.py", "tools/universal_readme_check.py", "tools/sync_manifests.py"})
 
+# Shared files whose copy is looked at (drift, lock) but never rewritten by the synchroniser: the repository that owns the host test executor improves it first, and the template follows by hand.
+# Writing the template over it would take the improvement away.
+NEVER_REWRITTEN = frozenset({"tools/run_host_tests.py"})
+
 # Shared files that only the set of URTC-DEVTOOLS carries: the template kept here (for the repositories of the other ecosystem) does not have them.
 NOT_IN_TEMPLATE = frozenset({"tools/sync_manifests.py"})
 
@@ -132,8 +136,17 @@ def template_text(relative: str, template_dir: Path | None = None) -> str | None
     return path.read_text(encoding="utf-8").replace("\r\n", "\n") if path.is_file() else None
 
 
-def render_for(repository: str, canonical: str, newline: str = "\n") -> str:
-    """The canonical text for one repository: its own name where the template says <REPO>."""
+def render_for(repository: str, canonical: str, newline: str = "\n", existing: str | None = None) -> str:
+    """The canonical text for one repository: its own name where the template says <REPO>.
+
+    When the copy already there names the family in the same places (the same number of names as the template has placeholders), those names are kept in order: a
+    trigger of a workflow that is called "URTC CI baseline" has to go on saying so, and the file of the repository called URTC would otherwise be written with the name of the folder."""
+    if existing is not None:
+        kept = _FAMILY_NAME.findall(existing.replace("\r\n", "\n"))
+        if kept and len(kept) == canonical.count(_PLACEHOLDER):
+            parts = canonical.split(_PLACEHOLDER)
+            text = parts[0] + "".join(name + part for name, part in zip(kept, parts[1:], strict=True))
+            return text.replace("\n", newline)
     return canonical.replace(_PLACEHOLDER, repository).replace("\n", newline)
 
 
@@ -164,8 +177,10 @@ def plan_sync(workspace: Path, files: tuple[str, ...] = SHARED_FILES, template_d
                 continue
             raw = path.read_bytes().decode("utf-8", errors="replace")
             newline = "\r\n" if "\r\n" in raw else "\n"
+            if relative in NEVER_REWRITTEN:
+                continue
             if normalize(raw, relative) != canonical:
-                items.append(SyncItem(repo.name, relative, path, render_for(repo.name, canonical, newline), newline))
+                items.append(SyncItem(repo.name, relative, path, render_for(repo.name, canonical, newline, None if relative in VERBATIM_FILES else raw), newline))
     return items
 
 

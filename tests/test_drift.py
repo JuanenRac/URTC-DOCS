@@ -203,3 +203,26 @@ def test_a_verbatim_file_keeps_the_words_of_the_family_and_the_others_become_the
     text = 'FAMILIES = ("URTC", "HYDRA")  # URTC-TESTER\n'
     assert drift.normalize(text, "tools/universal_readme_check.py") == text
     assert drift.normalize(text, "tools/pretty_run.py") == 'FAMILIES = ("<REPO>", "HYDRA")  # <REPO>\n'
+
+
+def test_a_rewrite_keeps_the_family_names_the_copy_already_had():
+    # the trigger of a workflow names the workflow, not the folder: a copy that says "URTC" in a repository called URTC-A goes on saying it
+    canonical = "# <REPO> Ecosystem\non:\n  workflows: [<REPO> CI baseline]\nnew\n"
+    existing = "# URTC Ecosystem\r\non:\r\n  workflows: [URTC CI baseline]\r\nold\r\n"
+    assert drift.render_for("URTC-A", canonical, "\r\n", existing) == "# URTC Ecosystem\r\non:\r\n  workflows: [URTC CI baseline]\r\nnew\r\n"
+    # without a copy, or with names in other places than the template, the name of the repository is written
+    assert drift.render_for("URTC-A", canonical, "\n") == "# URTC-A Ecosystem\non:\n  workflows: [URTC-A CI baseline]\nnew\n"
+    assert drift.render_for("URTC-A", canonical, "\n", "# URTC Ecosystem\nold\n") == "# URTC-A Ecosystem\non:\n  workflows: [URTC-A CI baseline]\nnew\n"
+
+
+def test_the_sync_plan_keeps_the_names_of_a_copy_and_leaves_alone_the_files_it_must_never_rewrite(tmp_path):
+    template = tmp_path / "tpl"
+    put(template, "tools/_x.py", "# <REPO> - x\nprint(2)\n")
+    put(template, "tools/run_host_tests.py", "# <REPO> - run\nold\n")
+    ws = tmp_path / "ws"
+    ws.mkdir()
+    _workspace(ws, {"URTC-A": "# URTC - x\nprint(1)\n"})
+    put(ws / "URTC-A", "tools/run_host_tests.py", "# URTC-A - run\nnewer than the template\n")
+    items = drift.plan_sync(ws, ("tools/_x.py", "tools/run_host_tests.py"), template)
+    assert [(item.file, item.new_text) for item in items] == [("tools/_x.py", "# URTC - x\nprint(2)\n")]
+    assert "tools/run_host_tests.py" in drift.NEVER_REWRITTEN

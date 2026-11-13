@@ -55,7 +55,7 @@ def test_the_bootloader_range_is_present():
 def test_magic_payloads():
     names = [entry["name"] for entry in VECTORS["magic_payloads"]]
     assert len(names) == len(set(names))
-    assert set(names) == {"enter_bootloader", "authorize_downgrade", "erase_fram", "solder_feeder_reset"}
+    assert set(names) == {"enter_bootloader", "authorize_downgrade", "erase_fram", "solder_feeder_reset", "clear_error"}
     for entry in VECTORS["magic_payloads"]:
         assert HEX_ID.match(entry["id"]) and HEX_DATA.match(entry["data"]) and len(entry["data"]) == 8, entry
 
@@ -112,7 +112,8 @@ def test_quick_state_expectations_follow_the_documented_layout():
         assert expect["booting"] is bool(data[3])
         assert expect["thermal_fault"] == (data[4] if len(data) > 4 else None)
         assert expect["reset_cause"] == (data[5] if len(data) > 5 else None)
-        assert expect["watchdog_reset"] is bool(len(data) > 5 and data[5] & 1)
+        if "watchdog_reset" in expect:  # the vectors of the error reason and of the clear-error result (bytes 6 and 7) do not state it
+            assert expect["watchdog_reset"] is bool(len(data) > 5 and data[5] & 1)
 
 
 def test_version_query_expectations_follow_the_documented_frames():

@@ -606,6 +606,11 @@
    "name": "solder_feeder_reset",
    "id": "0x131",
    "data": "52535030"
+  },
+  {
+   "name": "clear_error",
+   "id": "0x1B2",
+   "data": "434C4552"
   }
  ],
  "slcan_encode": [
@@ -836,6 +841,52 @@
     "thermal_fault": 1,
     "reset_cause": 8,
     "watchdog_reset": false
+   }
+  },
+  {
+   "name": "eight bytes: communication watchdog error, clear refused because hot",
+   "data": "0A01000000080505",
+   "expect": {
+    "tool_id": 10,
+    "system_error": true,
+    "can_error": false,
+    "booting": false,
+    "thermal_fault": 0,
+    "reset_cause": 8,
+    "error_reason": 5,
+    "error_reason_name": "COMMS_WATCHDOG",
+    "clear_result": 5,
+    "clear_result_name": "REFUSED_HOT"
+   }
+  },
+  {
+   "name": "eight bytes: no error, error cleared",
+   "data": "0000000000080001",
+   "expect": {
+    "tool_id": 0,
+    "system_error": false,
+    "can_error": false,
+    "booting": false,
+    "thermal_fault": 0,
+    "reset_cause": 8,
+    "error_reason": 0,
+    "error_reason_name": null,
+    "clear_result": 1,
+    "clear_result_name": "CLEARED"
+   }
+  },
+  {
+   "name": "six bytes: error reason not reported by older firmware",
+   "data": "000000000001",
+   "expect": {
+    "tool_id": 0,
+    "system_error": false,
+    "can_error": false,
+    "booting": false,
+    "thermal_fault": 0,
+    "reset_cause": 1,
+    "error_reason": null,
+    "clear_result": null
    }
   },
   {

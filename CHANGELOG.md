@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The copy of the shared CAN vectors is current again:** it carries the new magic payload and the new answers of the quick state of the common repository, so the nightly comparison finds the copy equal.
+
 - **The synchroniser of the shared tools keeps the names a copy already has:** a workflow that is triggered by `URTC CI baseline` is no longer rewritten with the name of the folder. A test covers it.
 
 - **The Spanish, German, French and European Portuguese texts of the README and of the Related Projects section were read sentence by sentence:** the programs are called the same way in every language (tester, updater, Web Studio, flasher), the rate of the gateway is a frequency and never a bit rate, capitals in headings and mixed words of another language were corrected, and the generated sections of the other repositories follow the same texts.

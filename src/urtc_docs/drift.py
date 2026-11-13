@@ -49,10 +49,6 @@ _PLACEHOLDER = "<REPO>"
 # them ("URTC" in a list of families) is text, not the name of a repository, so it is not turned into the placeholder.
 VERBATIM_FILES = frozenset({"bump_manifest_version.py", "tools/universal_readme_check.py", "tools/sync_manifests.py"})
 
-# Shared files whose copy is looked at (drift, lock) but never rewritten by the synchroniser: the repository that owns the host test executor improves it first, and the template follows by hand.
-# Writing the template over it would take the improvement away.
-NEVER_REWRITTEN = frozenset({"tools/run_host_tests.py"})
-
 # Shared files that only the set of URTC-DEVTOOLS carries: the template kept here (for the repositories of the other ecosystem) does not have them.
 NOT_IN_TEMPLATE = frozenset({"tools/sync_manifests.py"})
 
@@ -177,8 +173,6 @@ def plan_sync(workspace: Path, files: tuple[str, ...] = SHARED_FILES, template_d
                 continue
             raw = path.read_bytes().decode("utf-8", errors="replace")
             newline = "\r\n" if "\r\n" in raw else "\n"
-            if relative in NEVER_REWRITTEN:
-                continue
             if normalize(raw, relative) != canonical:
                 items.append(SyncItem(repo.name, relative, path, render_for(repo.name, canonical, newline, None if relative in VERBATIM_FILES else raw), newline))
     return items

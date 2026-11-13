@@ -215,14 +215,11 @@ def test_a_rewrite_keeps_the_family_names_the_copy_already_had():
     assert drift.render_for("URTC-A", canonical, "\n", "# URTC Ecosystem\nold\n") == "# URTC-A Ecosystem\non:\n  workflows: [URTC-A CI baseline]\nnew\n"
 
 
-def test_the_sync_plan_keeps_the_names_of_a_copy_and_leaves_alone_the_files_it_must_never_rewrite(tmp_path):
+def test_the_sync_plan_keeps_the_names_of_a_copy(tmp_path):
     template = tmp_path / "tpl"
     put(template, "tools/_x.py", "# <REPO> - x\nprint(2)\n")
-    put(template, "tools/run_host_tests.py", "# <REPO> - run\nold\n")
     ws = tmp_path / "ws"
     ws.mkdir()
     _workspace(ws, {"URTC-A": "# URTC - x\nprint(1)\n"})
-    put(ws / "URTC-A", "tools/run_host_tests.py", "# URTC-A - run\nnewer than the template\n")
-    items = drift.plan_sync(ws, ("tools/_x.py", "tools/run_host_tests.py"), template)
+    items = drift.plan_sync(ws, ("tools/_x.py",), template)
     assert [(item.file, item.new_text) for item in items] == [("tools/_x.py", "# URTC - x\nprint(2)\n")]
-    assert "tools/run_host_tests.py" in drift.NEVER_REWRITTEN

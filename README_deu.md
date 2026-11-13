@@ -18,11 +18,11 @@
 
 ---
 
-**Ehrlichkeitsprüfung - was heute wirklich läuft:** dieses Repository enthält Dokumente und kleine Werkzeuge. Die Werkzeuge (der Katalog-Generator, der Marken-Generator, der README-Generator, die Veröffentlichungsprüfung und die Familienprüfung) sind echt und haben Unit-Tests, die in der CI laufen; der nächtliche Workflow führt sie gegen die übrigen Repositories der Familie aus. Die Dokumente sind aus den READMEs, Manifesten, Änderungsprotokollen und Dokumenten dieser Repositories geschrieben, wie sie für diese Version gelesen wurden, und eine Aussage, die sich nicht auf ein Repository zurückführen ließ, ist als solche gekennzeichnet. Nichts davon ist ein Hardwaretest: Die Fähigkeitenmatrix sagt für jede Fähigkeit, ob sie nur simuliert, auf einem Computer getestet oder auf echter Hardware ausgeführt wurde, und das Firmware-Repository gibt an, dass noch keine bestückte Platine existiert.
+**Ehrlicher Zwischenstand: Was heute wirklich läuft:** dieses Repository enthält Dokumente und kleine Werkzeuge. Die Werkzeuge (der Katalog-Generator, der Marken-Generator, der README-Generator, die Veröffentlichungsprüfung und die Familienprüfung) sind echt und haben Unit-Tests, die in der CI laufen; der nächtliche Workflow führt sie gegen die übrigen Repositories der Familie aus. Die Dokumente sind aus den READMEs, Manifesten, Änderungsprotokollen und Dokumenten dieser Repositories geschrieben, wie sie für diese Version gelesen wurden, und eine Aussage, die sich nicht auf ein Repository zurückführen ließ, ist als solche gekennzeichnet. Nichts davon ist ein Hardwaretest: Die Fähigkeitenmatrix sagt für jede Fähigkeit, ob sie nur simuliert, auf einem Computer getestet oder auf echter Hardware ausgeführt wurde, und das Firmware-Repository gibt an, dass noch keine bestückte Platine existiert.
 
 ---
 
-> **Stand von Sicherheit (Safety) und Security:** Dieses Ökosystem ist kein zertifiziertes Sicherheitssystem, und es existiert noch keine bestückte URTC-Platine. Die Bootloader prüfen Firmware-Images mit CRC32 und einem HMAC-SHA256 mit gemeinsamem Schlüssel, nicht mit einer asymmetrischen Signatur (geplant); die veröffentlichten Anwendungs-Images sind mit dem öffentlichen Entwicklungsschlüssel signiert (`signing_key_kind: dev`), sodass jeder ein vom Bootloader akzeptiertes Image erzeugen kann; an eine echte Platine wurde noch nichts gesendet. Lesen Sie die [Sicherheitsbasis](docs/SECURITY_BASELINE.md) und das [Bedrohungsmodell](docs/THREAT_MODEL.md), bevor Sie sich für die Sicherheit einer Person auf eine Aussage hier verlassen.
+> **Stand von Sicherheit (Safety) und Security:** Dieses Ökosystem ist kein zertifiziertes Sicherheitssystem, und es existiert noch keine bestückte URTC-Platine. Die Bootloader prüfen Firmware-Images mit CRC32 und einem HMAC-SHA256 mit gemeinsamem Schlüssel, nicht mit einer asymmetrischen Signatur (geplant); die veröffentlichten Anwendungs-Images sind mit dem öffentlichen Entwicklungsschlüssel signiert (`signing_key_kind: dev`), sodass jeder ein vom Bootloader akzeptiertes Image erzeugen kann; an eine echte Platine wurde noch nichts gesendet. Lesen Sie die [Sicherheitsbasis](docs/SECURITY_BASELINE.md) und das [Bedrohungsmodell](docs/THREAT_MODEL.md), bevor Sie sich bei der Sicherheit einer Person auf eine Aussage in diesem Repository verlassen.
 
 ## 📋 Auf einen Blick
 
@@ -88,8 +88,8 @@ python tools/make_brand.py --check                   # Banner, Symbol und Karte 
 python tools/make_readmes.py --check                 # die acht READMEs sind aktuell
 python tools/make_glance.py --check                  # die Tabellen Auf einen Blick der Familie sind aktuell (braucht die Repositories neben diesem)
 python tools/publication_check.py                    # nichts Privates würde mit einer Veröffentlichung hinausgehen
-python tools/check_claims.py --require-siblings      # kein README nennt eine riskante Fähigkeit ohne ihren Status (braucht die Repositorys neben diesem)
-python tools/check_repo_tools.py --require-siblings  # die Dateien, die jedes Repository als dieselbe Kopie führt, sind gleich (braucht die Repositorys neben diesem)
+python tools/check_claims.py --require-siblings      # kein README nennt eine riskante Fähigkeit ohne ihren Status (braucht die Repositories neben diesem)
+python tools/check_repo_tools.py --require-siblings  # die Dateien, die jedes Repository als dieselbe Kopie führt, sind gleich (braucht die Repositories neben diesem)
 bash tools/check_all.sh                              # die Prüfungen jedes Repositorys, eine Zeile je Repository
 python tools/urtc_doctor.py                          # der Doctor: ein Bericht über diesen Rechner und jedes Repository
 python -m pytest tests -q                            # die Unit-Tests der Werkzeuge
@@ -143,13 +143,13 @@ URTC-DOCS/
 
 **Bekannte Grenzen heute**
 
-* Die Sicherheitsbasis und das Bedrohungsmodell sind aus den anderen Repositorys geschrieben, wie sie gelesen wurden; niemand außerhalb des Projekts hat sie geprüft.
+* Die Sicherheitsbasis und das Bedrohungsmodell sind aus den anderen Repositories geschrieben, wie sie gelesen wurden; niemand außerhalb des Projekts hat sie geprüft.
 * Der nächtliche Lauf holt jedes Repository der Familie und vergleicht deren Übersichtstabellen, Aussagen und Katalogstruktur; eine veraltete Version im Katalog wird gemeldet, lässt die Nacht aber nicht fehlschlagen.
 * Die Dokumente beschreiben Software; es ist keine Hardware beteiligt, und keine Aussage über Platinen wurde auf einer Platine geprüft.
 
 **Als Nächstes**
 
-* Katalog, Auf-einen-Blick-Tabellen und Fähigkeitenmatrix aktuell halten, wenn sich die Repositorys ändern.
+* Katalog, Auf-einen-Blick-Tabellen und Fähigkeitenmatrix aktuell halten, wenn sich die Repositories ändern.
 
 ## 🌍 Sprachen
 
@@ -166,7 +166,7 @@ URTC besteht aus unabhängigen Repositories mit jeweils eigener Version, eigenen
   * [URTC-GATEWAY](https://github.com/JuanenRac/URTC-GATEWAY) - Gateway vor dem CAN-Bus: lässt nur gelistete Kennungen durch, begrenzt ihre Rate und verlangt einen Sitzungsschlüssel.
   * [URTC-SMART-RACK](https://github.com/JuanenRac/URTC-SMART-RACK) - hardwareunabhängige C-Logik und Befehlsprotokoll für eine Werkzeugablage mit Vorheizen und Lebenszyklusverfolgung.
   * [URTC-TESTER](https://github.com/JuanenRac/URTC-TESTER) - Desktop-Live-Tester für den CAN-Bus, der die Bedienelemente und die Telemetrie des von einer Platine gemeldeten Werkzeugprofils zeigt.
-  * [URTC-VISION-TOOL](https://github.com/JuanenRac/URTC-VISION-TOOL) - Sensorrahmen-Protokoll in C und ein Python-Thermo-/RGB-Begleiter für einen Inspektions-Werkzeugkopf.
+  * [URTC-VISION-TOOL](https://github.com/JuanenRac/URTC-VISION-TOOL) - Sensor-Frame-Protokoll in C und ein Python-Thermo-/RGB-Begleiter für einen Inspektions-Werkzeugkopf.
   * [URTC-WEB-STUDIO](https://github.com/JuanenRac/URTC-WEB-STUDIO) - Browser-App, die die Platine über Web Serial und SLCAN flasht und testet, ohne Installation.
 * **Ecosystem Operations:**
   * [URTC-DEVTOOLS](https://github.com/JuanenRac/URTC-DEVTOOLS) - die gemeinsamen Repository-Werkzeuge der Familie als versionierter Satz, mit einer Sperrdatei, die eine bearbeitete von einer veralteten Kopie unterscheidet.
@@ -181,7 +181,7 @@ URTC besteht aus unabhängigen Repositories mit jeweils eigener Version, eigenen
 
 ## 📚 Dokumentation
 
-Wo man mehr liest:
+Weitere Informationen:
 
 * [Fähigkeitenmatrix: was belegt ist und was nicht](docs/CAPABILITY_MATRIX.md)
 * [Projektkatalog: Versionen und Arten der Repositories](docs/PROJECT_CATALOG.md)
@@ -192,7 +192,7 @@ Wo man mehr liest:
 ## 🤝 Mitwirken und Community
 
 * Führen Sie vor einem Pull Request `URTC_CI=1 python tools/ci_validate.py` aus: Es muss bestehen. Siehe [CONTRIBUTING.md](CONTRIBUTING.md) und den [Verhaltenskodex](CODE_OF_CONDUCT.md).
-* Das README gibt es in acht Sprachen: Eine Textänderung wird in allen acht Dateien vorgenommen, und die mit anderen Repositorys geteilten Abschnitte schreibt `tools/readme_sections.py` von URTC-COMMON.
+* Das README gibt es in acht Sprachen: Eine Textänderung wird in allen acht Dateien vorgenommen, und die mit anderen Repositories geteilten Abschnitte schreibt `tools/readme_sections.py` von URTC-COMMON.
 * Beschreiben Sie nichts als auf einer Platine funktionierend, was nur gebaut wurde.
 * Melden Sie eine Schwachstelle privat: [SECURITY.md](SECURITY.md). Fragen, Ideen und Meldungen: electrohobby3d@gmail.com ([SUPPORT.md](SUPPORT.md)).
 * Fragen, Ideen und Meldungen: electrohobby3d@gmail.com

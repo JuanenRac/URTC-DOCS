@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The Spanish, German, French and European Portuguese texts of the README and of the Related Projects section were read sentence by sentence:** the programs are called the same way in every language (tester, updater, Web Studio, flasher), the rate of the gateway is a frequency and never a bit rate, capitals in headings and mixed words of another language were corrected, and the generated sections of the other repositories follow the same texts.
+
 - **The shared document policy check is refreshed:** `tools/_doc_policy.py` and `tools/ci_validate.py` are the current copies, which also fail when a build script changes a version and when a script switches into a virtual environment instead of running its python directly. The build and run scripts run the python of the virtual environment directly.
 
 ## [0.1.6] - The family check also verifies mincommon: tools/checkall.sh runs the check of URTC-COMMON that compares the mincommon of every manifest with the oldest copy of the shared contracts the repository carries. (and 3 more changes)

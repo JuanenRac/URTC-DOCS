@@ -137,7 +137,7 @@ TEXT: dict[str, dict[str, object]] = {
     },
     "es": {
         "subtitle": "Arquitectura, interfaces, base de seguridad y la verdad sobre lo que está probado",
-        "honesty_label": "Comprobación de honestidad - qué funciona hoy de verdad:",
+        "honesty_label": "Aviso de honestidad: qué funciona hoy de verdad:",
         "honesty": "este repositorio contiene documentos y herramientas pequeñas. Las herramientas (el generador del catálogo, el de la marca, el de los README, la comprobación de publicación y la comprobación de la familia) son reales y tienen pruebas unitarias que se ejecutan en CI; el flujo nocturno las ejecuta contra los demás repositorios de la familia. Los documentos se han escrito a partir de los README, manifiestos, registros de cambios y documentos de esos repositorios tal como se leyeron para esta versión, y una afirmación que no se pudo rastrear hasta un repositorio queda señalada como tal. Nada de esto es una prueba de hardware: la matriz de capacidades dice, para cada capacidad, si solo se simuló, se probó en un ordenador o se ejecutó en hardware real, y el repositorio del firmware indica que todavía no existe ninguna placa montada.",
         "h_overview": "Descripción general",
         "overview_intro": "La imagen siguiente muestra los repositorios de URTC, el bus CAN que une las placas y las herramientas del ordenador, y los vínculos que afirman sus documentos.",
@@ -186,14 +186,14 @@ TEXT: dict[str, dict[str, object]] = {
         "tree": {
             "docs": "arquitectura, interfaces, matriz de capacidades, base de seguridad, modelo de amenazas, primer corte, nota del protocolo CAN, catálogo generado",
             "src": "las herramientas como paquete (catálogo, marca, README, comprobación de publicación)",
-            "tools": "scripts finos sobre el paquete, check_all.sh y las comprobaciones de CI compartidas del ecosistema",
+            "tools": "scripts ligeros sobre el paquete, check_all.sh y las comprobaciones de CI compartidas del ecosistema",
             "tests": "pruebas unitarias de las herramientas",
             "images": "banner y mapa del ecosistema",
             "brand": "el icono",
             "data": "los datos que leen los generadores (las cifras de De un vistazo, las afirmaciones revisadas)",
             "template": "la copia canónica de los archivos que comparten todos los repositorios y la herramienta que la coloca"
         },
-        "h_dev": "COMPILACIÓN Y EJECUCIÓN",
+        "h_dev": "Compilación y ejecución",
         "dev_requirements": "**Requisitos:** Python 3.10 o superior; pytest para las pruebas",
         "dev_comments": ["el catálogo está al día (necesita los repositorios junto a este)", "el banner, el icono y el mapa están al día", "los ocho README están al día", 'las tablas De un vistazo de la familia están al día (necesita los repositorios junto a este)', "nada privado saldría con una publicación", "las comprobaciones de cada repositorio, una línea por cada uno", "las pruebas unitarias de las herramientas"],
         "dev_note": "`build.sh` / `build.bat` instalan el paquete y ejecutan las pruebas, y `build-test.sh` / `build-test.bat` comprueban sin instalar; ninguno cambia una versión.",
@@ -249,7 +249,7 @@ TEXT: dict[str, dict[str, object]] = {
     },
     "fr": {
         "subtitle": "Architecture, interfaces, socle de sécurité et la vérité sur ce qui est prouvé",
-        "honesty_label": "Vérification d'honnêteté - ce qui fonctionne réellement aujourd'hui :",
+        "honesty_label": "Point d'honnêteté : ce qui fonctionne réellement aujourd'hui :",
         "honesty": "ce dépôt contient des documents et de petits outils. Les outils (le générateur du catalogue, celui de la marque, celui des README, la vérification de publication et la vérification de la famille) sont réels et ont des tests unitaires exécutés en CI ; le workflow nocturne les exécute sur les autres dépôts de la famille. Les documents sont écrits à partir des README, manifestes, journaux de modifications et documents de ces dépôts tels qu'ils ont été lus pour cette version, et une affirmation qui n'a pu être reliée à un dépôt est signalée comme telle. Rien ici n'est un test matériel : la matrice des capacités indique, pour chaque capacité, si elle a seulement été simulée, testée sur un ordinateur ou exécutée sur du matériel réel, et le dépôt du firmware indique qu'aucune carte assemblée n'existe encore.",
         "h_overview": "Vue d'ensemble",
         "overview_intro": "L'image ci-dessous montre les dépôts d'URTC, le bus CAN qui relie les cartes et les outils du poste, et les liens qu'affirment leurs documents.",
@@ -298,14 +298,14 @@ TEXT: dict[str, dict[str, object]] = {
         "tree": {
             "docs": "architecture, interfaces, matrice des capacités, socle de sécurité, modèle de menaces, première tranche, note sur le protocole CAN, catalogue généré",
             "src": "les outils sous forme de paquet (catalogue, marque, README, vérification de publication)",
-            "tools": "scripts fins au-dessus du paquet, check_all.sh et les vérifications de CI partagées de l'écosystème",
+            "tools": "scripts légers au-dessus du paquet, check_all.sh et les vérifications de CI partagées de l'écosystème",
             "tests": "tests unitaires des outils",
             "images": "bannière et carte de l'écosystème",
             "brand": "l'icône",
             "data": "les données lues par les générateurs (les chiffres de En un coup d'œil, les affirmations relues)",
             "template": "la copie de référence des fichiers que partagent tous les dépôts et l'outil qui la met en place"
         },
-        "h_dev": "COMPILATION ET EXÉCUTION",
+        "h_dev": "Compilation et exécution",
         "dev_requirements": "**Prérequis :** Python 3.10 ou plus récent ; pytest pour les tests",
         "dev_comments": ["le catalogue est à jour (nécessite les dépôts à côté de celui-ci)", "la bannière, l'icône et la carte sont à jour", "les huit README sont à jour", "les tableaux En un coup d'œil de la famille sont à jour (nécessite les dépôts à côté de celui-ci)", "rien de privé ne partirait avec une publication", "les vérifications de chaque dépôt, une ligne chacun", "les tests unitaires des outils"],
         "dev_note": "`build.sh` / `build.bat` installent le paquet et lancent les tests, et `build-test.sh` / `build-test.bat` vérifient sans installer ; aucun ne change de version.",
@@ -473,7 +473,7 @@ TEXT: dict[str, dict[str, object]] = {
     },
     "de": {
         "subtitle": "Architektur, Schnittstellen, Sicherheitsbasis und die Wahrheit über das, was belegt ist",
-        "honesty_label": "Ehrlichkeitsprüfung - was heute wirklich läuft:",
+        "honesty_label": "Ehrlicher Zwischenstand: Was heute wirklich läuft:",
         "honesty": "dieses Repository enthält Dokumente und kleine Werkzeuge. Die Werkzeuge (der Katalog-Generator, der Marken-Generator, der README-Generator, die Veröffentlichungsprüfung und die Familienprüfung) sind echt und haben Unit-Tests, die in der CI laufen; der nächtliche Workflow führt sie gegen die übrigen Repositories der Familie aus. Die Dokumente sind aus den READMEs, Manifesten, Änderungsprotokollen und Dokumenten dieser Repositories geschrieben, wie sie für diese Version gelesen wurden, und eine Aussage, die sich nicht auf ein Repository zurückführen ließ, ist als solche gekennzeichnet. Nichts davon ist ein Hardwaretest: Die Fähigkeitenmatrix sagt für jede Fähigkeit, ob sie nur simuliert, auf einem Computer getestet oder auf echter Hardware ausgeführt wurde, und das Firmware-Repository gibt an, dass noch keine bestückte Platine existiert.",
         "h_overview": "Überblick",
         "overview_intro": "Das Bild unten zeigt die Repositories von URTC, den CAN-Bus, der die Platinen und die PC-Werkzeuge verbindet, und die Verbindungen, die ihre Dokumente behaupten.",
@@ -522,14 +522,14 @@ TEXT: dict[str, dict[str, object]] = {
         "tree": {
             "docs": "Architektur, Schnittstellen, Fähigkeitenmatrix, Sicherheitsbasis, Bedrohungsmodell, erster Schnitt, Notiz zum CAN-Protokoll, erzeugter Katalog",
             "src": "die Werkzeuge als Paket (Katalog, Marke, READMEs, Veröffentlichungsprüfung)",
-            "tools": "dünne Skripte über dem Paket, check_all.sh und die gemeinsamen CI-Prüfungen des Ökosystems",
+            "tools": "schlanke Skripte über dem Paket, check_all.sh und die gemeinsamen CI-Prüfungen des Ökosystems",
             "tests": "Unit-Tests der Werkzeuge",
             "images": "Banner und Karte des Ökosystems",
             "brand": "das Symbol",
             "data": "die Daten, die die Generatoren lesen (die Zahlen von „Auf einen Blick“, die geprüften Aussagen)",
             "template": "die maßgebliche Kopie der Dateien, die alle Repositories teilen, und das Werkzeug, das sie einspielt"
         },
-        "h_dev": "BUILD & AUSFÜHRUNG",
+        "h_dev": "Build und Ausführung",
         "dev_requirements": "**Voraussetzungen:** Python 3.10 oder neuer; pytest für die Tests",
         "dev_comments": ["der Katalog ist aktuell (braucht die Repositories neben diesem)", "Banner, Symbol und Karte sind aktuell", "die acht READMEs sind aktuell", 'die Tabellen Auf einen Blick der Familie sind aktuell (braucht die Repositories neben diesem)', "nichts Privates würde mit einer Veröffentlichung hinausgehen", "die Prüfungen jedes Repositorys, eine Zeile je Repository", "die Unit-Tests der Werkzeuge"],
         "dev_note": "`build.sh` / `build.bat` installieren das Paket und führen die Tests aus, und `build-test.sh` / `build-test.bat` prüfen, ohne zu installieren; keines ändert eine Version.",
@@ -554,8 +554,8 @@ TEXT: dict[str, dict[str, object]] = {
                 "das Profil und das Status-Dashboard aller Ökosysteme"
             ]
         ],
-        "h_docs": "Dokumentation & Community",
-        "docs_intro": "Wo man mehr liest:",
+        "h_docs": "Dokumentation und Community",
+        "docs_intro": "Weitere Informationen:",
         "docs_links": [
             [
                 "Fähigkeitenmatrix: was belegt ist und was nicht",
@@ -809,7 +809,7 @@ TEXT: dict[str, dict[str, object]] = {
     },
     "pt": {
         "subtitle": "Arquitetura, interfaces, base de segurança e a verdade sobre o que está comprovado",
-        "honesty_label": "Verificação de honestidade - o que funciona mesmo hoje:",
+        "honesty_label": "Ponto de honestidade: o que funciona mesmo hoje:",
         "honesty": "este repositório contém documentos e pequenas ferramentas. As ferramentas (o gerador do catálogo, o da marca, o dos README, a verificação de publicação e a verificação da família) são reais e têm testes unitários executados na CI; o fluxo noturno executa-as sobre os restantes repositórios da família. Os documentos são escritos a partir dos README, manifestos, registos de alterações e documentos desses repositórios tal como foram lidos para esta versão, e uma afirmação que não se conseguiu rastrear até um repositório fica assinalada como tal. Nada aqui é um teste de hardware: a matriz de capacidades diz, para cada capacidade, se foi apenas simulada, testada num computador ou executada em hardware real, e o repositório do firmware indica que ainda não existe nenhuma placa montada.",
         "h_overview": "Visão geral",
         "overview_intro": "A imagem abaixo mostra os repositórios do URTC, o barramento CAN que liga as placas e as ferramentas do computador, e as ligações que os seus documentos afirmam.",
@@ -822,7 +822,7 @@ TEXT: dict[str, dict[str, object]] = {
             [
                 "Interfaces",
                 "docs/INTERFACES.md",
-                "quem é dono de cada contrato e onde está documentado."
+                "quem é responsável por cada contrato e onde está documentado."
             ],
             [
                 "Matriz de capacidades",
@@ -858,14 +858,14 @@ TEXT: dict[str, dict[str, object]] = {
         "tree": {
             "docs": "arquitetura, interfaces, matriz de capacidades, base de segurança, modelo de ameaças, primeiro corte, nota do protocolo CAN, catálogo gerado",
             "src": "as ferramentas como pacote (catálogo, marca, README, verificação de publicação)",
-            "tools": "scripts finos sobre o pacote, check_all.sh e as verificações de CI partilhadas do ecossistema",
+            "tools": "scripts leves sobre o pacote, check_all.sh e as verificações de CI partilhadas do ecossistema",
             "tests": "testes unitários das ferramentas",
             "images": "banner e mapa do ecossistema",
             "brand": "o ícone",
             "data": "os dados que os geradores leem (os números de «Num relance», as afirmações revistas)",
             "template": "a cópia de referência dos ficheiros que todos os repositórios partilham e a ferramenta que a coloca"
         },
-        "h_dev": "COMPILAÇÃO E EXECUÇÃO",
+        "h_dev": "Compilação e execução",
         "dev_requirements": "**Requisitos:** Python 3.10 ou superior; pytest para os testes",
         "dev_comments": ["o catálogo está atualizado (precisa dos repositórios ao lado deste)", "o banner, o ícone e o mapa estão atualizados", "os oito README estão atualizados", 'as tabelas Num relance da família estão atualizadas (precisa dos repositórios ao lado deste)', "nada privado sairia com uma publicação", "as verificações de cada repositório, uma linha por cada um", "os testes unitários das ferramentas"],
         "dev_note": "`build.sh` / `build.bat` instalam o pacote e executam os testes, e `build-test.sh` / `build-test.bat` verificam sem instalar; nenhum altera a versão.",

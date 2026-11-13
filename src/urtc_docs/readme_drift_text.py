@@ -24,7 +24,7 @@ TOOLS: dict[str, str] = {
 COMMENT: dict[str, str] = {
     "en": "the files every repository carries as the same copy are the same (needs the repositories next to this one)",
     "es": "los archivos que cada repositorio lleva como la misma copia son iguales (necesita los repositorios junto a este)",
-    "de": "die Dateien, die jedes Repository als dieselbe Kopie führt, sind gleich (braucht die Repositorys neben diesem)",
+    "de": "die Dateien, die jedes Repository als dieselbe Kopie führt, sind gleich (braucht die Repositories neben diesem)",
     "fr": "les fichiers que chaque dépôt porte comme la même copie sont identiques (nécessite les dépôts à côté de celui-ci)",
     "it": "i file che ogni repository porta come la stessa copia sono uguali (richiede i repository accanto a questo)",
     "ja": "各リポジトリが同一コピーとして持つファイルは同じ内容（このリポジトリの隣に他のリポジトリが必要）",

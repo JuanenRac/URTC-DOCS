@@ -23,20 +23,20 @@ Every repository of the ecosystem, written by `tools/make_catalog.py` from the `
 
 | Repository | Version | Maturity | Role | Stack | Target | Parent | What it is |
 |---|---|---|---|---|---|---|---|
-| [URTC-DEVTOOLS](https://github.com/JuanenRac/URTC-DEVTOOLS) | 0.0.1 | Scaffolding | tool | python | user-pc | - | The shared repository tools of the family (README and documentation checks, picture generators, version bumper) as one versioned set with a lock file; no repository has taken the lock yet. |
-| [URTC-DOCS](https://github.com/JuanenRac/URTC-DOCS) | 0.1.3 | Functional | tool | python | user-pc | - | Architecture, interfaces, security baseline, capability matrix and generated project catalogue of the ecosystem, plus the tools that compare all repositories. |
-| [URTC-UPDATER](https://github.com/JuanenRac/URTC-UPDATER) | 0.2.6 | Established | tool | python | user-pc | - | Finds the ecosystem repositories on a machine from their manifests and installs or updates them after an explicit confirmation. |
+| [URTC-DEVTOOLS](https://github.com/JuanenRac/URTC-DEVTOOLS) | 0.0.5 | Scaffolding | tool | python | user-pc | - | The shared repository tools of the family (README and documentation checks, picture generators, version bumper) as one versioned set with a lock file; no repository has taken the lock yet. |
+| [URTC-DOCS](https://github.com/JuanenRac/URTC-DOCS) | 0.1.6 | Functional | tool | python | user-pc | - | Architecture, interfaces, security baseline, capability matrix and generated project catalogue of the ecosystem, plus the tools that compare all repositories. |
+| [URTC-UPDATER](https://github.com/JuanenRac/URTC-UPDATER) | 0.2.9 | Established | tool | python | user-pc | - | Finds the ecosystem repositories on a machine from their manifests and installs or updates them after an explicit confirmation. |
 
 ### URTC Tool Platform
 
 | Repository | Version | Maturity | Role | Stack | Target | Parent | What it is |
 |---|---|---|---|---|---|---|---|
-| [URTC](https://github.com/JuanenRac/URTC) | 0.4.4 | Functional | firmware | firmware-c | mcu | - | Firmware of the tool-head board (STM32F303, 25 tool profiles, CAN bootloader, expansion slave) and the CAN protocol reference; no populated board exists yet. |
-| [URTC-COMMON](https://github.com/JuanenRac/URTC-COMMON) | 0.1.7 | Functional | library | python | user-pc | - | The CAN protocol as data: a specification with generated C, TypeScript and Python code, conformance vectors and the Python transports; nothing uses it yet. |
-| [URTC-GATEWAY](https://github.com/JuanenRac/URTC-GATEWAY) | 0.0.4 | Scaffolding | tool | python | user-pc | - | Gateway in front of the CAN bus: the identifiers a host may send (made from the specification), a payload check, a rate limit and a session key, each one switchable; tested on the host only. |
-| [URTC-SMART-RACK](https://github.com/JuanenRac/URTC-SMART-RACK) | 0.2.4 | Functional | firmware | firmware-c | user-pc | - | Hardware-independent C logic and rack command protocol for a tool rack with pre-heating and lifecycle tracking; no board exists yet. |
-| [URTC-VISION-TOOL](https://github.com/JuanenRac/URTC-VISION-TOOL) | 0.1.8 | Functional | firmware | firmware-c | user-pc | - | Sensor-frame protocol in C and a Python thermal/RGB companion for an inspection tool head; no board or camera has been used yet. |
-| [URTC-FLASHER](https://github.com/JuanenRac/URTC-FLASHER) | 0.4.9 | Functional | tool | python-qtquick | user-pc | URTC | Desktop tool that updates the board firmware over CAN (bootloader protocol, signed images) or over SWD/JTAG; tested against a simulated bootloader only. |
-| [URTC-TESTER](https://github.com/JuanenRac/URTC-TESTER) | 0.5.0 | Functional | tool | python-qtquick | user-pc | URTC | Desktop live CAN-bus tester that shows the controls and telemetry of the tool profile a board reports; checked against fake transports only. |
-| [URTC-WEB-STUDIO](https://github.com/JuanenRac/URTC-WEB-STUDIO) | 0.4.4 | Functional | ui | node | user-pc | URTC | Browser app that flashes and tests the board over Web Serial and SLCAN; the pure logic is tested, the transport and screens are not. |
+| [URTC](https://github.com/JuanenRac/URTC) | 0.4.8 | Functional | firmware | firmware-c | mcu | - | Firmware of the tool-head board (STM32F303, 25 tool profiles, CAN bootloader, expansion slave) and the CAN protocol reference; no populated board exists yet. |
+| [URTC-COMMON](https://github.com/JuanenRac/URTC-COMMON) | 0.2.6 | Functional | library | python | user-pc | - | The CAN protocol as data: a specification with generated C, TypeScript and Python code, conformance vectors and the Python transports; nothing uses it yet. |
+| [URTC-GATEWAY](https://github.com/JuanenRac/URTC-GATEWAY) | 0.0.8 | Scaffolding | tool | python | user-pc | - | Gateway in front of the CAN bus: the identifiers a host may send (made from the specification), a payload check, a rate limit and a session key, each one switchable; tested on the host only. |
+| [URTC-SMART-RACK](https://github.com/JuanenRac/URTC-SMART-RACK) | 0.2.8 | Functional | firmware | firmware-c | user-pc | - | Hardware-independent C logic and rack command protocol for a tool rack with pre-heating and lifecycle tracking; no board exists yet. |
+| [URTC-VISION-TOOL](https://github.com/JuanenRac/URTC-VISION-TOOL) | 0.2.0 | Functional | firmware | firmware-c | user-pc | - | Sensor-frame protocol in C and a Python thermal/RGB companion for an inspection tool head; no board or camera has been used yet. |
+| [URTC-FLASHER](https://github.com/JuanenRac/URTC-FLASHER) | 0.5.6 | Functional | tool | python-qtquick | user-pc | URTC | Desktop tool that updates the board firmware over CAN (bootloader protocol, signed images) or over SWD/JTAG; tested against a simulated bootloader only. |
+| [URTC-TESTER](https://github.com/JuanenRac/URTC-TESTER) | 0.5.5 | Functional | tool | python-qtquick | user-pc | URTC | Desktop live CAN-bus tester that shows the controls and telemetry of the tool profile a board reports; checked against fake transports only. |
+| [URTC-WEB-STUDIO](https://github.com/JuanenRac/URTC-WEB-STUDIO) | 0.5.1 | Functional | ui | node | user-pc | URTC | Browser app that flashes and tests the board over Web Serial and SLCAN; the pure logic is tested, the transport and screens are not. |
 <!-- catalog:end -->

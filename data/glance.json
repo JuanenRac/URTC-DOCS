@@ -20,7 +20,7 @@
     "URTC-DOCS": {
       "hardware": "not_applicable",
       "tests": {
-        "count": 222
+        "count": 224
       }
     },
     "URTC-FLASHER": {
@@ -33,7 +33,7 @@
     "URTC-GATEWAY": {
       "hardware": "simulated",
       "tests": {
-        "count": 222
+        "count": 225
       }
     },
     "URTC-SMART-RACK": {

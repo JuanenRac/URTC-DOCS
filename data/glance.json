@@ -69,7 +69,7 @@
       "hardware": "simulated",
       "target": "browser",
       "tests": {
-        "count": 1712,
+        "count": 1774,
         "command": "npm test"
       }
     }

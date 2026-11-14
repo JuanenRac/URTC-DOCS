@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The nightly pull request of the computed facts gets its checks without a new secret:** `manifest-facts.yml` now asks for its write permissions in the job (`contents`, `pull-requests`, `issues` and `actions`; the workflow itself only reads), opens the pull request with the token of the run, and starts `ci.yml` on the branch with a dispatch after the push, because GitHub does not start the checks of a branch or pull request made with that token. The checks report on the head commit of the pull request, so it can be merged when they are green. A test keeps the permissions, the dispatch and the absence of secrets.
+
 - **The copy of the shared CAN vectors is current again:** it carries the new magic payload and the new answers of the quick state of the common repository, so the nightly comparison finds the copy equal.
 
 - **The synchroniser of the shared tools keeps the names a copy already has:** a workflow that is triggered by `URTC CI baseline` is no longer rewritten with the name of the folder. A test covers it.

@@ -20,7 +20,7 @@
     "URTC-DOCS": {
       "hardware": "not_applicable",
       "tests": {
-        "count": 224
+        "count": 229
       }
     },
     "URTC-FLASHER": {

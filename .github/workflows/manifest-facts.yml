@@ -6,6 +6,9 @@
 # Every night every repository of the family is fetched next to this one and tools/sync_manifests.py compares its manifest with what can be
 # computed (shipped version, changelog, tests, simulation in CI, newest release, last run of main). A contradiction fails the night and
 # opens one issue. When data/manifest_facts.json changed, ONE grouped pull request carries it; nothing is committed to main directly.
+# The pull request is opened with the token of the run (no secret, no personal token). GitHub does not start the checks of a repository for a branch or a pull
+# request made with that token, so the same run starts the checks of the repository (ci.yml) on the branch with a dispatch, which the token is allowed to do:
+# they report on the head commit of the pull request, and the pull request can be merged when they are green.
 # Judgements (maturity, evidence, anything tried on real hardware) are never written here.
 name: URTC manifest facts
 
@@ -19,14 +22,17 @@ on:
         default: "150"
 
 permissions:
-  contents: write
-  pull-requests: write
-  issues: write
+  contents: read
 
 jobs:
   facts:
     name: Compare every manifest with the computed facts
     runs-on: ubuntu-latest
+    permissions:
+      contents: write        # pushes the branch of the facts
+      pull-requests: write   # opens the pull request
+      issues: write          # the issue when a manifest contradicts the facts
+      actions: write         # starts the checks of the repository on the branch (workflow dispatch)
     steps:
       - name: Check out this repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -90,6 +96,8 @@ jobs:
               if [ -n "$existing" ]; then gh issue comment "$existing" --repo "${{ github.repository }}" --body "$body"; else gh issue create --repo "${{ github.repository }}" --title "$title" --body "$body"; fi
             fi
           fi
+          # The branch was pushed with the token of the run, which starts no checks by itself: start them on the branch, so they report on the head commit of the pull request.
+          gh workflow run ci.yml --repo "${{ github.repository }}" --ref "$branch" || echo "::warning::could not start the checks of the repository on ${branch}"
 
       - name: Open an issue when a manifest contradicts the facts
         if: ${{ failure() }}

@@ -1,46 +1,46 @@
 {
  "repos": {
   "URTC": {
-   "changelog_head": "0.4.7",
+   "changelog_head": "0.4.8",
    "ci_simulation": true,
    "evidence": "simulator",
    "hardware_bound": true,
-   "latest_release": "v0.4.7",
-   "manifest_version": "0.4.7",
+   "latest_release": "v0.4.8",
+   "manifest_version": "0.4.8",
    "maturity": "functional",
    "native": {
-    "src/F303-master/firmware_common.h": "0.4.7.0"
+    "src/F303-master/firmware_common.h": "0.4.8.0"
    },
    "tests_present": true,
-   "unreleased_entries": 0
+   "unreleased_entries": 34
   },
   "URTC-COMMON": {
-   "changelog_head": "0.2.5",
+   "changelog_head": "0.2.6",
    "ci_simulation": true,
    "evidence": "simulator",
    "hardware_bound": true,
-   "latest_release": "v0.2.5",
-   "manifest_version": "0.2.5",
+   "latest_release": "v0.2.6",
+   "manifest_version": "0.2.6",
    "maturity": "functional",
    "native": {
-    "pyproject.toml": "0.2.5"
+    "pyproject.toml": "0.2.6"
    },
    "tests_present": true,
-   "unreleased_entries": 0
+   "unreleased_entries": 26
   },
   "URTC-DEVTOOLS": {
-   "changelog_head": "0.0.4",
+   "changelog_head": "0.0.6",
    "ci_simulation": false,
    "evidence": "host-test",
    "hardware_bound": true,
    "latest_release": "v0.0.4",
-   "manifest_version": "0.0.4",
+   "manifest_version": "0.0.6",
    "maturity": "scaffolding",
    "native": {
-    "pyproject.toml": "0.0.4"
+    "pyproject.toml": "0.0.6"
    },
    "tests_present": true,
-   "unreleased_entries": 0
+   "unreleased_entries": 1
   },
   "URTC-DOCS": {
    "changelog_head": "0.1.6",
@@ -54,63 +54,63 @@
     "pyproject.toml": "0.1.6"
    },
    "tests_present": true,
-   "unreleased_entries": 0
+   "unreleased_entries": 4
   },
   "URTC-FLASHER": {
-   "changelog_head": "0.5.5",
+   "changelog_head": "0.5.7",
+   "ci_simulation": true,
+   "evidence": "simulator",
+   "hardware_bound": true,
+   "latest_release": "v0.5.6",
+   "manifest_version": "0.5.7",
+   "maturity": "functional",
+   "native": {
+    "flasher_config.py": "0.5.7"
+   },
+   "tests_present": true,
+   "unreleased_entries": 2
+  },
+  "URTC-GATEWAY": {
+   "changelog_head": "0.0.8",
+   "ci_simulation": true,
+   "evidence": "simulator",
+   "hardware_bound": true,
+   "latest_release": "v0.0.8",
+   "manifest_version": "0.0.8",
+   "maturity": "scaffolding",
+   "native": {
+    "pyproject.toml": "0.0.8"
+   },
+   "tests_present": true,
+   "unreleased_entries": 5
+  },
+  "URTC-SMART-RACK": {
+   "changelog_head": "0.2.8",
+   "ci_simulation": true,
+   "evidence": "simulator",
+   "hardware_bound": true,
+   "latest_release": "v0.2.8",
+   "manifest_version": "0.2.8",
+   "maturity": "functional",
+   "native": {
+    "src/firmware_common.h": "0.2.8.0"
+   },
+   "tests_present": true,
+   "unreleased_entries": 4
+  },
+  "URTC-TESTER": {
+   "changelog_head": "0.5.6",
    "ci_simulation": true,
    "evidence": "simulator",
    "hardware_bound": true,
    "latest_release": "v0.5.5",
-   "manifest_version": "0.5.5",
+   "manifest_version": "0.5.6",
    "maturity": "functional",
    "native": {
-    "flasher_config.py": "0.5.5"
+    "tester_config.py": "0.5.6"
    },
    "tests_present": true,
-   "unreleased_entries": 0
-  },
-  "URTC-GATEWAY": {
-   "changelog_head": "0.0.7",
-   "ci_simulation": true,
-   "evidence": "simulator",
-   "hardware_bound": true,
-   "latest_release": "v0.0.7",
-   "manifest_version": "0.0.7",
-   "maturity": "scaffolding",
-   "native": {
-    "pyproject.toml": "0.0.7"
-   },
-   "tests_present": true,
-   "unreleased_entries": 0
-  },
-  "URTC-SMART-RACK": {
-   "changelog_head": "0.2.7",
-   "ci_simulation": true,
-   "evidence": "simulator",
-   "hardware_bound": true,
-   "latest_release": "v0.2.7",
-   "manifest_version": "0.2.7",
-   "maturity": "functional",
-   "native": {
-    "src/firmware_common.h": "0.2.7.0"
-   },
-   "tests_present": true,
-   "unreleased_entries": 0
-  },
-  "URTC-TESTER": {
-   "changelog_head": "0.5.4",
-   "ci_simulation": true,
-   "evidence": "simulator",
-   "hardware_bound": true,
-   "latest_release": "v0.5.4",
-   "manifest_version": "0.5.4",
-   "maturity": "functional",
-   "native": {
-    "tester_config.py": "0.5.4"
-   },
-   "tests_present": true,
-   "unreleased_entries": 0
+   "unreleased_entries": 5
   },
   "URTC-UPDATER": {
    "changelog_head": "0.2.9",
@@ -124,7 +124,7 @@
     "pyproject.toml": "0.2.9"
    },
    "tests_present": true,
-   "unreleased_entries": 0
+   "unreleased_entries": 8
   },
   "URTC-VISION-TOOL": {
    "changelog_head": "0.2.0",
@@ -138,18 +138,18 @@
     "src/firmware_common.h": "0.2.0.0"
    },
    "tests_present": true,
-   "unreleased_entries": 0
+   "unreleased_entries": 9
   },
   "URTC-WEB-STUDIO": {
-   "changelog_head": "0.5.0",
+   "changelog_head": "0.5.2",
    "ci_simulation": true,
    "evidence": "simulator",
    "hardware_bound": true,
-   "latest_release": "v0.5.0",
-   "manifest_version": "0.5.0",
+   "latest_release": "v0.5.1",
+   "manifest_version": "0.5.2",
    "maturity": "functional",
    "native": {
-    "package.json": "0.5.0"
+    "package.json": "0.5.2"
    },
    "tests_present": true,
    "unreleased_entries": 0

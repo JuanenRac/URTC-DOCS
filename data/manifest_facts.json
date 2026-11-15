@@ -43,15 +43,15 @@
    "unreleased_entries": 1
   },
   "URTC-DOCS": {
-   "changelog_head": "0.1.6",
+   "changelog_head": "0.1.7",
    "ci_simulation": true,
    "evidence": "host-test",
    "hardware_bound": false,
    "latest_release": "v0.1.6",
-   "manifest_version": "0.1.6",
+   "manifest_version": "0.1.7",
    "maturity": "functional",
    "native": {
-    "pyproject.toml": "0.1.6"
+    "pyproject.toml": "0.1.7"
    },
    "tests_present": true,
    "unreleased_entries": 5

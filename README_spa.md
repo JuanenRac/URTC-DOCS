@@ -30,7 +30,7 @@
 |---|---|
 | Versión | `0.1.7` |
 | Madurez | Funcional |
-| Tests | 229 |
+| Tests | 244 |
 | Tecnología | Markdown / Mermaid / Python / SVG |
 | Destino | El PC de quien lo usa |
 | En hardware real | No aplica: nada de esto se ejecuta en hardware |
@@ -45,7 +45,7 @@
 | --- | :---: | --- |
 | Software | 🟢 | Los generadores del catálogo, de la marca y de los README, y las comprobaciones de la publicación, de las afirmaciones y de la familia, funcionan en un ordenador; no interviene hardware. |
 | Pruebas | 🟢 | La batería de pruebas pasa en la CI, en Linux y en Windows, en cada subida. |
-| Comprobaciones de toda la familia | 🟡 | La ejecución nocturna descarga cada repositorio de la familia y compara sus tablas resumen, afirmaciones y estructura del catálogo; una versión desfasada en el catálogo se avisa pero no hace fallar la noche. |
+| Comprobaciones de toda la familia | 🟡 | La ejecución nocturna descarga cada repositorio de la familia y compara sus tablas resumen, afirmaciones y estructura del catálogo; una versión desfasada en el catálogo se avisa pero no hace fallar la noche. Noches simuladas sobre un ecosistema virtual ejercitan las mismas comprobaciones (fallos, reparaciones, versiones); aún no se han observado noches a lo largo de días reales. |
 | Documentos de seguridad | 🟡 | La base de seguridad y el modelo de amenazas se escriben a partir de los demás repositorios tal como se leyeron; nadie ajeno al proyecto los ha revisado. |
 | Documentación | 🟡 | README en ocho idiomas y documentos de referencia; las traducciones no las ha revisado ningún hablante nativo. |
 

@@ -30,7 +30,7 @@
 |---|---|
 | Version | `0.1.7` |
 | Maturity | Functional |
-| Tests | 229 |
+| Tests | 244 |
 | Stack | Markdown / Mermaid / Python / SVG |
 | Target | The PC of the person using it |
 | On real hardware | Not applicable: nothing here runs on hardware |
@@ -45,7 +45,7 @@
 | --- | :---: | --- |
 | Software | 🟢 | The generators of the catalogue, the brand and the READMEs, and the checks of the publication, the claims and the family, run on a computer; no hardware is involved. |
 | Tests | 🟢 | The test suite passes in the CI, on Linux and on Windows, on every push. |
-| Checks across the family | 🟡 | The nightly run fetches every repository of the family and compares their summary tables, claims and catalogue structure; a stale version in the catalogue is reported but does not fail the night. |
+| Checks across the family | 🟡 | The nightly run fetches every repository of the family and compares their summary tables, claims and catalogue structure; a stale version in the catalogue is reported but does not fail the night. Simulated nights over a virtual ecosystem exercise the same checks (faults, repairs, releases); nights over real days have not been observed yet. |
 | Security documents | 🟡 | The security baseline and the threat model are written from the other repositories as they were read; nobody outside the project has reviewed them. |
 | Documentation | 🟡 | README in eight languages and reference documents; the translations were not reviewed by native speakers. |
 

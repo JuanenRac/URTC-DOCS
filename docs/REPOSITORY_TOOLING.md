@@ -58,3 +58,11 @@ The repository `URTC-DEVTOOLS` holds the files of `SHARED_FILES` under `files/`,
 * Whether the tools repository is public or stays inside the template repository as a folder with a version.
 * Whether the lock replaces the comparison with the template or is checked next to it.
 * The date at which the shared copies of the sister ecosystems are moved.
+
+## Trying the nightly comparison without the family: a virtual ecosystem
+
+`src/urtc_docs/simulation.py` builds a small family in a temporary folder (evidence: simulator): the manifests, the shared copies and their locks (written by the real planner of `drift.py`), the catalogue, the version files and changelogs, and one validation script per repository. `VirtualEcosystem.night()` then runs what a real night runs, with the same code: the structure and the versions of the catalogue (`catalog.py`), the drift and the locks of the shared tools (`drift.py`, `devtools_lock.py`), the version checks and the validation of each repository of the doctor (the validation is a double that answers PASS or FAIL as told), and the scan for anything private (`publication.py`).
+
+A night **fails** on a changed structure (a repository that appears, goes or changes role), a shared copy that drifted or a lock that is behind the set, a manifest that moved without its source file, a repository whose own validation fails, or something private in a README. It only **advises** about the versions in the catalogue, which move with every release. Events can be played between nights (`release`, `move_manifest_only`, `add_repository`, `hand_edit_shared`, `publish_set`, `break_validation`, `leak`, and their repairs) and `play()` runs a week of them.
+
+`tests/test_simulation.py` covers each fault and its repair and a week of seven nights. What it does not prove: the real family fetched by the real workflow, GitHub issues opened by a failing night, and how the nightly behaves over real days. The physical test is a week of real nights of `nightly.yml` with the family checked out, each reported in the issue the workflow keeps.

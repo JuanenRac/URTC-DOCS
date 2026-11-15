@@ -13,12 +13,12 @@
   ],
   "deployment_target": "user-pc",
   "maturity": "functional",
-  "evidence": "host-test",
+  "evidence": "simulator",
   "hardware_bound": false,
   "family": "Ecosystem Operations",
   "parent": null,
   "build": "python tools/build_test.py",
-  "notes": "The documentation and cross-repository tooling hub of the URTC ecosystem: the architecture, the interfaces, the security baseline, the threat model, the capability matrix and a study note on the implementations of the CAN protocol, written from what the other repositories document and marked where a statement could not be traced. Tools (standard library only): a project catalogue generated from the manifests of the repositories found next to it, banner, icon and ecosystem map generators, a generator of its own eight READMEs, a publication check for anything private, and urtc_doctor, which runs every repository's own CI validation and checks the shared copies and the firmware images. Scaffolding on purpose: the nightly comparison of all the repositories has not yet been exercised over time.",
+  "notes": "The documentation and cross-repository tooling hub of the URTC ecosystem: the architecture, the interfaces, the security baseline, the threat model, the capability matrix and a study note on the implementations of the CAN protocol, written from what the other repositories document and marked where a statement could not be traced. Tools (standard library only): a project catalogue generated from the manifests of the repositories found next to it, banner, icon and ecosystem map generators, a generator of its own eight READMEs, a publication check for anything private, and urtc_doctor, which runs every repository's own CI validation and checks the shared copies and the firmware images. A virtual ecosystem (src/urtc_docs/simulation.py) runs simulated nights of the comparison with faults and repairs; the nightly comparison of all the repositories has not yet been observed over real days.",
   "native_version": {
     "file": "pyproject.toml",
     "pattern": "^version\\s*=\\s*\"(\\d+)\\.(\\d+)\\.(\\d+)\""

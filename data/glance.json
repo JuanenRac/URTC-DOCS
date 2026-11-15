@@ -13,14 +13,14 @@
     "URTC-DEVTOOLS": {
       "hardware": "not_applicable",
       "tests": {
-        "count": 134,
+        "count": 153,
         "command": "python -m unittest discover -s tests"
       }
     },
     "URTC-DOCS": {
       "hardware": "not_applicable",
       "tests": {
-        "count": 229
+        "count": 244
       }
     },
     "URTC-FLASHER": {

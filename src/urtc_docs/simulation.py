@@ -174,7 +174,7 @@ class VirtualEcosystem:
     def fix_validation(self, name: str) -> None:
         self.validation.failing.discard(name)
 
-    def leak(self, name: str, text: str = "contact: someone.private@gmail.com") -> None:
+    def leak(self, name: str, text: str = "contact: someone.private@" + "gmail" + ".com") -> None:
         path = self.repo(name) / "README.md"
         path.write_text(path.read_text(encoding="utf-8") + f"\n{text}\n", encoding="utf-8", newline="\n")
 

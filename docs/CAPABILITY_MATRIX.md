@@ -34,22 +34,22 @@ A unit test, a simulator and a bench result are different claims, and a lighter 
 | Main application, 25 tool profiles, thermal PID loops, per-tool telemetry and watchdogs | Builds | The README calls it feature-complete; the full ARM build of the four components was run for the newest release. No board. |
 | Thermal-runaway guard (`thermal_guard.c`) | Local | Host test with a simulated heater (`tests/test_thermal_guard.c`). The limits (449 C iron, 310 C hotend) were never measured on a heater. |
 | CAN dispatch routing, lifetime thermal counters, MLX90640 driver logic (with a fake I2C), version wire format | Local | Host-native C tests; the version wire helpers run under the address and undefined-behaviour sanitizers in the build script. 38 host suites in all compile the firmware sources against a fake HAL (`tests/host_hal/`), run under the sanitizers and `gcc -fanalyzer`, and are held to a coverage floor (95 percent of the lines of the 78 sources they compile; the CI floor is 90). |
-| Main bootloader: golden-image A/B update, CRC32 and HMAC-SHA256 verified in a backup slot before the copy, anti-rollback | Builds | "Compiles and links clean"; the README asks for a bench test before trusting it unattended. |
+| Main bootloader: golden-image A/B update, CRC32 and an Ed25519 record verified in a backup slot before the copy, signed anti-rollback counter | Builds | "Compiles and links clean"; the README asks for a bench test before trusting it unattended. |
 | Expansion slave application and bootloader (STM32F303CB over a bit-banged I2C link) | Builds | Real code; the README says the I2C link with a real expansion chip was not verified. None of the six expansion variants has a schematic yet. |
 | Several tool heads on one CAN bus (multinode): node address from the ID jumpers, discovery, selection of the one active head, per-node status, safe stop, address-conflict detection, a persistent switch that is off by default | Local | Implemented in the main application (0.3.8) and tested on the host only (`tests/test_multinode.c`, under the address and undefined-behaviour sanitizers; it also checks that with the switch off the receive path and every identifier are those of a single head). The bus-level behaviour of two real boards, the timing and the safe state on real outputs were never tried; no host program uses it yet. |
 | Firmware PATCH number over CAN (`0x7E9` and the extended frames) | Local | Wire helpers tested on the host; the changelog says the new frames are "not verified on a physical board". |
 | Firmware images and signatures published as release assets | Local | The newest release carries 17 assets and the index `firmware_manifest.json`; the build script, the asset check and its tests exist. **The published application images are signed with the public development key** (`signing_key_kind: dev` in the release manifest). |
 | Release-key signing (`URTC_SIGNING_KEY_FILE`, `URTC_RELEASE=1`) | Builds | Implemented in the build script and `firmware_signing.py`; no release image uses it at the time of reading. |
-| Ed25519 signatures instead of the shared HMAC key | Absent | Planned for the first hardware bring-up, with the flash-budget reasoning in `docs/FIRMWARE_SIGNING.TXT`. |
+| Ed25519 record verified by the main bootloader against a table of public keys (no secret in the bootloader) | Builds | Host-tested with valid, unknown, revoked, wrong-board and wrong-counter records; never run on a board. The expansion slave does not verify it itself (the main board does, see `docs/FIRMWARE_SIGNING.TXT`). |
 | Hardware design | Absent | Schematic and BOM are "still being finalized". |
 
 ## URTC-FLASHER
 
 | Capability | Level | Evidence and limits |
 |---|---|---|
-| CAN-OTA update of the main board (HardwareID check, HMAC chunks from a published signature, per-page acknowledgement, verify, downgrade authorisation) | Emulated | Run against `MockCAN`. The README reports 47 pytest files and 515 tests, 78 of them skipping without PySide6. |
+| CAN-OTA update of the main board (HardwareID check, the signature record from a published `.imgsig`, per-page acknowledgement, verify, downgrade authorisation) | Emulated | Run against `MockCAN`. The README reports 47 pytest files and 515 tests, 78 of them skipping without PySide6. |
 | CAN-OTA update of the expansion slave | Emulated | Same simulator; the Qt Quick deck has no slave target. |
-| CRC32 and HMAC-SHA256 computation | Local | "Verified byte-for-byte against the bootloader's own C implementation". |
+| CRC32 and legacy HMAC-SHA256 computation (the earlier bootloader generation) | Local | "Verified byte-for-byte against the bootloader's own C implementation". |
 | Read-back (backup) of the installed firmware over CAN | Emulated | The simulated bootloader answers a read-back; the odd-size defect was found by reading the protocol, not by a board. |
 | Version query including the patch number | Emulated | `tests/test_patch_number.py`; the changelog says it is tested against the simulator only. |
 | SLCAN, SocketCAN, python-can transports | Local | Frame packing checked against Linux's `struct can_frame` layout with a round-trip test. No adapter in the environment where it was written. |

@@ -38,7 +38,7 @@ The sequence above was run for this document in a fresh clone, with the newest r
 
 * **The bootloader is simulated.** `MockCAN` was written from `docs/CANBUS.TXT`. The flasher's own README records two defects that passed its tests because the simulator was more forgiving than the real bootloader, so a green run is a statement about the flasher, not about the bootloader.
 * **No bus, no adapter, no board.** The SLCAN and SocketCAN transports are not part of this path.
-* **The signature is not verified by anything real.** The simulator reports what it is told to; only the bootloader of a board verifies HMAC-SHA256. The image is signed with the public development key.
+* **The signature is not verified by anything real.** The simulator reports what it is told to; only the bootloader of a board verifies the Ed25519 record (an image from a bench build is signed with the public development key; an official release with the release image-signing key).
 * **The other tools are not in the path.** URTC-TESTER and URTC-WEB-STUDIO read the same assets and speak the same protocol, but each has its own tests; running the browser app's `npm test` or the tester's `python -m pytest` is a separate check, not a continuation of this one.
 * **The expansion slave** is a second relay of the same sequence (`0x210`-`0x219`); the command-line mode of the flasher in this path updates the main board.
 

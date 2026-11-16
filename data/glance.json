@@ -7,7 +7,7 @@
     "URTC-COMMON": {
       "hardware": "simulated",
       "tests": {
-        "count": 3030
+        "count": 3036
       }
     },
     "URTC-DEVTOOLS": {
@@ -33,7 +33,7 @@
     "URTC-GATEWAY": {
       "hardware": "simulated",
       "tests": {
-        "count": 225
+        "count": 239
       }
     },
     "URTC-SMART-RACK": {

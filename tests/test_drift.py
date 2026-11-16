@@ -61,6 +61,8 @@ def test_the_command_fails_on_a_changed_copy_and_passes_on_equal_ones(tmp_path, 
         for relative in drift.SHARED_FILES:
             # a verbatim file names no repository, so it is the same text in every one
             put(tmp_path / name, relative, "same\n" if relative in drift.VERBATIM_FILES else f"# {name}\nsame\n")
+        lock = {"schema": devtools_lock.SCHEMA, "files": devtools_lock.hashes_of(tmp_path / name, drift.SHARED_FILES)}
+        put(tmp_path / name, devtools_lock.LOCK_FILE, json.dumps(lock))
     assert cli.check_repo_tools(["--workspace", str(tmp_path)]) == 0
     assert "REPO_TOOLS=PASS" in capsys.readouterr().out
     put(tmp_path / "URTC-C", "bump_manifest_version.py", "# URTC-C\nedited\n")
@@ -176,13 +178,22 @@ def test_the_check_finds_an_edited_copy_a_missing_file_and_a_copy_that_fell_behi
     assert any("URTC-DEVTOOLS is at '0.0.2'" in problem for _repo, problem in behind)
 
 
-def test_a_repository_without_a_lock_is_not_a_failure_yet_and_an_unreadable_lock_is(tmp_path):
-    ws, _template = _locked_workspace(tmp_path)
+def test_a_repository_that_carries_the_shared_files_without_a_lock_is_a_problem_and_so_is_an_unreadable_lock(tmp_path):
+    ws, template = _locked_workspace(tmp_path)
     repos = [ws / "URTC-A", ws / "URTC-B"]
-    assert devtools_lock.check_workspace(ws, repos, ("tools/_x.py",)) == ([], 0)
+    problems, locked = devtools_lock.check_workspace(ws, repos, ("tools/_x.py",))
+    assert locked == 0 and sorted(repo for repo, _ in problems) == ["URTC-A", "URTC-B"]
+    assert all("is missing although the repository carries shared files" in text for _, text in problems)
+    # a repository with none of the shared files has nothing to lock
+    assert devtools_lock.check_workspace(ws, repos, ("tools/_other.py",)) == ([], 0)
     put(ws / "URTC-A", "tools/devtools.lock.json", "not json")
     problems, locked = devtools_lock.check_workspace(ws, repos, ("tools/_x.py",))
-    assert locked == 1 and problems and "cannot be read" in problems[0][1]
+    assert locked == 1 and any("cannot be read" in text for _, text in problems)
+    (ws / "URTC-A" / "tools" / "devtools.lock.json").unlink()
+    _take_the_set(ws, template)
+    assert devtools_lock.check_workspace(ws, repos, ("tools/_x.py",)) == ([], 2)
+    (ws / "URTC-A" / "tools" / "devtools.lock.json").unlink()
+    assert [repo for repo, _ in devtools_lock.check_workspace(ws, repos, ("tools/_x.py",))[0]] == ["URTC-A"]
 
 
 def test_the_check_command_reports_the_lock_problems(tmp_path, capsys):

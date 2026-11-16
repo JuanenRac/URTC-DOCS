@@ -99,6 +99,9 @@ def check_workspace(workspace: Path, repos: list[Path], files: tuple[str, ...]) 
     locked = 0
     for repo in repos:
         if read(repo) is None:
+            # a repository that carries the shared files has to carry the lock that says which set they are: deleting it must not silence the check
+            if hashes_of(repo, files):
+                found.append((repo.name, f"{LOCK_FILE} is missing although the repository carries shared files (run sync_repo_tools.py --apply)"))
             continue
         locked += 1
         found += [(repo.name, problem) for problem in check_repo(repo, files, version)]

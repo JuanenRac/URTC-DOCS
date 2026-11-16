@@ -7,7 +7,7 @@
     "URTC-COMMON": {
       "hardware": "simulated",
       "tests": {
-        "count": 3027
+        "count": 3030
       }
     },
     "URTC-DEVTOOLS": {

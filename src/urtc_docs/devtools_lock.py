@@ -22,12 +22,15 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from pathlib import Path
 
 LOCK_FILE = "tools/devtools.lock.json"
 SOURCE = "URTC-DEVTOOLS"
 SCHEMA = 1
 REGISTRY = "tools/tooling_registry.json"
+# any name of a repository of the family: a header says which repository the file sits in, and the name is the one thing allowed to differ
+_FAMILY_NAME = re.compile(r"(?<![A-Za-z0-9_-])URTC(?:-[A-Z0-9]+)*(?![A-Za-z0-9_])")
 
 
 def digest(text: str) -> str:
@@ -72,7 +75,7 @@ def same_as_canonical(repository: str, relative: str, text: str, canonical: Path
         return True
     wanted = path.read_bytes().decode("utf-8", errors="replace").replace("\r\n", "\n")
     text = text.replace("\r\n", "\n")
-    return text == wanted.replace("<REPO>", repository) or text.replace(repository, "<REPO>") == wanted
+    return text == wanted.replace("<REPO>", repository) or _FAMILY_NAME.sub("<REPO>", text) == _FAMILY_NAME.sub("<REPO>", wanted)
 
 
 def render(version: str, hashes: dict[str, str]) -> str:

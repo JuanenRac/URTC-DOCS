@@ -240,6 +240,7 @@ def check_repo_tools(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="check_repo_tools.py", description="Fail when a file that every repository carries as the same copy (the documentation-policy and README-parity checks, the manifest version bumper) differs between repositories.")
     parser.add_argument("--require-siblings", action="store_true", help="fail instead of skipping when fewer than two repositories are found")
     parser.add_argument("--workspace", help="the folder that holds the repositories (default: the parent of this repository)")
+    parser.add_argument("--allow-missing-lock", action=argparse.BooleanOptionalAction, default=True, help="a repository of expected_repositories (URTC-DEVTOOLS) without its lock is only counted (the default during the transition); --no-allow-missing-lock makes it a failure")
     args = parser.parse_args(argv)
     workspace = _workspace(args)
     found, count = drift.check_workspace(workspace, template_dir=drift.source_dir(workspace) if workspace.resolve() == REPO.resolve().parent else None)
@@ -252,9 +253,13 @@ def check_repo_tools(argv: list[str] | None = None) -> int:
         return 0
     for item in found:
         print(f"{item.repository}/{item.file}: {item.detail}", file=sys.stderr)
-    lock_problems, locked = devtools_lock.check_workspace(workspace, family.discover(workspace), drift.SHARED_FILES)
+    repos = family.discover(workspace)
+    lock_problems, locked = devtools_lock.check_workspace(workspace, repos, drift.SHARED_FILES, args.allow_missing_lock)
     for repository, problem in lock_problems:
         print(f"{repository}/{devtools_lock.LOCK_FILE}: {problem}", file=sys.stderr)
+    absent = devtools_lock.missing_expected(workspace, repos)
+    if absent and args.allow_missing_lock:
+        print(f"note: {len(absent)} repositor{'y' if len(absent) == 1 else 'ies'} expected to carry a lock without one, allowed for now: {', '.join(absent)}")
     if found or lock_problems:
         print(f"REPO_TOOLS=FAIL {len(found)} copy(ies) differ from the others and {len(lock_problems)} lock problem(s) ({count} repositories, {len(drift.SHARED_FILES)} shared files)", file=sys.stderr)
         return 1

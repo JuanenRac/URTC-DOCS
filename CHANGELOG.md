@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+## [0.1.8] - The nightly comparison over a virtual ecosystem, the lock check of the shared tools and the Ed25519 bootloader documents
+
 - **The README names the lock check of `check_repo_tools.py`:** it counts the repositories of `expected_repositories` that carry no lock, notes them by default (`--allow-missing-lock`) and fails with `--no-allow-missing-lock`; the test count of URTC-GATEWAY in the glance data is current. The eight READMEs are regenerated.
 
 - **The simulated nights cover a deleted lock and an edit whose lock was written again:** the virtual ecosystem has the two events, URTC-DEVTOOLS in it holds the canonical files and the registry of the repositories expected to carry a lock, and the tests fix the verdict of the night for both (the night fails).

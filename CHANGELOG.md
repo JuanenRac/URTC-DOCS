@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The README names the lock check of `check_repo_tools.py`:** it counts the repositories of `expected_repositories` that carry no lock, notes them by default (`--allow-missing-lock`) and fails with `--no-allow-missing-lock`; the test count of URTC-GATEWAY in the glance data is current. The eight READMEs are regenerated.
+
 - **The simulated nights cover a deleted lock and an edit whose lock was written again:** the virtual ecosystem has the two events, URTC-DEVTOOLS in it holds the canonical files and the registry of the repositories expected to carry a lock, and the tests fix the verdict of the night for both (the night fails).
 - **The lock check compares the copies with the canonical files and counts the repositories without a lock:** with URTC-DEVTOOLS next to the repositories, `check_repo_tools.py` finds an edit whose lock was written again afterwards, and the repositories listed under `expected_repositories` in its registry that carry no lock are counted, as a note by default (`--allow-missing-lock`, kept for one version) and as a failure with `--no-allow-missing-lock`.
 - **A repository that carries the shared tool files must carry their lock:** `check_repo_tools.py` reported nothing for a repository whose `tools/devtools.lock.json` had been deleted; it now names it (a repository with none of the shared files is still skipped).

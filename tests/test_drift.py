@@ -176,6 +176,28 @@ def test_the_check_finds_an_edited_copy_a_missing_file_and_a_copy_that_fell_behi
     (ws / "URTC-DEVTOOLS" / "urtc.project.json").write_text(json.dumps({"version": "0.0.2"}), encoding="utf-8")
     behind, _ = devtools_lock.check_workspace(ws, repos, ("tools/_x.py",))
     assert any("URTC-DEVTOOLS is at '0.0.2'" in problem for _repo, problem in behind)
+    # an edit whose lock was written again agrees with its own lock; the canonical files of URTC-DEVTOOLS, when they are there, show it
+    (ws / "URTC-DEVTOOLS" / "urtc.project.json").write_text(json.dumps({"version": "0.0.1"}), encoding="utf-8")
+    put(ws / "URTC-DEVTOOLS", "files/tools/_x.py", "# <REPO>\nprint(1)\n")
+    put(ws / "URTC-B", "tools/_x.py", "# URTC-B\nprint(0)\n")
+    _take_the_set(ws, template)
+    assert devtools_lock.check_workspace(ws, repos, ("tools/_x.py",)) == ([], 2)
+    put(ws / "URTC-A", "tools/_x.py", "# URTC-A\nedited\n")
+    drift.apply_sync(drift.plan_locks(ws, [], ("tools/_x.py",)))
+    again, _ = devtools_lock.check_workspace(ws, repos, ("tools/_x.py",))
+    assert again == [("URTC-A", "tools/_x.py: edited and the lock recalculated (it differs from the canonical file of URTC-DEVTOOLS)")]
+    # a repository the registry expects to carry a lock: counted, a problem only when the transition is over
+    _take_the_set(ws, template)
+    put(ws / "URTC-DEVTOOLS", "tools/tooling_registry.json", json.dumps({"expected_repositories": ["URTC-A", "URTC-OTHER"]}))
+    assert devtools_lock.expected_repositories(ws) == ("URTC-A", "URTC-OTHER")
+    (ws / "URTC-A" / "tools" / "devtools.lock.json").unlink()
+    (ws / "URTC-A" / "tools" / "_x.py").unlink()
+    assert devtools_lock.missing_expected(ws, repos) == ["URTC-A"]
+    assert devtools_lock.check_workspace(ws, repos, ("tools/_x.py",)) == ([], 1)
+    strict, _ = devtools_lock.check_workspace(ws, repos, ("tools/_x.py",), allow_missing_lock=False)
+    assert strict == [("URTC-A", "tools/devtools.lock.json is missing (the repository is in expected_repositories of URTC-DEVTOOLS)")]
+    put(ws / "URTC-DEVTOOLS", "tools/tooling_registry.json", "not json")
+    assert devtools_lock.expected_repositories(ws) == ()
 
 
 def test_a_repository_that_carries_the_shared_files_without_a_lock_is_a_problem_and_so_is_an_unreadable_lock(tmp_path):

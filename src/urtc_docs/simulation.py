@@ -127,6 +127,19 @@ class VirtualEcosystem:
         items += drift.plan_locks(self.root, items)
         items += drift.plan_locks(self.root, items)
         drift.apply_sync(items)
+        self._publish_canonical()
+
+    def _publish_canonical(self) -> None:
+        """URTC-DEVTOOLS holds the canonical files (``files/``) and says which repositories must carry a lock (its registry), as the real one does."""
+        for relative in drift.SHARED_FILES:
+            source = drift.TEMPLATE_DIR / relative
+            if source.is_file():
+                target = self.repo("URTC-DEVTOOLS") / "files" / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(source.read_bytes())
+        registry = self.repo("URTC-DEVTOOLS") / "tools" / "tooling_registry.json"
+        registry.parent.mkdir(parents=True, exist_ok=True)
+        registry.write_text(json.dumps({"schema": 1, "expected_repositories": sorted(self.names), "files": []}, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     def _set_version(self, version: str) -> None:
         # the version of the set is the version of the manifest of URTC-DEVTOOLS
@@ -163,6 +176,18 @@ class VirtualEcosystem:
     def hand_edit_shared(self, name: str, relative: str = "tools/build_test.py") -> None:
         path = self.repo(name) / relative
         path.write_text(path.read_text(encoding="utf-8") + "# edited by hand\n", encoding="utf-8", newline="\n")
+
+    def delete_lock(self, name: str) -> None:
+        """The lock of a repository is deleted, so that the check has nothing to compare the copies with."""
+        (self.repo(name) / devtools_lock.LOCK_FILE).unlink()
+
+    def edit_and_relock(self, name: str, relative: str = "tools/build_test.py") -> None:
+        """A copy is edited by hand and the lock is written again from the files as they are, so the lock agrees with the edit."""
+        self.hand_edit_shared(name, relative)
+        lock_path = self.repo(name) / devtools_lock.LOCK_FILE
+        lock = json.loads(lock_path.read_text(encoding="utf-8"))
+        lock["files"] = devtools_lock.hashes_of(self.repo(name), drift.SHARED_FILES)
+        lock_path.write_text(json.dumps(lock, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
 
     def publish_set(self, version: str) -> None:
         """URTC-DEVTOOLS releases a new version of the set; nobody has taken it yet."""

@@ -87,6 +87,17 @@ def test_a_shared_copy_edited_by_hand_is_found_as_drift_and_as_a_lock_problem(ec
     assert "lock URTC-GATEWAY: tools/build_test.py: edited after the set was taken" in text
     eco.take_the_set()
     assert eco.night().failures == []
+    # a deleted lock does not silence the check, and an edit whose lock was written again is found against the canonical file
+    eco.delete_lock("URTC-GATEWAY")
+    assert "lock URTC-GATEWAY: tools/devtools.lock.json is missing although the repository carries shared files" in failures(eco.night())
+    eco.take_the_set()
+    eco.edit_and_relock("URTC-TESTER")
+    text = failures(eco.night())
+    assert "shared copy URTC-TESTER/tools/build_test.py" in text
+    assert "lock URTC-TESTER: tools/build_test.py: edited and the lock recalculated" in text
+    assert "edited after the set was taken" not in text
+    eco.take_the_set()
+    assert eco.night().failures == []
 
 
 def test_a_new_version_of_the_set_leaves_every_lock_behind_until_it_is_taken(eco):

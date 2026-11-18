@@ -61,7 +61,7 @@
       "hardware": "not_run",
       "target": "board",
       "tests": {
-        "count": 249,
+        "count": 251,
         "command": "pytest"
       }
     },

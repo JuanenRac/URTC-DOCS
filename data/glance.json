@@ -26,7 +26,7 @@
     "URTC-FLASHER": {
       "hardware": "simulated",
       "tests": {
-        "count": 916,
+        "count": 933,
         "command": "python -m pytest tests -q"
       }
     },

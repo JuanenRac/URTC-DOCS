@@ -201,3 +201,19 @@ def test_the_check_passes_on_this_repository():
         pytest.skip("not a git checkout")
     blocked = [item for item in publication.check_repo(here) if item[0] == "BLOCK" and not item[2].startswith("commit ")]
     assert blocked == []
+
+
+def test_a_squash_merge_committed_by_github_is_accepted_only_with_the_project_author(repo):
+    import os
+    env = {"GIT_AUTHOR_NAME": "Electro Hobby 3D", "GIT_AUTHOR_EMAIL": "electrohobby3d@gmail.com",
+           "GIT_COMMITTER_NAME": "GitHub", "GIT_COMMITTER_EMAIL": "noreply@github.com",
+           "PATH": os.environ["PATH"], "HOME": str(repo), "SYSTEMROOT": os.environ.get("SYSTEMROOT", "")}
+    (repo / "g.txt").write_text("g", encoding="utf-8")
+    git(repo, "add", ".")
+    subprocess.run(["git", "-C", str(repo), "-c", "commit.gpgsign=false", "commit", "-q", "-m", "Squash merge (#1)"], check=True, capture_output=True, env=env)
+    assert not [item for item in publication.check_repo(repo) if item[0] == "BLOCK" and "author or committer" in item[3]]
+    env["GIT_AUTHOR_NAME"], env["GIT_AUTHOR_EMAIL"] = "Somebody Else", "x@example.org"
+    (repo / "h.txt").write_text("h", encoding="utf-8")
+    git(repo, "add", ".")
+    subprocess.run(["git", "-C", str(repo), "-c", "commit.gpgsign=false", "commit", "-q", "-m", "Foreign squash (#2)"], check=True, capture_output=True, env=env)
+    assert [item for item in publication.check_repo(repo) if item[0] == "BLOCK" and "author or committer" in item[3]]

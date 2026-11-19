@@ -36,6 +36,9 @@ ALLOWED_AUTHORS = {
     "JuanenRac (Electro Hobby 3D) <electrohobby3d@gmail.com>",
     "Electro Hobby 3D <electrohobby3d@gmail.com>",
 }
+# The committer a squash merge made on GitHub gets; the author of such a commit must still be the project's own.
+GITHUB_COMMITTER = "GitHub <noreply@github.com>"
+ALLOWED_COMMITTERS = ALLOWED_AUTHORS | {GITHUB_COMMITTER}
 PUBLIC_EMAILS = {"electrohobby3d@gmail.com"}   # the project's own public address
 
 # Written in pieces so that this very file is never flagged by the check it implements.
@@ -144,7 +147,7 @@ def check_commits(repo: Path, ref: str | None, findings: list[Finding]) -> None:
         if len(parts) < 4:
             continue
         sha, author, committer, message = parts[0][:10], parts[1], parts[2], parts[3]
-        if author not in ALLOWED_AUTHORS or committer not in ALLOWED_AUTHORS:
+        if author not in ALLOWED_AUTHORS or committer not in ALLOWED_COMMITTERS:
             findings.append(("BLOCK", repo.name, f"commit {sha}", f"author or committer is not the project's ({author.split('<')[0].strip()})"))
         lowered = message.lower()
         if re.search(r"(?im)^(co-authored-by|generated with|signed-off-by)\b", message) or AI_ASSISTANT in lowered:

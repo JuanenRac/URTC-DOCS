@@ -63,14 +63,16 @@ jobs:
         working-directory: URTC-DOCS
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python tools/sync_manifests.py --check --online --max-calls "${{ inputs.max_calls || '150' }}" --workspace ..
+          MAX_CALLS: ${{ inputs.max_calls || '150' }}
+        run: python tools/sync_manifests.py --check --online --max-calls "$MAX_CALLS" --workspace ..
 
       - name: Write the facts file
         if: ${{ always() }}
         working-directory: URTC-DOCS
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python tools/sync_manifests.py --apply --online --max-calls "${{ inputs.max_calls || '150' }}" --workspace ..
+          MAX_CALLS: ${{ inputs.max_calls || '150' }}
+        run: python tools/sync_manifests.py --apply --online --max-calls "$MAX_CALLS" --workspace ..
 
       - name: Open one grouped pull request when the facts changed
         if: ${{ always() }}

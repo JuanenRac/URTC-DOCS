@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The "At a glance" table can show the C host suites next to the test count:** an entry of `data/glance.json` may carry `also_c_suites` inside `tests`, and the row reads for example `319 (`python -m unittest discover -s tests`), plus 80 C host suites (ctest)` in the eight languages; the counts of URTC and URTC-UPDATER in the data are current, so the nightly comparison finds their READMEs equal.
+
 ## [0.1.8] - The nightly comparison over a virtual ecosystem, the lock check of the shared tools and the Ed25519 bootloader documents
 
 - **The README names the lock check of `check_repo_tools.py`:** it counts the repositories of `expected_repositories` that carry no lock, notes them by default (`--allow-missing-lock`) and fails with `--no-allow-missing-lock`; the test count of URTC-GATEWAY in the glance data is current. The eight READMEs are regenerated.

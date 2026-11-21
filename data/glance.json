@@ -2,7 +2,12 @@
   "repos": {
     "URTC": {
       "hardware": "not_run",
-      "target": "board"
+      "target": "board",
+      "tests": {
+        "count": 319,
+        "command": "python -m unittest discover -s tests",
+        "also_c_suites": 80
+      }
     },
     "URTC-COMMON": {
       "hardware": "simulated",
@@ -53,7 +58,7 @@
     "URTC-UPDATER": {
       "hardware": "not_applicable",
       "tests": {
-        "count": 734,
+        "count": 736,
         "command": "python -m pytest"
       }
     },

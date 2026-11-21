@@ -40,6 +40,7 @@ def test_the_table_has_the_rows_the_facts_allow():
     assert text.startswith("## 📋 At a glance\n\n| | |\n|---|---|\n| Version | `0.1.0` |\n| Maturity | Established |\n| Tests | 12 (`pytest`) |\n")
     assert "| Stack | Python |" in text and "| Target | The Raspberry Pi CM5 of a HYDRA-UMC cell |" in text
     assert "Tests" not in section(tests=None)
+    assert "| Tests | 12 (`pytest`), plus 3 C host suites (ctest) |" in section(tests={"count": 12, "command": "pytest", "also_c_suites": 3})
     library = glance.render_section("en", make_manifest("X", role="library"), {"hardware": "not_run"})
     assert "| Target |" not in library
     assert "| Target | A microcontroller" in glance.render_section("en", make_manifest("X"), {"hardware": "not_run", "target": "board"})

@@ -45,6 +45,18 @@ TARGET_KEYS = ("cm5", "user_pc", "dev_server", "android", "ios", "wearos", "boar
 DEFAULT_TARGET = {"cm5": "cm5", "user-pc": "user_pc", "dev-server": "dev_server", "wearable": "wearos"}
 MAX_STACK_ITEMS = 5
 
+# The words that follow the test count when a repository has a second kind of test (C host suites run by ctest).
+TESTS_ALSO: dict[str, str] = {
+    "en": "plus {n} C host suites (ctest)",
+    "es": "más {n} suites C en el host (ctest)",
+    "de": "dazu {n} C-Host-Suiten (ctest)",
+    "fr": "plus {n} suites C sur l'hôte (ctest)",
+    "it": "più {n} suite C sull'host (ctest)",
+    "ja": "加えて C のホストスイート {n} 個（ctest）",
+    "zh": "另有 {n} 个 C 主机测试套件（ctest）",
+    "pt": "mais {n} suites C no anfitrião (ctest)",
+}
+
 LABELS: dict[str, dict[str, str]] = {
     "en": {"heading": "At a glance", "version": "Version", "maturity": "Maturity", "tests": "Tests", "stack": "Stack", "target": "Target", "hardware": "On real hardware"},
     "es": {"heading": "De un vistazo", "version": "Versión", "maturity": "Madurez", "tests": "Tests", "stack": "Tecnología", "target": "Destino", "hardware": "En hardware real"},
@@ -329,7 +341,10 @@ def render_section(code: str, manifest: dict, entry: dict) -> str:
     tests = entry.get("tests")
     if tests:
         command = tests.get("command")
-        rows.append((labels["tests"], f"{tests['count']} (`{command}`)" if command else str(tests["count"])))
+        value = f"{tests['count']} (`{command}`)" if command else str(tests["count"])
+        if tests.get("also_c_suites"):
+            value += ", " + TESTS_ALSO[code].format(n=tests["also_c_suites"])
+        rows.append((labels["tests"], value))
     rows.append((labels["stack"], _cell(stack_text(manifest))))
     key = target_key(manifest, entry)
     if key:

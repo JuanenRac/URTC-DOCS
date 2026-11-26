@@ -6,7 +6,7 @@
       "tests": {
         "count": 319,
         "command": "python -m unittest discover -s tests",
-        "also_c_suites": 80
+        "also_c_suites": 82
       }
     },
     "URTC-COMMON": {
@@ -38,7 +38,7 @@
     "URTC-GATEWAY": {
       "hardware": "simulated",
       "tests": {
-        "count": 245
+        "count": 256
       }
     },
     "URTC-SMART-RACK": {

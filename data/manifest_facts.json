@@ -57,18 +57,18 @@
    "unreleased_entries": 3
   },
   "URTC-FLASHER": {
-   "changelog_head": "0.5.8",
+   "changelog_head": "0.5.9",
    "ci_simulation": true,
    "evidence": "simulator",
    "hardware_bound": true,
-   "latest_release": "v0.5.8",
-   "manifest_version": "0.5.8",
+   "latest_release": "v0.5.9",
+   "manifest_version": "0.5.9",
    "maturity": "functional",
    "native": {
-    "flasher_config.py": "0.5.8"
+    "flasher_config.py": "0.5.9"
    },
    "tests_present": true,
-   "unreleased_entries": 6
+   "unreleased_entries": 0
   },
   "URTC-GATEWAY": {
    "changelog_head": "0.1.0",
@@ -99,32 +99,32 @@
    "unreleased_entries": 0
   },
   "URTC-TESTER": {
-   "changelog_head": "0.5.7",
+   "changelog_head": "0.5.8",
    "ci_simulation": true,
    "evidence": "simulator",
    "hardware_bound": true,
-   "latest_release": "v0.5.7",
-   "manifest_version": "0.5.7",
+   "latest_release": "v0.5.8",
+   "manifest_version": "0.5.8",
    "maturity": "functional",
    "native": {
-    "tester_config.py": "0.5.7"
+    "tester_config.py": "0.5.8"
    },
    "tests_present": true,
-   "unreleased_entries": 6
+   "unreleased_entries": 0
   },
   "URTC-UPDATER": {
-   "changelog_head": "0.3.2",
+   "changelog_head": "0.3.3",
    "ci_simulation": true,
    "evidence": "simulator",
    "hardware_bound": false,
-   "latest_release": "v0.3.2",
-   "manifest_version": "0.3.2",
+   "latest_release": "v0.3.3",
+   "manifest_version": "0.3.3",
    "maturity": "established",
    "native": {
-    "pyproject.toml": "0.3.2"
+    "pyproject.toml": "0.3.3"
    },
    "tests_present": true,
-   "unreleased_entries": 6
+   "unreleased_entries": 0
   },
   "URTC-VISION-TOOL": {
    "changelog_head": "0.2.2",

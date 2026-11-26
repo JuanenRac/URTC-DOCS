@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The test counts of the table follow the repositories:** the C host suites of URTC are 82 and the tests of URTC-GATEWAY are 256 in `data/glance.json`.
+
 - **The template of the dashboard notice carries the reason for its trigger:** `template/eh3d-repo-template/.github/workflows/dashboard-dispatch.yml` has the same comment on the `workflow_run` trigger as the canonical file of URTC-DEVTOOLS 0.0.8, so the two are equal again.
 
 - **The "At a glance" table can show the C host suites next to the test count:** an entry of `data/glance.json` may carry `also_c_suites` inside `tests`, and the row reads for example `319 (`python -m unittest discover -s tests`), plus 80 C host suites (ctest)` in the eight languages; the counts of URTC and URTC-UPDATER in the data are current, so the nightly comparison finds their READMEs equal.

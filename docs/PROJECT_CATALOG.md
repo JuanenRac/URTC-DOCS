@@ -24,7 +24,7 @@ Every repository of the ecosystem, written by `tools/make_catalog.py` from the `
 | Repository | Version | Maturity | Role | Stack | Target | Parent | What it is |
 |---|---|---|---|---|---|---|---|
 | [URTC-DEVTOOLS](https://github.com/JuanenRac/URTC-DEVTOOLS) | 0.0.9 | Scaffolding | tool | python | user-pc | - | The shared repository tools of the family (README and documentation checks, picture generators, version bumper) as one versioned set with a lock file that every repository of the family carries. |
-| [URTC-DOCS](https://github.com/JuanenRac/URTC-DOCS) | 0.1.9 | Functional | tool | python | user-pc | - | Architecture, interfaces, security baseline, capability matrix and generated project catalogue of the ecosystem, plus the tools that compare all repositories. |
+| [URTC-DOCS](https://github.com/JuanenRac/URTC-DOCS) | 0.2.0 | Functional | tool | python | user-pc | - | Architecture, interfaces, security baseline, capability matrix and generated project catalogue of the ecosystem, plus the tools that compare all repositories. |
 | [URTC-UPDATER](https://github.com/JuanenRac/URTC-UPDATER) | 0.3.4 | Established | tool | python | user-pc | - | Finds the ecosystem repositories on a machine from their manifests and installs or updates them after an explicit confirmation. |
 
 ### URTC Tool Platform
@@ -38,5 +38,5 @@ Every repository of the ecosystem, written by `tools/make_catalog.py` from the `
 | [URTC-VISION-TOOL](https://github.com/JuanenRac/URTC-VISION-TOOL) | 0.2.3 | Functional | firmware | firmware-c | user-pc | - | Sensor-frame protocol in C and a Python thermal/RGB companion for an inspection tool head; no board or camera has been used yet. |
 | [URTC-FLASHER](https://github.com/JuanenRac/URTC-FLASHER) | 0.6.0 | Functional | tool | python-qtquick | user-pc | URTC | Desktop tool that updates the board firmware over CAN (bootloader protocol, signed images) or over SWD/JTAG; tested against a simulated bootloader only. |
 | [URTC-TESTER](https://github.com/JuanenRac/URTC-TESTER) | 0.5.9 | Functional | tool | python-qtquick | user-pc | URTC | Desktop live CAN-bus tester that shows the controls and telemetry of the tool profile a board reports; checked against fake transports only. |
-| [URTC-WEB-STUDIO](https://github.com/JuanenRac/URTC-WEB-STUDIO) | 0.5.4 | Functional | ui | node | user-pc | URTC | Browser app that flashes and tests the board over Web Serial and SLCAN; the pure logic is tested, the transport and screens are not. |
+| [URTC-WEB-STUDIO](https://github.com/JuanenRac/URTC-WEB-STUDIO) | 0.5.5 | Functional | ui | node | user-pc | URTC | Browser app that flashes and tests the board over Web Serial and SLCAN; the pure logic is tested, the transport and screens are not. |
 <!-- catalog:end -->

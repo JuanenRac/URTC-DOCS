@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+## [0.2.0] - Signature statements from the key files, stricter claim checks and nightly comparison of the compatibility table
+
 - **A repository expected to carry the lock of the shared tools and without it fails the nightly check:** until now it was only counted; `check_repo_tools.py --allow-missing-lock` keeps the old behaviour for a repository that is being added.
 
 - **The signature statements come from the key files of URTC:** the sentence of the safety note about the bootloader keys is one of three closed phrases chosen from `keys/image_trust.json`, the security baseline has a table of who verifies what with which key written from `keys/registry.json`, and the claim check fails when a document of the family still says that the official trust table is empty, when the copy is behind URTC or when a document gives the main bootloader an HMAC key.

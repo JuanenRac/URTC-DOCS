@@ -12,7 +12,7 @@
     "src/F303-master/firmware_common.h": "0.5.1.0"
    },
    "tests_present": true,
-   "unreleased_entries": 5
+   "unreleased_entries": 6
   },
   "URTC-COMMON": {
    "changelog_head": "0.3.1",
@@ -43,18 +43,18 @@
    "unreleased_entries": 1
   },
   "URTC-DOCS": {
-   "changelog_head": "0.1.8",
+   "changelog_head": "0.1.9",
    "ci_simulation": true,
    "evidence": "simulator",
    "hardware_bound": false,
    "latest_release": "v0.1.8",
-   "manifest_version": "0.1.8",
+   "manifest_version": "0.1.9",
    "maturity": "functional",
    "native": {
-    "pyproject.toml": "0.1.8"
+    "pyproject.toml": "0.1.9"
    },
    "tests_present": true,
-   "unreleased_entries": 3
+   "unreleased_entries": 1
   },
   "URTC-FLASHER": {
    "changelog_head": "0.5.9",
@@ -82,7 +82,7 @@
     "pyproject.toml": "0.1.1"
    },
    "tests_present": true,
-   "unreleased_entries": 0
+   "unreleased_entries": 1
   },
   "URTC-SMART-RACK": {
    "changelog_head": "0.2.9",
@@ -96,7 +96,7 @@
     "src/firmware_common.h": "0.2.9.0"
    },
    "tests_present": true,
-   "unreleased_entries": 0
+   "unreleased_entries": 2
   },
   "URTC-TESTER": {
    "changelog_head": "0.5.9",
@@ -110,35 +110,35 @@
     "tester_config.py": "0.5.9"
    },
    "tests_present": true,
-   "unreleased_entries": 0
+   "unreleased_entries": 1
   },
   "URTC-UPDATER": {
-   "changelog_head": "0.3.3",
+   "changelog_head": "0.3.4",
    "ci_simulation": true,
    "evidence": "simulator",
    "hardware_bound": false,
    "latest_release": "v0.3.3",
-   "manifest_version": "0.3.3",
+   "manifest_version": "0.3.4",
    "maturity": "established",
    "native": {
-    "pyproject.toml": "0.3.3"
+    "pyproject.toml": "0.3.4"
    },
    "tests_present": true,
-   "unreleased_entries": 4
+   "unreleased_entries": 0
   },
   "URTC-VISION-TOOL": {
-   "changelog_head": "0.2.2",
+   "changelog_head": "0.2.3",
    "ci_simulation": true,
    "evidence": "simulator",
    "hardware_bound": true,
    "latest_release": "v0.2.2",
-   "manifest_version": "0.2.2",
+   "manifest_version": "0.2.3",
    "maturity": "functional",
    "native": {
-    "src/firmware_common.h": "0.2.2.0"
+    "src/firmware_common.h": "0.2.3.0"
    },
    "tests_present": true,
-   "unreleased_entries": 4
+   "unreleased_entries": 0
   },
   "URTC-WEB-STUDIO": {
    "changelog_head": "0.5.4",

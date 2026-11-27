@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+## [0.1.9] - Test counts follow the repositories and the tools read other programs as UTF-8
+
 - **The test counts of the table follow the repositories:** URTC-GATEWAY has 292 tests and URTC-TESTER 1184.
 
 - **The test counts of the table follow the repositories:** URTC-SMART-RACK has 792 checks and the tests of URTC are 320.

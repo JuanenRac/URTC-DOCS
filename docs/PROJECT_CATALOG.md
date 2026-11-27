@@ -24,7 +24,7 @@ Every repository of the ecosystem, written by `tools/make_catalog.py` from the `
 | Repository | Version | Maturity | Role | Stack | Target | Parent | What it is |
 |---|---|---|---|---|---|---|---|
 | [URTC-DEVTOOLS](https://github.com/JuanenRac/URTC-DEVTOOLS) | 0.0.8 | Scaffolding | tool | python | user-pc | - | The shared repository tools of the family (README and documentation checks, picture generators, version bumper) as one versioned set with a lock file; no repository has taken the lock yet. |
-| [URTC-DOCS](https://github.com/JuanenRac/URTC-DOCS) | 0.1.8 | Functional | tool | python | user-pc | - | Architecture, interfaces, security baseline, capability matrix and generated project catalogue of the ecosystem, plus the tools that compare all repositories. |
+| [URTC-DOCS](https://github.com/JuanenRac/URTC-DOCS) | 0.1.9 | Functional | tool | python | user-pc | - | Architecture, interfaces, security baseline, capability matrix and generated project catalogue of the ecosystem, plus the tools that compare all repositories. |
 | [URTC-UPDATER](https://github.com/JuanenRac/URTC-UPDATER) | 0.3.3 | Established | tool | python | user-pc | - | Finds the ecosystem repositories on a machine from their manifests and installs or updates them after an explicit confirmation. |
 
 ### URTC Tool Platform

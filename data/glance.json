@@ -58,7 +58,7 @@
     "URTC-UPDATER": {
       "hardware": "not_applicable",
       "tests": {
-        "count": 767,
+        "count": 774,
         "command": "python -m pytest"
       }
     },

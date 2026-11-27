@@ -38,7 +38,7 @@
     "URTC-GATEWAY": {
       "hardware": "simulated",
       "tests": {
-        "count": 312
+        "count": 325
       }
     },
     "URTC-SMART-RACK": {

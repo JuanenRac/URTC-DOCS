@@ -4,7 +4,7 @@
       "hardware": "not_run",
       "target": "board",
       "tests": {
-        "count": 320,
+        "count": 322,
         "command": "python -m unittest discover -s tests",
         "also_c_suites": 82
       }
@@ -12,13 +12,13 @@
     "URTC-COMMON": {
       "hardware": "simulated",
       "tests": {
-        "count": 3081
+        "count": 3085
       }
     },
     "URTC-DEVTOOLS": {
       "hardware": "not_applicable",
       "tests": {
-        "count": 163,
+        "count": 164,
         "command": "python -m unittest discover -s tests"
       }
     },
@@ -31,14 +31,14 @@
     "URTC-FLASHER": {
       "hardware": "simulated",
       "tests": {
-        "count": 1008,
+        "count": 1012,
         "command": "python -m pytest tests -q"
       }
     },
     "URTC-GATEWAY": {
       "hardware": "simulated",
       "tests": {
-        "count": 292
+        "count": 312
       }
     },
     "URTC-SMART-RACK": {
@@ -74,7 +74,7 @@
       "hardware": "simulated",
       "target": "browser",
       "tests": {
-        "count": 1856,
+        "count": 1857,
         "command": "npm test"
       }
     }

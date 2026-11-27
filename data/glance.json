@@ -4,7 +4,7 @@
       "hardware": "not_run",
       "target": "board",
       "tests": {
-        "count": 319,
+        "count": 320,
         "command": "python -m unittest discover -s tests",
         "also_c_suites": 82
       }

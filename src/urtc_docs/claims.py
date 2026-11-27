@@ -12,12 +12,22 @@ signed, mTLS, FDCAN, YOLO, AI-driven, autonomous, certified, ...) and give no si
 
 A sentence passes when
 
-* it, or the sentence just before or after it in the same list item or paragraph, carries a *status
-  marker* (planned, not implemented, optional, off by default, opt-in, experimental, v0, simulated, test,
-  and the plain negations that disclaim a capability), or
+* it, or the sentence just before or after it in the same list item or paragraph, carries a *status marker*
+  (planned, not implemented, optional, off by default, opt-in, experimental, v0, simulated, not tested, never
+  run on hardware, ...), or
+* it holds an *explicit negation next to a risk word*: ``not``, ``no``, ``never``, ``without``, ``n't``, ... in
+  the same clause (commas, colons, brackets and the like end a clause) and at most ``NEGATION_REACH`` words
+  from the risk word. A negation in a neighbouring sentence, in another clause or far from the risk word does
+  not count, and neither do the words "test", "tested", "classic" or "would": "The E-STOP is certified and
+  tested" and "Signed firmware, no exceptions" are reported, or
 * its normalised text is in the allow-list ``data/claims_reviewed.json`` under the name of the repository
   (or under ``*`` for a sentence that is shared by several repositories). An entry means that a person read
   the line next to the code and the capability matrix and found it true as written.
+
+A hub may also keep ``data/claims_pending.json``: the sentences that passed under the older, looser markers and
+that nobody has read yet. They do not fail the check, every run says how many are left, and no command adds
+to that list: it only gets shorter, and ``--update-reviewed`` moves a line out of it only for the repositories
+named with ``--accept-pending``.
 
 Everything else is reported. Only the English README is scanned: the other seven are kept in step with it
 by the README parity check, and the risk words are English identifiers in every language.
@@ -43,13 +53,28 @@ RISK = re.compile(
     re.IGNORECASE | re.VERBOSE,
 )
 
+# Words that say by themselves what the state of something is. They count for the sentence that holds them and for
+# the one just before and just after it.
 MARKER = re.compile(
-    r"""planned|not\ implemented|not\ yet|\bnot\b|\bno\b|\bnever\b|\bnothing\b|\bwithout\b|cannot|can't|isn't|aren't
-    |doesn't|does\ not|\byet\b|unless|until|optional|off\ by\ default|opt-in|experimental|\bv0\b|simulat|\btests?\b|\btested\b
-    |emulat|\bfake|stub|placeholder|future|intended|design\ goal|aspirational|hobbyist
-    |\bclassic\b|\bphase\ \d|\bwould\b|\(design\)|design\ target|meant\ to|\bneither\b|\bnor\b""",
+    r"""planned|not\ implemented|not\ yet|\bunimplemented|optional|off\ by\ default|disabled\ by\ default|opt-in
+    |experimental|\bv0\b|simulat|emulat|\bfake|stub|placeholder|future|intended|design\ goal|aspirational|hobbyist
+    |\bphase\ \d|\(design\)|design\ target|meant\ to
+    |\buntested\b|\bunverified\b|\buncertified\b|\bnot\ (?:been\ )?(?:tested|verified|certified|validated|checked|measured|built|run)\b
+    |\bnever\ (?:been\ )?(?:tested|verified|certified|validated|measured|built|run)\b|\bhas\ not\ (?:run|been)\b""",
     re.IGNORECASE | re.VERBOSE,
 )
+
+# An explicit negation counts only next to a risk word of its own clause (see ``negated``).
+NEGATION = re.compile(r"\bnot\b|\bno\b|\bnever\b|\bnothing\b|\bnone\b|\bneither\b|\bnor\b|\bwithout\b|\bcannot\b|n't\b|n’t\b", re.IGNORECASE)
+NEGATION_REACH = 6
+# Phrases with a negating word that deny nothing.
+_EMPTY_NEGATION = re.compile(
+    r"\bnot (?:only|just|merely)\b|\bno matter\b|\b(?:with )?no exceptions?\b|\bwithout (?:exception|doubt)\b|\bnone other than\b",
+    re.IGNORECASE,
+)
+_CLAUSE = re.compile(r"[,;:()\[\]{}|]|\s[-\u2013\u2014]+\s|\b(?:but|however|although|though|whereas)\b", re.IGNORECASE)
+_WORD = re.compile(r"\S+")
+
 
 _FENCE = re.compile(r"^\s*(```|~~~)")
 # A section whose heading says it is about the future, the limits or the honest status describes what is NOT there.
@@ -131,19 +156,48 @@ def units(text: str) -> list[tuple[int, list[str], bool]]:
 
 
 def findings(text: str) -> list[tuple[int, str]]:
-    """(line, sentence) of every sentence with a risk word and no status marker near it."""
-    found: list[tuple[int, str]] = []
+    """(line, sentence) of every sentence with a risk word that nothing clears."""
+    return [(line, sentence) for line, sentence, why in explain(text) if not why]
+
+
+def _word_of(starts: list[int], position: int) -> int:
+    """The index of the word that holds the character at ``position``."""
+    return max((index for index, start in enumerate(starts) if start <= position), default=0)
+
+
+def negated(sentence: str) -> str:
+    """The negation that stands next to a risk word of the sentence, or an empty string."""
+    for clause in _CLAUSE.split(_EMPTY_NEGATION.sub(" _ ", sentence)):
+        starts = [match.start() for match in _WORD.finditer(clause)]
+        denials = [(_word_of(starts, m.start()), m.group(0)) for m in NEGATION.finditer(clause)]
+        if not denials:
+            continue
+        for risk in RISK.finditer(clause):
+            first, last = _word_of(starts, risk.start()), _word_of(starts, risk.end() - 1)
+            for index, word in denials:
+                if first - NEGATION_REACH <= index <= last + NEGATION_REACH:
+                    return word
+    return ""
+
+
+def saved_by(sentences: list[str], index: int) -> str:
+    """What clears the sentence ``index`` of one unit: a status marker near it or a negation in it ('' = nothing)."""
+    for part in [sentences[index], *sentences[max(0, index - 1): index], *sentences[index + 1: index + 2]]:
+        marker = MARKER.search(part)
+        if marker:
+            return f"marker '{marker.group(0)}'"
+    word = negated(sentences[index])
+    return f"negation '{word}'" if word else ""
+
+
+def explain(text: str) -> list[tuple[int, str, str]]:
+    """(line, sentence, what cleared it) of every sentence with a risk word outside the planned sections."""
+    result: list[tuple[int, str, str]] = []
     for line, sentences, planned in units(text):
         if planned:
             continue
-        for index, sentence in enumerate(sentences):
-            if not RISK.search(sentence):
-                continue
-            window = sentences[max(0, index - 1): index + 2]
-            if any(MARKER.search(part) for part in window):
-                continue
-            found.append((line, sentence))
-    return found
+        result += [(line, sentence, saved_by(sentences, index)) for index, sentence in enumerate(sentences) if RISK.search(sentence)]
+    return result
 
 
 def load_reviewed(path: Path) -> dict[str, dict[str, str]]:
@@ -153,8 +207,68 @@ def load_reviewed(path: Path) -> dict[str, dict[str, str]]:
     return {repo: dict(entries) for repo, entries in data.get("reviewed", {}).items()}
 
 
-def save_reviewed(path: Path, reviewed: dict[str, dict[str, str]]) -> None:
-    body = {"reviewed": {repo: dict(sorted(reviewed[repo].items())) for repo in sorted(reviewed)}}
+def load_log(path: Path) -> list[dict]:
+    if not path.is_file():
+        return []
+    return list(json.loads(path.read_text(encoding="utf-8")).get("log", []))
+
+
+def load_pending(path: Path) -> dict[str, dict[str, str]]:
+    """The lines that wait for a person's review ({} when the hub keeps none)."""
+    if not path.is_file():
+        return {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    return {repo: dict(entries) for repo, entries in data.get("pending", {}).items()}
+
+
+def without(pending: dict[str, dict[str, str]], reviewed: dict[str, dict[str, str]], seen: dict[str, set[str]] | None = None) -> dict[str, dict[str, str]]:
+    """``pending`` less what is now reviewed and, for the repositories in ``seen``, what their README no longer says."""
+    result: dict[str, dict[str, str]] = {}
+    shared = set(reviewed.get(GLOBAL_KEY, {}))
+    for repo, entries in pending.items():
+        kept = {
+            key: line for key, line in entries.items()
+            if key not in shared and key not in reviewed.get(repo, {}) and (seen is None or repo not in seen or key in seen[repo])
+        }
+        if kept:
+            result[repo] = kept
+    return result
+
+
+def save_pending(path: Path, pending: dict[str, dict[str, str]]) -> None:
+    about = "Sentences that passed under the older markers and that no person has read next to the code yet. This list only gets shorter."
+    body = {"about": about, "pending": {repo: dict(sorted(pending[repo].items())) for repo in sorted(pending)}}
+    path.write_text(json.dumps(body, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def held_back(proposed: dict[str, dict[str, str]], previous: dict[str, dict[str, str]], pending: dict[str, dict[str, str]], accepted: set[str]) -> dict[str, dict[str, str]]:
+    """``proposed`` without the lines that still wait for a review, except those of the names in ``accepted`` (a repository or ``*``)."""
+    everywhere = {key for entries in pending.values() for key in entries}
+    result: dict[str, dict[str, str]] = {}
+    for name, entries in proposed.items():
+        waiting = everywhere if name == GLOBAL_KEY else set(pending.get(name, {})) | set(pending.get(GLOBAL_KEY, {}))
+        kept = {key: line for key, line in entries.items() if name in accepted or key not in waiting or key in previous.get(name, {})}
+        if kept:
+            result[name] = kept
+    return result
+
+
+def additions(previous: dict[str, dict[str, str]], proposed: dict[str, dict[str, str]]) -> list[tuple[str, str, str]]:
+    """(repository or ``*``, key, text) of the lines of ``proposed`` that no person has accepted yet."""
+    shared = set(previous.get(GLOBAL_KEY, {}))
+    return [
+        (repo, key, line)
+        for repo in sorted(proposed)
+        for key, line in sorted(proposed[repo].items())
+        if key not in shared and key not in previous.get(repo, {})
+    ]
+
+
+def save_reviewed(path: Path, reviewed: dict[str, dict[str, str]], log: list[dict] | None = None) -> None:
+    body: dict = {"reviewed": {repo: dict(sorted(reviewed[repo].items())) for repo in sorted(reviewed)}}
+    entries = load_log(path) if log is None else log
+    if entries:
+        body["log"] = entries
     path.write_text(json.dumps(body, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
@@ -191,7 +305,9 @@ def stale_entries(repo_name: str, reviewed: dict[str, dict[str, str]], seen: set
 
 
 def build_reviewed(workspace: Path, own_name: str, previous: dict[str, dict[str, str]] | None = None) -> dict[str, dict[str, str]]:
-    """The allow-list for the current READMEs. Sentences found in three or more repositories go under ``*``."""
+    """The allow-list for the current READMEs. Sentences found in three or more repositories go under ``*``.
+
+    A line that ``previous`` already holds under ``*`` stays there, however many repositories still show it."""
     per_repo: dict[str, dict[str, str]] = {}
     for repo in repositories(workspace, own_name):
         text = (repo / README).read_text(encoding="utf-8", errors="replace")
@@ -203,7 +319,7 @@ def build_reviewed(workspace: Path, own_name: str, previous: dict[str, dict[str,
     shared = {
         key: next(e[key] for e in per_repo.values() if key in e)
         for key, n in counts.items()
-        if n >= 3 and not re.search(r"established", next(e[key] for e in per_repo.values() if key in e), re.IGNORECASE)
+        if (n >= 3 or key in (previous or {}).get(GLOBAL_KEY, {})) and not re.search(r"established", next(e[key] for e in per_repo.values() if key in e), re.IGNORECASE)
     }
     result = {repo: {k: v for k, v in entries.items() if k not in shared} for repo, entries in per_repo.items()}
     result = {repo: entries for repo, entries in result.items() if entries}

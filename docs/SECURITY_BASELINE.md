@@ -51,6 +51,21 @@ The sources are named in each line: `URTC` (`docs/CAN_THREAT_MODEL.TXT`, `docs/F
 * **Pinned dependencies where it matters.** The profile workflow installs the updaters from a fixed revision, not from `main`.
 * **Publication check** (`tools/publication_check.py` in this repository) for private keys, public IP addresses, personal e-mail addresses, tracked secret files, private document names and commits by someone other than the project's author, across all repositories next to it.
 
+## Who verifies what, and with which key
+
+Written from the key files of URTC (`keys/image_trust.json` and `keys/registry.json`); `tools/check_claims.py` fails when it is behind them.
+
+<!-- signing-table:begin (written from data/signing_facts.json; do not edit) -->
+| Key | Algorithm | Public value (start) | Signs | Checked by |
+|---|---|---|---|---|
+| `urtc-release-ed25519` | Ed25519 | `4020c46d76c8ebac` | Every asset of an official release | URTC-FLASHER, URTC-WEB-STUDIO and the publishing tool, before they trust a download |
+| `urtc-main-bootloader-hmac-development` | HMAC-SHA256 | `2526cc3e9011ec7c` | Nothing any current bootloader checks | Only the main bootloader of the earlier generation |
+| `urtc-image-signing-release-current` | Ed25519 | `80344f1a557fac5d` | The application images of official builds | The main bootloader of an official build |
+| `urtc-image-signing-release-next` | Ed25519 | `ac856598a0ac8e45` | Nothing yet: reserved for the next image-signing key | The main bootloader of an official build, which already trusts it |
+| `urtc-image-signing-development` | Ed25519 | `81f29be04dfa58f3` | Bench images; its seed is published, so it proves nothing about who made one | The main bootloader of a bench build |
+| (no key) | SHA-256 | - | The image of the expansion slave | The slave bootloader, which also asks that the main board confirmed that exact image |
+<!-- signing-table:end -->
+
 ## What is a setting that is off, or only advice
 
 * **`sign_evidence`** in URTC-TESTER and URTC-FLASHER (and in the settings of URTC-UPDATER for its export): off by default; anything other than the plain value `true` keeps it off. When it is on the evidence records carry an Ed25519 signature of a key that stays on the computer (`record_key_file`, never printed); if the key cannot be used nothing is written. The programs that read records say "signed by <alias>" or "unknown key" with a list of public keys (`trusted_keys`) and always show a signature that fails.

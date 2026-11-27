@@ -30,7 +30,7 @@
 |---|---|
 | バージョン | `0.1.9` |
 | 成熟度 | 機能する |
-| テスト | 250 |
+| テスト | 291 |
 | 技術 | Markdown / Mermaid / Python / SVG |
 | 対象 | 利用者の PC |
 | 実機での確認 | 対象外：ここにあるものはハードウェア上では動きません |
@@ -64,7 +64,7 @@
 * [最初の垂直スライス](docs/FIRST_VERTICAL_SLICE.md)：今日存在する最小のエンドツーエンド経路。
 * [CAN プロトコルの重複実装](docs/CAN_PROTOCOL_DUPLICATION.md)：プロトコルは文章の説明から三回実装されています。共有仕様に含まれるはずの内容。
 * [プロジェクトカタログ](docs/PROJECT_CATALOG.md)：エコシステムの全リポジトリを、それぞれのマニフェストから生成。
-* **ツール：** `make_catalog.py` はカタログを、`make_brand.py` はバナー・アイコン・ファミリーマップを、`make_readmes.py` はこのリポジトリの 8 つの README を書きます。`publication_check.py` は公開前に非公開のものを探し、`check_all.sh` はファミリーの各リポジトリ自身のチェックを実行して、1 件ごとに PASS、FAIL、SKIP の 1 行を出力します。`make_glance.py` は各リポジトリのマニフェストと `data/glance.json` から「ひと目で」の表を書きます（`--check` は比較、`--apply` は書き込み）。バージョンを上げた後は `python tools/make_glance.py --apply --repo NAME` でそのリポジトリの表を更新します。`check_claims.py` は、ファミリーの各リポジトリの英語 README を読み、リスクのある語（E-STOP、インターロック、リアルタイム、署名済み、mTLS、FDCAN、YOLO、AI 駆動、自律、認証済みなど）を含む文の隣に状態の印（計画中、未実装、任意、既定で無効、シミュレーション、テスト済みなど）がなく、かつ担当者がコードと突き合わせて読み `data/claims_reviewed.json` に登録した行でもない場合に失敗します。`check_repo_tools.py` は、各リポジトリが同一のコピーとして持つファイル（ドキュメント方針と README 同等性の検査、マニフェストのバージョン更新ツール、ダッシュボードへ通知するワークフロー）を比較し、どれかが異なると失敗します。`sync_repo_tools.py` は、それらのファイルの正規コピー（`template/eh3d-repo-template`）を各ファイルの改行コードを保ったまま全リポジトリへ書き込みます。`--apply` を付けない場合は、変更される内容を一覧表示するだけです。 同じツールが、各リポジトリに `tools/devtools.lock.json` というロックファイル（URTC-DEVTOOLS の共有セットのバージョンと、共有ファイルごとの SHA-256）を書き込んで検査し、編集されたコピー、欠けているファイル、ロックに載っていないファイル、セットより古いままのコピーを報告します。`status_lights.py` も共有ファイルの一つで、各リポジトリのバリデーターは、Project status 表のランプがマニフェスト（`maturity`、`evidence`）の許す範囲を超えていると失敗します。`check_repo_tools.py` は、ロックを持つべきリポジトリ（URTC-DEVTOOLS の `expected_repositories`）でロックがないものも数えます。既定では記録するだけ（`--allow-missing-lock`、1 バージョンのあいだ維持）で、`--no-allow-missing-lock` を付けると失敗します。`urtc_doctor.py` は唯一の入口です。マシンのツール（Python、git、Node、ARM コンパイラー、PySide6、シリアルポート）、各リポジトリのバージョン（マニフェスト、ソースファイル、changelog の最新エントリ）、URTC-COMMON のコピー、フラッシャーと Web スタジオに同梱されたファームウェア、各リポジトリの検証、そしてこのリポジトリのチェックを 1 つのレポートにまとめます。`--fast` は検証を省略し、`--online` は同梱ファームウェアを最新リリースと比較します。
+* **ツール：** `make_catalog.py` はカタログを、`make_brand.py` はバナー・アイコン・ファミリーマップを、`make_readmes.py` はこのリポジトリの 8 つの README を書きます。`publication_check.py` は公開前に非公開のものを探し、`check_all.sh` はファミリーの各リポジトリ自身のチェックを実行して、1 件ごとに PASS、FAIL、SKIP の 1 行を出力します。`make_glance.py` は各リポジトリのマニフェストと `data/glance.json` から「ひと目で」の表を書きます（`--check` は比較、`--apply` は書き込み）。バージョンを上げた後は `python tools/make_glance.py --apply --repo NAME` でそのリポジトリの表を更新します。`check_claims.py` は、ファミリーの各リポジトリの英語 README を読み、リスクのある語（E-STOP、インターロック、リアルタイム、署名済み、mTLS、FDCAN、YOLO、AI 駆動、自律、認証済みなど）を含む文の隣に状態の印（計画中、未実装、任意、既定で無効、シミュレーション、未テストなど）も、同じ節内でリスク語の近くにある明示的な否定(not、no、never、without など)もなく、かつ担当者がコードと突き合わせて読み `data/claims_reviewed.json` に登録した行でもない場合に失敗します。test、tested、classic、would という語だけでは通らず、`--explain` は各文が何によって通ったかを表示します。以前の緩い規則で通り、まだ誰も読んでいない行は `data/claims_pending.json` にあります。実行のたびに件数が示され、この一覧に追加するコマンドはなく、`--update-reviewed` が新しい行を書くのは `--confirm --reviewer 名前` を付けた場合だけです。`check_repo_tools.py` は、各リポジトリが同一のコピーとして持つファイル（ドキュメント方針と README 同等性の検査、マニフェストのバージョン更新ツール、ダッシュボードへ通知するワークフロー）を比較し、どれかが異なると失敗します。`sync_repo_tools.py` は、それらのファイルの正規コピー（`template/eh3d-repo-template`）を各ファイルの改行コードを保ったまま全リポジトリへ書き込みます。`--apply` を付けない場合は、変更される内容を一覧表示するだけです。 同じツールが、各リポジトリに `tools/devtools.lock.json` というロックファイル（URTC-DEVTOOLS の共有セットのバージョンと、共有ファイルごとの SHA-256）を書き込んで検査し、編集されたコピー、欠けているファイル、ロックに載っていないファイル、セットより古いままのコピーを報告します。`status_lights.py` も共有ファイルの一つで、各リポジトリのバリデーターは、Project status 表のランプがマニフェスト（`maturity`、`evidence`）の許す範囲を超えていると失敗します。`check_repo_tools.py` は、ロックを持つべきリポジトリ（URTC-DEVTOOLS の `expected_repositories`）でロックがないものも数えます。これらがあると失敗し、`--allow-missing-lock` を付けると記録するだけになります（追加中のリポジトリ向け）。`urtc_doctor.py` は唯一の入口です。マシンのツール（Python、git、Node、ARM コンパイラー、PySide6、シリアルポート）、各リポジトリのバージョン（マニフェスト、ソースファイル、changelog の最新エントリ）、URTC-COMMON のコピー、フラッシャーと Web スタジオに同梱されたファームウェア、各リポジトリの検証、そしてこのリポジトリのチェックを 1 つのレポートにまとめます。`--fast` は検証を省略し、`--online` は同梱ファームウェアを最新リリースと比較します。
 
 ## 🧩 URTC での役割
 
@@ -97,7 +97,7 @@ python -m pytest tests -q                            # ツールの単体テス�
 
 ## 🧪 テスト
 
-テストスイートは 250 件です（`python -m pytest tests -q`）。カタログ、ブランド、「ひと目で」の表、状況の表、README のジェネレーターをテストデータで実行し、主張・共有ファイル・公開・doctor の検査、CAN の説明の適合ベクトルを確かめ、このリポジトリの README がジェネレーターの出力とまったく同じであることを検査します。
+テストスイートは 291 件です（`python -m pytest tests -q`）。カタログ、ブランド、「ひと目で」の表、状況の表、README のジェネレーターをテストデータで実行し、主張・共有ファイル・公開・doctor の検査、CAN の説明の適合ベクトルを確かめ、このリポジトリの README がジェネレーターの出力とまったく同じであることを検査します。
 
 ## 🏗️ ビルドとリリース
 

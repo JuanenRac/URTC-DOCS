@@ -16,14 +16,16 @@ import json
 from pathlib import Path
 from typing import cast
 
-from . import glance, status
-from .readme_claims_text import COMMENT as CLAIMS_COMMENT, NOTE as CLAIMS_NOTE, TOOLS as CLAIMS_TOOLS
+from . import glance, signing_facts, status
+from .readme_claims_text import COMMENT as CLAIMS_COMMENT, NOTE as CLAIMS_NOTE, SIGNING as CLAIMS_SIGNING, TOOLS as CLAIMS_TOOLS
 from .readme_drift_text import COMMENT as DRIFT_COMMENT, TOOLS as DRIFT_TOOLS
 from .readme_doctor_text import COMMENT as DOCTOR_COMMENT, TOOLS as DOCTOR_TOOLS
 from .readme_family import FAMILY_REPOS
 from .readme_related_text import DESCRIPTIONS
 from .readme_text import LANGUAGES, TEXT
 from .readme_universal_text import CONTRIBUTING, ICONS, LANGUAGES_TEXT, ROADMAP, SECTION_NAMES, TESTING
+
+SIGNING_FACTS = Path(__file__).resolve().parents[2] / "data" / signing_facts.FACTS_NAME
 
 NAME = "URTC-DOCS"
 URL = "https://github.com/JuanenRac/{name}"
@@ -144,7 +146,7 @@ def render(code: str, manifest: dict, entry: dict) -> str:
     add("")
     add("---")
     add("")
-    add(CLAIMS_NOTE[code])
+    add(CLAIMS_NOTE[code].replace("{signing}", CLAIMS_SIGNING[signing_facts.variant(signing_facts.load(SIGNING_FACTS))][code]))
     add("")
     add(glance.render_section(code, manifest, entry).rstrip(chr(10)))
     add("")

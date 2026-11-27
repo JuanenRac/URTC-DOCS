@@ -13,9 +13,12 @@
   },
   "URTC": {
    "0422ae7f3835": "Dedicated inputs for reflective optical proximity sensors like the TCRT5000, plus a generic active-low endstop",
+   "15e41c4204cc": "Firmware signing: the main-board bootloader holds no secret: it verifies an Ed25519 record against a table of ",
    "3b51dde5cb64": "Every asset of an official release also carries a detached Ed25519 release signature ( , public key in ); the ",
    "468b7872a05f": "The bootloader checks the backup slot's size, computes its CRC32 and checks the Ed25519 record against what th",
+   "8cfc16a3a3e7": "The bootloader holds only public keys, so reading it gives nobody the power to sign; the official key table ho",
    "cdd84258c26d": "PCB Advanced Inspection: thermal imaging (MLX9064x-family array - all 3 family members, MLX90640/MLX90641/MLX9",
+   "e0a74fc4971e": "The table of the official build holds the public release image-signing keys (the current one and a reserved ne",
    "fab5f62863cd": "Signature."
   },
   "URTC-FLASHER": {
@@ -26,6 +29,8 @@
    "83c845f842c3": "Whichever source is active gets logged at startup, so it's always visible which values a given session actuall",
    "964dc47be6ef": "The memory-map and HardwareID overrides only apply to the main board's own constants (the one exception is , t",
    "98447526f95c": "Every file is checked against the release signature ( , Ed25519) and its digests before it is used.",
+   "ba6641219657": "The main-board bootloader verifies an Ed25519 record of the image ( ) against a table of public keys and holds",
+   "d73bf04a3b42": "The main-board bootloader verifies an Ed25519 record of the image against a table of public keys and holds no ",
    "fdbf21d9d1b1": "Specific verify-failure reasons: if verification fails during a CAN update, sends a reason byte alongside stat"
   },
   "URTC-GATEWAY": {
@@ -42,8 +47,7 @@
    "d55d1ce35e89": "Jump to: Overview · Architecture · Security · Interfaces · Quick start · Testing · Structure · Related"
   },
   "URTC-TESTER": {
-   "6def1addc37a": "The window as it opens: the transport gate, the listen-only safety mode, the tool profiles and the identity an",
-   "71df8c9816ec": "None of this has been tried on a real board, and none of it is a certified safety function; see the limitation"
+   "6def1addc37a": "The window as it opens: the transport gate, the listen-only safety mode, the tool profiles and the identity an"
   },
   "URTC-UPDATER": {
    "327c4d86725f": "sequential batch actions built from the same live state and safety path.",
@@ -55,7 +59,26 @@
   "URTC-WEB-STUDIO": {
    "1ff0e7a12949": "— what the CAN Traces tab reads, how it names and marks each frame, its limits and the CSV and JSON it writes.",
    "21cf1d0a2038": "An action that acts on the board by mistake | Laser, drill, UV curing, welding, heaters, motion, paste jetting",
-   "38fbe9803aa3": "A page that loads code from elsewhere | A content security policy: scripts only from the page itself, connecti"
+   "38fbe9803aa3": "A page that loads code from elsewhere | A content security policy: scripts only from the page itself, connecti",
+   "ba6641219657": "The main-board bootloader verifies an Ed25519 record of the image ( ) against a table of public keys and holds"
   }
- }
+ },
+ "log": [
+  {
+   "reviewer": "checked against keys/image_trust.json of URTC",
+   "commits": {
+    "URTC": "5159c6da2ba8854b09fe74abbe21498a276c93ec",
+    "URTC-FLASHER": "de5b12d59f81c798a310ccf043b7441921c65997",
+    "URTC-WEB-STUDIO": "852a28feb270571ae33956baf20a7a6e30af02d4"
+   },
+   "added": [
+    "URTC-FLASHER:ba6641219657",
+    "URTC-FLASHER:d73bf04a3b42",
+    "URTC-WEB-STUDIO:ba6641219657",
+    "URTC:15e41c4204cc",
+    "URTC:8cfc16a3a3e7",
+    "URTC:e0a74fc4971e"
+   ]
+  }
+ ]
 }

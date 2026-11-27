@@ -4,7 +4,7 @@
       "hardware": "not_run",
       "target": "board",
       "tests": {
-        "count": 319,
+        "count": 320,
         "command": "python -m unittest discover -s tests",
         "also_c_suites": 82
       }
@@ -25,7 +25,7 @@
     "URTC-DOCS": {
       "hardware": "not_applicable",
       "tests": {
-        "count": 244
+        "count": 250
       }
     },
     "URTC-FLASHER": {
@@ -45,7 +45,7 @@
       "hardware": "not_run",
       "target": "board",
       "tests": {
-        "count": 786
+        "count": 792
       }
     },
     "URTC-TESTER": {

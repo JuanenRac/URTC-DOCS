@@ -297,7 +297,8 @@ def doctor(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     lines = doctor_module.run_doctor(REPO, _workspace(args), online=args.online, fast=args.fast)
     text, status = doctor_module.render(lines)
-    print(text)
+    encoding = sys.stdout.encoding or "utf-8"
+    print(text.encode(encoding, "replace").decode(encoding, "replace"))  # a redirected Windows output cannot hold every character
     return status
 
 

@@ -30,7 +30,7 @@
 |---|---|
 | 版本 | `0.1.9` |
 | 成熟度 | 可用 |
-| 测试 | 250 |
+| 测试 | 291 |
 | 技术栈 | Markdown / Mermaid / Python / SVG |
 | 目标 | 使用者的电脑 |
 | 真实硬件 | 不适用：这里的内容不在硬件上运行 |
@@ -64,7 +64,7 @@
 * [第一个垂直切片](docs/FIRST_VERTICAL_SLICE.md)：今天已存在的最小端到端路径。
 * [CAN 协议的重复实现](docs/CAN_PROTOCOL_DUPLICATION.md)：该协议依据一份文字说明被实现了三次；共享规范将包含什么。
 * [项目目录](docs/PROJECT_CATALOG.md)：生态中的每个仓库，依据其自身清单生成。
-* **工具：** `make_catalog.py` 生成目录，`make_brand.py` 生成横幅、图标和家族图，`make_readmes.py` 生成本仓库的八份 README，`publication_check.py` 在发布前查找任何私有内容，`check_all.sh` 运行家族中每个仓库自己的检查，并为每个仓库输出一行 PASS、FAIL 或 SKIP。`make_glance.py` 根据每个仓库的清单和 `data/glance.json` 生成其“速览”表（`--check` 比较，`--apply` 写入）；提升版本后，运行 `python tools/make_glance.py --apply --repo NAME` 即可刷新该仓库的表。`check_claims.py` 读取家族中每个仓库的英文 README，当某个句子含有风险词（E-STOP、联锁、实时、已签名、mTLS、FDCAN、YOLO、AI 驱动、自主、已认证等）而旁边没有状态标记（计划中、未实现、可选、默认关闭、模拟、已测试等），且不在人工对照代码读过并登记于 `data/claims_reviewed.json` 的行中时，检查失败。`check_repo_tools.py` 比较每个仓库作为同一份副本携带的文件（文档策略与 README 一致性检查、清单版本升级工具、通知仪表板的工作流），任何一个不同就会失败。`sync_repo_tools.py` 会把这些文件的规范副本（`template/eh3d-repo-template`）写入每个仓库，并保留各文件的换行符；不带 `--apply` 时只列出将会改变的内容。 同样的工具会在每个仓库中写入并检查锁文件 `tools/devtools.lock.json`（来自 URTC-DEVTOOLS 的共享集合版本以及每个共享文件的 SHA-256）：被编辑的副本、缺失的文件、锁中未列出的文件或落后于集合的副本都会被报告。`status_lights.py` 也是共享文件之一：当某个仓库 Project status 表中的灯高于其清单（`maturity`、`evidence`）所允许的程度时，该仓库的校验器会失败。`check_repo_tools.py` 还会统计应当携带锁文件（URTC-DEVTOOLS 的 `expected_repositories`）却没有锁文件的仓库：默认只记录（`--allow-missing-lock`，保留一个版本），加上 `--no-allow-missing-lock` 则失败。`urtc_doctor.py` 是唯一的入口：它生成一份报告，包含本机工具（Python、git、Node、ARM 编译器、PySide6、串口）、每个仓库的版本（清单、源文件和最新的 changelog 条目）、URTC-COMMON 的副本以及刷写工具和 Web 工作室内置的固件、每个仓库的验证和本仓库的检查；`--fast` 跳过验证，`--online` 将内置固件与最新发布版本比较。
+* **工具：** `make_catalog.py` 生成目录，`make_brand.py` 生成横幅、图标和家族图，`make_readmes.py` 生成本仓库的八份 README，`publication_check.py` 在发布前查找任何私有内容，`check_all.sh` 运行家族中每个仓库自己的检查，并为每个仓库输出一行 PASS、FAIL 或 SKIP。`make_glance.py` 根据每个仓库的清单和 `data/glance.json` 生成其“速览”表（`--check` 比较，`--apply` 写入）；提升版本后，运行 `python tools/make_glance.py --apply --repo NAME` 即可刷新该仓库的表。`check_claims.py` 读取家族中每个仓库的英文 README，当某个句子含有风险词（E-STOP、联锁、实时、已签名、mTLS、FDCAN、YOLO、AI 驱动、自主、已认证等）而旁边没有状态标记、同一分句内风险词附近也没有明确否定词(not、no、never、without 等)（计划中、未实现、可选、默认关闭、模拟、未测试等），且不在人工对照代码读过并登记于 `data/claims_reviewed.json` 的行中时，检查失败。仅有 test、tested、classic、would 这些词已不能使句子通过，`--explain` 会显示每个句子因何通过。按以前较宽松规则通过、尚无人读过的行列在 `data/claims_pending.json` 中：每次运行都会计数，没有任何命令会向该列表添加内容，`--update-reviewed` 只有在带 `--confirm --reviewer 姓名` 时才写入新行。`check_repo_tools.py` 比较每个仓库作为同一份副本携带的文件（文档策略与 README 一致性检查、清单版本升级工具、通知仪表板的工作流），任何一个不同就会失败。`sync_repo_tools.py` 会把这些文件的规范副本（`template/eh3d-repo-template`）写入每个仓库，并保留各文件的换行符；不带 `--apply` 时只列出将会改变的内容。 同样的工具会在每个仓库中写入并检查锁文件 `tools/devtools.lock.json`（来自 URTC-DEVTOOLS 的共享集合版本以及每个共享文件的 SHA-256）：被编辑的副本、缺失的文件、锁中未列出的文件或落后于集合的副本都会被报告。`status_lights.py` 也是共享文件之一：当某个仓库 Project status 表中的灯高于其清单（`maturity`、`evidence`）所允许的程度时，该仓库的校验器会失败。`check_repo_tools.py` 还会统计应当携带锁文件（URTC-DEVTOOLS 的 `expected_repositories`）却没有锁文件的仓库：遇到这类仓库会失败；`--allow-missing-lock` 则只记录（用于正在加入的仓库）。`urtc_doctor.py` 是唯一的入口：它生成一份报告，包含本机工具（Python、git、Node、ARM 编译器、PySide6、串口）、每个仓库的版本（清单、源文件和最新的 changelog 条目）、URTC-COMMON 的副本以及刷写工具和 Web 工作室内置的固件、每个仓库的验证和本仓库的检查；`--fast` 跳过验证，`--online` 将内置固件与最新发布版本比较。
 
 ## 🧩 在 URTC 中的角色
 
@@ -97,7 +97,7 @@ python -m pytest tests -q                            # 工具的单元测试
 
 ## 🧪 测试
 
-测试套件共有 250 个测试（`python -m pytest tests -q`）。它们用测试数据运行目录、品牌、速览表、状态表和 README 的生成器，运行声明、共用文件、发布和 doctor 的检查，运行 CAN 说明的一致性向量，并检查本仓库的 README 与生成器写出的内容完全一致。
+测试套件共有 291 个测试（`python -m pytest tests -q`）。它们用测试数据运行目录、品牌、速览表、状态表和 README 的生成器，运行声明、共用文件、发布和 doctor 的检查，运行 CAN 说明的一致性向量，并检查本仓库的 README 与生成器写出的内容完全一致。
 
 ## 🏗️ 构建与发布
 

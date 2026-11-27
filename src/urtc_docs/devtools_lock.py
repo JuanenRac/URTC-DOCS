@@ -16,7 +16,7 @@ found). The lock is a file of the repository: reading it needs no network and no
 
 When URTC-DEVTOOLS is next to the repository, the copies are also compared with its canonical files (a hand edit whose lock was written again afterwards agrees
 with its own lock and is found that way), and the repositories listed under ``expected_repositories`` in its ``tools/tooling_registry.json`` are expected to carry a
-lock: one without a lock is counted, and is a problem only when ``allow_missing_lock`` is False (it is True during one version of transition).
+lock: one without a lock is a problem, and is only counted when ``allow_missing_lock`` is True.
 """
 from __future__ import annotations
 
@@ -141,10 +141,10 @@ def missing_expected(workspace: Path, repos: list[Path]) -> list[str]:
     return sorted(repo.name for repo in repos if repo.name in expected and read(repo) is None)
 
 
-def check_workspace(workspace: Path, repos: list[Path], files: tuple[str, ...], allow_missing_lock: bool = True) -> tuple[list[tuple[str, str]], int]:
+def check_workspace(workspace: Path, repos: list[Path], files: tuple[str, ...], allow_missing_lock: bool = False) -> tuple[list[tuple[str, str]], int]:
     """Every problem of every lock as (repository, text), and how many repositories carry a lock.
 
-    A repository that is expected to carry a lock and has none is a problem only when ``allow_missing_lock`` is False (``missing_expected`` counts it either way)."""
+    A repository that is expected to carry a lock and has none is a problem unless ``allow_missing_lock`` is True (``missing_expected`` counts it either way)."""
     version = set_version(workspace)
     canonical = canonical_dir(workspace)
     found: list[tuple[str, str]] = []

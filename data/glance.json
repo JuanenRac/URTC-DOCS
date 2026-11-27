@@ -18,14 +18,14 @@
     "URTC-DEVTOOLS": {
       "hardware": "not_applicable",
       "tests": {
-        "count": 165,
+        "count": 166,
         "command": "python -m unittest discover -s tests"
       }
     },
     "URTC-DOCS": {
       "hardware": "not_applicable",
       "tests": {
-        "count": 250
+        "count": 291
       }
     },
     "URTC-FLASHER": {
@@ -74,7 +74,7 @@
       "hardware": "simulated",
       "target": "browser",
       "tests": {
-        "count": 1857,
+        "count": 1860,
         "command": "npm test"
       }
     }

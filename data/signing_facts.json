@@ -1,0 +1,48 @@
+{
+ "about": "Copied from keys/image_trust.json and keys/registry.json of URTC by check_claims.py --update-signing. Public values only.",
+ "trust": {
+  "release": [
+   {
+    "state": "current",
+    "key_id": "97c7dc7915767823"
+   },
+   {
+    "state": "next",
+    "key_id": "1901dcd29e353430"
+   }
+  ],
+  "dev": [
+   {
+    "state": "current",
+    "key_id": "fe58bb1362df0ea6"
+   }
+  ]
+ },
+ "keys": [
+  {
+   "id": "urtc-release-ed25519",
+   "algorithm": "ed25519",
+   "public": "4020c46d76c8ebacb64c5c7b9f3e7c62475afeb133d7421591988174e0f5dc90"
+  },
+  {
+   "id": "urtc-main-bootloader-hmac-development",
+   "algorithm": "hmac-sha256",
+   "public": "2526cc3e9011ec7c49ecd2d2b7f389e359aa246014ff5154a0af8a3c3bf95581"
+  },
+  {
+   "id": "urtc-image-signing-release-current",
+   "algorithm": "ed25519",
+   "public": "80344f1a557fac5d2426c633342d17ddafd6b2a8bfd35efbe0e7a7acfdcce5f5"
+  },
+  {
+   "id": "urtc-image-signing-release-next",
+   "algorithm": "ed25519",
+   "public": "ac856598a0ac8e45c5f3c66c597c83ccb6a9c0424a434222de14e59cd27c367b"
+  },
+  {
+   "id": "urtc-image-signing-development",
+   "algorithm": "ed25519",
+   "public": "81f29be04dfa58f37458e6182a027d83f12330265d61bd6bfcedb2ba8833b80c"
+  }
+ ]
+}

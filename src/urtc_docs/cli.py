@@ -7,10 +7,12 @@
 from __future__ import annotations
 
 import argparse
+import json
+import subprocess
 import sys
 from pathlib import Path
 
-from . import __version__, brand, catalog, claims, count_tests, devtools_lock, doctor as doctor_module, drift, family, glance, publication, readmes, related, status
+from . import __version__, brand, catalog, claims, count_tests, devtools_lock, doctor as doctor_module, drift, family, glance, publication, readmes, related, signing_facts, status
 
 REPO = Path(__file__).resolve().parents[2]
 CATALOG_FILE = REPO / "docs" / "PROJECT_CATALOG.md"
@@ -159,13 +161,27 @@ def make_glance(argv: list[str] | None = None) -> int:
     return 0
 
 
+def _head(repo: Path) -> str:
+    """The commit of a repository, or '' when it has none."""
+    try:
+        done = subprocess.run(["git", "-C", str(repo), "rev-parse", "HEAD"], capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=30)
+    except (OSError, subprocess.SubprocessError):
+        return ""
+    return done.stdout.strip() if done.returncode == 0 else ""
+
+
 def check_claims(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="check_claims.py", description="Fail when a README states a risky capability (E-STOP, interlock, signed, mTLS, ...) without a status marker or a reviewed line.")
     parser.add_argument("--repo", action="append", metavar="NAME", help="only this repository (repeat the option for several)")
     parser.add_argument("--require-siblings", action="store_true", help="fail instead of skipping when no sibling repository is found")
     parser.add_argument("--workspace", help="the folder that holds the repositories (default: the parent of this repository)")
     parser.add_argument("--data", default=str(CLAIMS_FILE), help="the reviewed list (default: data/claims_reviewed.json)")
-    parser.add_argument("--update-reviewed", action="store_true", help="rewrite the reviewed list from the READMEs as they are now; read every line it adds first")
+    parser.add_argument("--update-reviewed", action="store_true", help="rewrite the reviewed list from the READMEs as they are now; new lines are shown and need --confirm and --reviewer")
+    parser.add_argument("--confirm", action="store_true", help="with --update-reviewed: you have read every new line next to the code and it is true as written")
+    parser.add_argument("--accept-pending", action="append", metavar="NAME", help="with --update-reviewed: also move the pending lines of this repository ('*' for the shared ones) to the reviewed list")
+    parser.add_argument("--reviewer", help="with --update-reviewed: who read the new lines (kept in the log of the reviewed list)")
+    parser.add_argument("--update-signing", action="store_true", help="copy the signature facts from URTC again and rewrite the signing table, then stop")
+    parser.add_argument("--explain", action="store_true", help="print, for every sentence with a risk word, the marker or the negation that cleared it")
     parser.add_argument("--strict-stale", action="store_true", help="also fail when the reviewed list holds a line that no README has any more")
     args = parser.parse_args(argv)
     workspace = _workspace(args)
@@ -179,19 +195,59 @@ def check_claims(argv: list[str] | None = None) -> int:
             return 1
         print(f"CLAIMS=SKIP {message}")
         return 0
+    hub = REPO
+    if args.update_signing:
+        urtc = workspace / signing_facts.URTC
+        if not (urtc / "keys" / "image_trust.json").is_file():
+            print(f"SIGNING=FAIL URTC is not next to this repository in {workspace}", file=sys.stderr)
+            return 1
+        facts = signing_facts.from_urtc(urtc)
+        (hub / "data" / signing_facts.FACTS_NAME).write_text(json.dumps(facts, indent=1) + "\n", encoding="utf-8", newline="\n")
+        document = hub / signing_facts.TABLE_DOCUMENT
+        document.write_bytes(signing_facts.with_table(document.read_bytes().decode("utf-8").replace("\r\n", "\n"), facts).encode("utf-8"))
+        print(f"SIGNING=WRITTEN {len(facts['keys'])} keys; now run tools/make_readmes.py")
+        return 0
     data = Path(args.data)
+    pending_file = data.with_name("claims_pending.json")
+    if args.explain:
+        for repo in repos:
+            for line, sentence, why in claims.explain((repo / claims.README).read_text(encoding="utf-8", errors="replace")):
+                print(f"{repo.name}/README.md:{line}: [{why or 'nothing'}] {sentence[:160]}")
     if args.update_reviewed:
-        reviewed = claims.build_reviewed(workspace, OWN_NAME)
-        claims.save_reviewed(data, reviewed)
+        previous = claims.load_reviewed(data)
+        reviewed = claims.build_reviewed(workspace, OWN_NAME, previous)
+        # A run limited to some repositories, or with some of them missing, must not drop the lines of the others.
+        scanned = {repo.name for repo in claims.repositories(workspace, OWN_NAME)}
+        for name, entries in previous.items():
+            if name != claims.GLOBAL_KEY and name not in scanned:
+                reviewed.setdefault(name, entries)
+        reviewed = claims.held_back(reviewed, previous, claims.load_pending(pending_file), set(args.accept_pending or []))
+        new = claims.additions(previous, reviewed)
+        for name, key, text in new:
+            print(f"new: {name} {key} {text}")
+        if new and not (args.confirm and args.reviewer):
+            print(f"CLAIMS=FAIL {len(new)} new line(s) not written: read them next to the code, then add --confirm --reviewer NAME", file=sys.stderr)
+            return 1
+        log = claims.load_log(data)
+        if new:
+            heads = {name: _head(workspace / name) for name in sorted({name for name, _key, _line in new if name != claims.GLOBAL_KEY})}
+            log.append({"reviewer": args.reviewer, "commits": heads, "added": sorted(f"{name}:{key}" for name, key, _line in new)})
+        claims.save_reviewed(data, reviewed, log)
+        if pending_file.is_file():
+            claims.save_pending(pending_file, claims.without(claims.load_pending(pending_file), reviewed))
         total = sum(len(entries) for entries in reviewed.values())
         print(f"CLAIMS=WRITTEN {total} reviewed lines in {data.name}")
         return 0
     reviewed = claims.load_reviewed(data)
+    pending = claims.load_pending(pending_file)
+    accepted = {name: {**pending.get(name, {}), **reviewed.get(name, {})} for name in set(pending) | set(reviewed)}
+    waiting = 0
     bad_total = risky_total = 0
     stale: list[str] = []
     problems: list[str] = []
     for repo in repos:
-        bad, seen, risky = claims.check_repo(repo, reviewed)
+        bad, seen, risky = claims.check_repo(repo, accepted)
+        waiting += len(seen & (set(pending.get(repo.name, {})) | set(pending.get(claims.GLOBAL_KEY, {}))))
         risky_total += risky
         bad_total += len(bad)
         for line, sentence in bad:
@@ -200,9 +256,16 @@ def check_claims(argv: list[str] | None = None) -> int:
             stale += [f"{repo.name}:{key}" for key in claims.stale_entries(repo.name, reviewed, seen)]
     for problem in problems:
         print(problem, file=sys.stderr)
+    signing = [] if args.repo else signing_facts.problems(REPO, repos)
+    for problem in signing:
+        print(problem, file=sys.stderr)
+    if signing:
+        print(f"SIGNING=FAIL {len(signing)} statement(s) about firmware signatures disagree with the key files of URTC", file=sys.stderr)
     if stale:
         print(f"note: {len(stale)} reviewed line(s) no longer match any README (remove them with --update-reviewed)")
-    if bad_total or (stale and args.strict_stale):
+    if waiting:
+        print(f"note: {waiting} line(s) still wait for a person's review ({pending_file.name})")
+    if bad_total or signing or (stale and args.strict_stale):
         print(f"CLAIMS=FAIL {bad_total} sentence(s) with a risk word and no status marker, {len(stale)} stale, in {len(repos)} repositories", file=sys.stderr)
         return 1
     print(f"CLAIMS=PASS {risky_total} sentences with a risk word in {len(repos)} repositories, all marked or reviewed")
@@ -240,7 +303,7 @@ def check_repo_tools(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="check_repo_tools.py", description="Fail when a file that every repository carries as the same copy (the documentation-policy and README-parity checks, the manifest version bumper) differs between repositories.")
     parser.add_argument("--require-siblings", action="store_true", help="fail instead of skipping when fewer than two repositories are found")
     parser.add_argument("--workspace", help="the folder that holds the repositories (default: the parent of this repository)")
-    parser.add_argument("--allow-missing-lock", action=argparse.BooleanOptionalAction, default=True, help="a repository of expected_repositories (URTC-DEVTOOLS) without its lock is only counted (the default during the transition); --no-allow-missing-lock makes it a failure")
+    parser.add_argument("--allow-missing-lock", action=argparse.BooleanOptionalAction, default=False, help="only count a repository of expected_repositories (URTC-DEVTOOLS) without its lock, for one that is being added (by default it fails)")
     args = parser.parse_args(argv)
     workspace = _workspace(args)
     found, count = drift.check_workspace(workspace, template_dir=drift.source_dir(workspace) if workspace.resolve() == REPO.resolve().parent else None)

@@ -186,15 +186,15 @@ def test_the_check_finds_an_edited_copy_a_missing_file_and_a_copy_that_fell_behi
     drift.apply_sync(drift.plan_locks(ws, [], ("tools/_x.py",)))
     again, _ = devtools_lock.check_workspace(ws, repos, ("tools/_x.py",))
     assert again == [("URTC-A", "tools/_x.py: edited and the lock recalculated (it differs from the canonical file of URTC-DEVTOOLS)")]
-    # a repository the registry expects to carry a lock: counted, a problem only when the transition is over
+    # a repository the registry expects to carry a lock: counted, and a problem unless a run says it is being added
     _take_the_set(ws, template)
     put(ws / "URTC-DEVTOOLS", "tools/tooling_registry.json", json.dumps({"expected_repositories": ["URTC-A", "URTC-OTHER"]}))
     assert devtools_lock.expected_repositories(ws) == ("URTC-A", "URTC-OTHER")
     (ws / "URTC-A" / "tools" / "devtools.lock.json").unlink()
     (ws / "URTC-A" / "tools" / "_x.py").unlink()
     assert devtools_lock.missing_expected(ws, repos) == ["URTC-A"]
-    assert devtools_lock.check_workspace(ws, repos, ("tools/_x.py",)) == ([], 1)
-    strict, _ = devtools_lock.check_workspace(ws, repos, ("tools/_x.py",), allow_missing_lock=False)
+    assert devtools_lock.check_workspace(ws, repos, ("tools/_x.py",), allow_missing_lock=True) == ([], 1)
+    strict, _ = devtools_lock.check_workspace(ws, repos, ("tools/_x.py",))
     assert strict == [("URTC-A", "tools/devtools.lock.json is missing (the repository is in expected_repositories of URTC-DEVTOOLS)")]
     put(ws / "URTC-DEVTOOLS", "tools/tooling_registry.json", "not json")
     assert devtools_lock.expected_repositories(ws) == ()

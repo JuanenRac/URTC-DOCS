@@ -1,0 +1,101 @@
+{
+ "about": "Sentences that passed under the older markers and that no person has read next to the code yet. This list only gets shorter.",
+ "pending": {
+  "*": {
+   "621728c830cc": "This program can look for a newer version of itself: the \"Check for updates\" button asks GitHub once and offer",
+   "8446a589bc15": "Read the security baseline and the threat model before relying on any statement here for the safety of a perso",
+   "b8096d13b946": "The history window: every record the programs wrote about each board, newest first, each checked on its own, w",
+   "ca2c217ab29a": "The package must match its SHA-256 and the signature of the releases key pinned in the program; the previous v",
+   "df622d8a1f49": "The main bootloader checks firmware images with CRC32 and an Ed25519 record against a table of public keys and",
+   "e060e87b1e3b": "Security | 🟡 | Releases are signed with Ed25519 and checked before use; the key handling was not reviewed by a"
+  },
+  "URTC": {
+   "11bb8ca3b839": "The master sends the 76-byte Ed25519 record (key id, rollback counter, signature) as 11 frames (an index and 7",
+   "466f51a5a927": "Laser, heater and welder installations must have a hardware interlock independent of the MCU and a closed bus:",
+   "46bfb3dd3d15": "size, CRC32, and an Ed25519 signature checked against the bootloader's table of public keys, showing it was ma",
+   "53dc8d50d9b0": "The flash map, the vector table and the length of the image do not change, the signature record is made exactl",
+   "65b194b75c86": "size, CRC32, signature, or HardwareID",
+   "67415f29ea22": "The main-board bootloader verifies firmware images with CRC32 and an Ed25519 signature against a table of publ",
+   "67b586f2c4b6": "Updates | 🟠 | Images are updated over the CAN bus with the bootloader; a signed update, a tampered signature a",
+   "837f5b8a9df9": "Wire Harnessing / Crimping Actuator: high-torque jaw for stripping/crimping terminals, driven off an expansion",
+   "96cc2611a6ed": "⚠️ Safety notice (design stage, no board has run this firmware yet): this board drives a 10W engraving laser d",
+   "9b64168ddfab": "None of it has run on a board: no populated board exists, and the host tests cannot show that the timing, the ",
+   "b459be88bd3e": "For NEMA 23/34 at their full rated torque, a TMC5160 on the expansion connector (see below) supports up to 10A"
+  },
+  "URTC-COMMON": {
+   "2f8f99857955": "Each release attaches a signed Python wheel ( , not on PyPI), a signed source archive and the signed generated",
+   "37f2f6a8b33b": "Bootloader identity and image authentication: , and (an Ed25519 verifier, the decision to install a signed ima",
+   "5a239e281a0c": "Self-update from a signed package: is the whole flow for a program that updates itself from a GitHub release, ",
+   "700eadb9b949": "The \"Check for updates\" menu of the programs, ready to draw: holds the options (all conservative: no check unl",
+   "81eca17d8051": "Installable package: each release attaches a signed Python wheel ( , not on PyPI), a signed source archive and",
+   "a028e0caa2cc": "Rotation of the signing key and testing strategy: is the reference rule for announcing two key fingerprints at"
+  },
+  "URTC-FLASHER": {
+   "29b45570a719": "The virtual board takes the whole update, with the same checks of the size, the signature and the version as a",
+   "343c2618471d": "It is the update companion of , shares its CAN code with it through , and can hand it a firmware image whose r",
+   "37881f344fb3": "The images of a bench build are signed with the public development key ( ): anyone can make such an image.",
+   "391818efa5e0": "A file without a manifest (your own build) is flashed only if a signing key is set in - see \"Changing the HMAC",
+   "3a7013256dc1": "If you genuinely need to revert to an older, still-trusted release, check \"Allow downgrade (bypass anti-rollba",
+   "4667dcc149d6": "The Ed25519 record of each application image is the file published next to it; the flasher only carries it to ",
+   "4ddda22f84ad": "If verification fails at any point (CRC32, signature, or HardwareID mismatch), the bootloader's main slot is n",
+   "519abf768789": "0 sends them back to back); a value outside those limits falls back to the default.",
+   "620a8c2ac03a": "Uses GitHub's own public API (unauthenticated, so subject to GitHub's own 60-requests/hour rate limit if you h",
+   "9085cf197cdb": "Each file of an official release has a release signature ( , Ed25519): the flasher verifies it when it is ther",
+   "98fe6eb27332": "It speaks the bootloader protocol of URTC ( of that repository) over a USB-CAN adapter, as an SLCAN serial por",
+   "c1e68be58863": "The published signature is what gets sent to the bootloader, and the manifest's version is what gets reported ",
+   "d2e423acefaa": "A tampered update of this program | \"Check for updates\" accepts only a package with a valid SHA-256 and Ed2551",
+   "d37bf972851c": "Version and signature hints: before the transfer the tool asks the board what is installed and logs \"installed",
+   "d6cdda7719a6": "The URTC build signs every application image and publishes the signature next to it, in ( , plus ); the flashe"
+  },
+  "URTC-GATEWAY": {
+   "7f3ce3a64278": "It does not stop a peer that holds the key and misbehaves; the list, the payload check and the rate limit are ",
+   "8e1140368c81": "Security | 🟡 | Lets only listed identifiers through and limits their rate; checked on a PC, never in front of ",
+   "c163c30fc545": "Session key: a peer proves it holds a key with an HMAC over a nonce of the connection, a counter and the frame"
+  },
+  "URTC-SMART-RACK": {
+   "45c6e7aa196e": "The host tests are C programs in (792 checks in 24 files) compiled and run with the computer's own C compiler,",
+   "58a1199e233c": "Pre-heating too long or too hot | limits how long a pre-heat may run without a tool swap (10 minutes by defaul",
+   "731d15891021": "An out-of-range order to a tool | decodes and range-checks every order without caring how it arrived; only kno",
+   "b0c1ce27b58a": "The serial line is tested too: 19 streams of bytes with the time each piece arrived (a frame in pieces, noise,",
+   "bee9bdfc127d": "Also real: a stream deframer for the serial link ( : finds the start byte, resynchronises after a lost byte an"
+  },
+  "URTC-TESTER": {
+   "3415cb0f81b7": "Each check ends in pass, fail or unknown: a pass needs an answer that can be read and says what a healthy tool",
+   "45a6342274a9": "runs the tester without a window, for a production line, a bench script or a CI job: (who answers: tool, firmw",
+   "4e52fc3791ad": "A value outside those limits keeps the default.",
+   "7a9a40b79b66": "Dangerous identifiers in a plan: a plan step that writes an identifier which changes what the board is (the bo",
+   "a5b8caab365c": "The whole run takes the worst result (fail, then unknown, then pass); the limits are in config.json under self",
+   "ec21424d5761": "The switch can also be turned on in the deck (a check box in its menu), and the keys you trust can be listed b"
+  },
+  "URTC-UPDATER": {
+   "1244be4317ab": "Honesty check - what actually runs today: Maturity: established (one documented end-to-end run, not sustained ",
+   "126bf173c726": "Security options (both on by default; changeable from the window's Security button, the command, the settings ",
+   "451e048d06b4": "It also installs the desktop programs (the flasher, the tester and itself) from the signed package of their re",
+   "4e4d4a5454c1": "The STATE column says why (for example or a rate-limit notice).",
+   "78c3bebe8b38": "Looking before approving. fetches the candidate and shows its commit, author, version, signature state and the",
+   "8ed63479b42a": "A real HTTP status GitHub actually returned - 404, 403, 500 - is never retried: GitHub already answered, and h",
+   "a188209f8349": "A package that was tampered with | A package is accepted only if its size, its SHA-256 and its Ed25519 signatu",
+   "b7e9cf87e4d6": "The GUI may also offer Install all missing or Update all outdated; each is a separately confirmed, sequential ",
+   "bb67cdc513a2": "The \"Packages\" button lists the signed packages of the flasher, the tester and this updater: each row checks i",
+   "fd76aaac61c3": "The desktop GUI can also run Install all missing or Update all outdated, but only after a separate confirmatio"
+  },
+  "URTC-WEB-STUDIO": {
+   "281910e79790": "Published signature and digest - every image from the URTC build ships with (version, , and the value the boot",
+   "3c5097d0f104": "The URTC build signs every application image itself (with a private key on release builds only; the published ",
+   "3c9989c6b308": "The page checks the same signature in the browser (Web Crypto) before it sends a bundled image or an image of ",
+   "49a351f56f32": "The list comes from the releases API of (only the application images of the selected board, each with its and ",
+   "52d95225cbf9": "The app sends that published signature, a manifest that does not match the file blocks the flash, and the mani",
+   "564a44429445": "Flasher Studio only transports that signature - the same model as the desktop .",
+   "685538888676": "Web Serial requires either a secure context (HTTPS) or - and it cannot be used from inside an iframe.",
+   "7e501f8dcf3c": "Security of the page: scripts, styles, fonts and images come from the page itself (the fonts are packaged with",
+   "98c0eacf4998": "A file picked from disk has no manifest: it can only be flashed with a signing key typed in for that one flash",
+   "af7f58ec1e7f": "Either way it checks every digest and the signature fields before touching , and regenerates ; a test verifies",
+   "cacbbce14ac4": "Flashing an image signed with the public development key asks for confirmation first, because that key proves ",
+   "d6620b3a5caa": "The one exception is a self-built image with no manifest, for a bench board: the app then asks for the signing",
+   "d94388d717cb": "A record signed with Ed25519 shows whether its signature matches, and a list of trusted keys (alias and public",
+   "e42bd2d65989": "CAN-OTA update of the expansion slave ( - , relayed through the main board's own I2C bridge) - same signing/CR",
+   "efac8de6183f": "A wrong or tampered firmware image | A manifest whose does not match the file blocks the flash; every image of",
+   "f590b14b47f9": "The workflow is switched off: both jobs run only when the repository variable is (Settings > Secrets and varia"
+  }
+ }
+}

@@ -4,6 +4,14 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **A repository expected to carry the lock of the shared tools and without it fails the nightly check:** until now it was only counted; `check_repo_tools.py --allow-missing-lock` keeps the old behaviour for a repository that is being added.
+
+- **The signature statements come from the key files of URTC:** the sentence of the safety note about the bootloader keys is one of three closed phrases chosen from `keys/image_trust.json`, the security baseline has a table of who verifies what with which key written from `keys/registry.json`, and the claim check fails when a document of the family still says that the official trust table is empty, when the copy is behind URTC or when a document gives the main bootloader an HMAC key.
+
+- **The catalogue says that the programs carry copies of URTC-COMMON:** it still said that nothing used it.
+
+- **A loose word no longer clears a risky claim of a README:** `check_claims.py` took any "not", "no", "test", "tested", "classic" or "would" in the sentence or next to it as its status. Now a negation counts only in the same clause and next to the risk word; status words such as planned, simulated or never tested still count. `--explain` shows what cleared each sentence. The sentences that passed under the older rule and that nobody has read are listed in `data/claims_pending.json`, are counted on every run and can only leave that list; `--update-reviewed` writes new lines only with `--confirm --reviewer`.
+
 - **The nightly run fails when the compatibility table is left behind:** it and `tools/check_all.sh` run `compat_table.py --check --siblings` of URTC-COMMON over the whole family.
 
 - **The template of the host test runner is the current one:** coverage is the union of the lines the suites run.

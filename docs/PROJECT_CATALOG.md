@@ -23,7 +23,7 @@ Every repository of the ecosystem, written by `tools/make_catalog.py` from the `
 
 | Repository | Version | Maturity | Role | Stack | Target | Parent | What it is |
 |---|---|---|---|---|---|---|---|
-| [URTC-DEVTOOLS](https://github.com/JuanenRac/URTC-DEVTOOLS) | 0.0.8 | Scaffolding | tool | python | user-pc | - | The shared repository tools of the family (README and documentation checks, picture generators, version bumper) as one versioned set with a lock file; no repository has taken the lock yet. |
+| [URTC-DEVTOOLS](https://github.com/JuanenRac/URTC-DEVTOOLS) | 0.0.9 | Scaffolding | tool | python | user-pc | - | The shared repository tools of the family (README and documentation checks, picture generators, version bumper) as one versioned set with a lock file that every repository of the family carries. |
 | [URTC-DOCS](https://github.com/JuanenRac/URTC-DOCS) | 0.1.9 | Functional | tool | python | user-pc | - | Architecture, interfaces, security baseline, capability matrix and generated project catalogue of the ecosystem, plus the tools that compare all repositories. |
 | [URTC-UPDATER](https://github.com/JuanenRac/URTC-UPDATER) | 0.3.4 | Established | tool | python | user-pc | - | Finds the ecosystem repositories on a machine from their manifests and installs or updates them after an explicit confirmation. |
 
@@ -32,7 +32,7 @@ Every repository of the ecosystem, written by `tools/make_catalog.py` from the `
 | Repository | Version | Maturity | Role | Stack | Target | Parent | What it is |
 |---|---|---|---|---|---|---|---|
 | [URTC](https://github.com/JuanenRac/URTC) | 0.5.2 | Functional | firmware | firmware-c | mcu | - | Firmware of the tool-head board (STM32F303, 25 tool profiles, CAN bootloader, expansion slave) and the CAN protocol reference; no populated board exists yet. |
-| [URTC-COMMON](https://github.com/JuanenRac/URTC-COMMON) | 0.3.1 | Functional | library | python | user-pc | - | The CAN protocol as data: a specification with generated C, TypeScript and Python code, conformance vectors and the Python transports; nothing uses it yet. |
+| [URTC-COMMON](https://github.com/JuanenRac/URTC-COMMON) | 0.3.2 | Functional | library | python | user-pc | - | The CAN protocol as data: a specification with generated C, TypeScript and Python code, conformance vectors and the Python transports; nothing uses it yet. |
 | [URTC-GATEWAY](https://github.com/JuanenRac/URTC-GATEWAY) | 0.1.1 | Scaffolding | tool | python | user-pc | - | Gateway in front of the CAN bus: the identifiers a host may send (made from the specification), a payload check, a rate limit and a session key, each one switchable; tested on the host only. |
 | [URTC-SMART-RACK](https://github.com/JuanenRac/URTC-SMART-RACK) | 0.2.9 | Functional | firmware | firmware-c | user-pc | - | Hardware-independent C logic and rack command protocol for a tool rack with pre-heating and lifecycle tracking; no board exists yet. |
 | [URTC-VISION-TOOL](https://github.com/JuanenRac/URTC-VISION-TOOL) | 0.2.3 | Functional | firmware | firmware-c | user-pc | - | Sensor-frame protocol in C and a Python thermal/RGB companion for an inspection tool head; no board or camera has been used yet. |

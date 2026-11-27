@@ -4,6 +4,9 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The checks of URTC-SMART-RACK in the table are 792.**
+
+- **The test counter and the doctor read what other programs print as UTF-8:** on a Windows computer they used the code page, so a name or a message with a character it does not have left the output empty or stopped the program being checked, and the doctor could not print such a line on a redirected output. Checked by tests that stand in for that code page. The testing text of the README states the real count, and a test holds it.
 - **The test counts of the table follow the repositories:** the C host suites of URTC are 82 and the tests of URTC-GATEWAY are 256 in `data/glance.json`.
 
 - **The template of the dashboard notice carries the reason for its trigger:** `template/eh3d-repo-template/.github/workflows/dashboard-dispatch.yml` has the same comment on the `workflow_run` trigger as the canonical file of URTC-DEVTOOLS 0.0.8, so the two are equal again.

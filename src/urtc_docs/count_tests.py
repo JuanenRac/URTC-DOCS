@@ -91,11 +91,13 @@ def load_documented(path: Path) -> dict[str, int | None]:
 
 
 def _run(command: list[str], cwd: Path, extra_path: str | None = None) -> str:
-    env = dict(os.environ)
+    # a child Python prints UTF-8 and the output of every program is read as UTF-8: the code page of a Windows computer neither stops a test run
+    # nor loses its output
+    env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
     if extra_path:
         env["PYTHONPATH"] = extra_path
     try:
-        done = subprocess.run(command, cwd=cwd, env=env, capture_output=True, text=True, timeout=TIMEOUT_SECONDS, check=False)
+        done = subprocess.run(command, cwd=cwd, env=env, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=TIMEOUT_SECONDS, check=False)
     except (OSError, subprocess.TimeoutExpired) as error:
         raise CountError(f"{' '.join(command[:4])}: {error}") from error
     return (done.stdout or "") + (done.stderr or "")

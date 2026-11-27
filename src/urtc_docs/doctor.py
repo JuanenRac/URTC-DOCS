@@ -14,6 +14,7 @@ from __future__ import annotations
 import hashlib
 import importlib.util
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -145,6 +146,11 @@ def check_versions(repos: list[Path]) -> list[Line]:
     return lines
 
 
+def _capture(runner: Runner, command: list[str], cwd: str) -> subprocess.CompletedProcess:
+    """Run a check of a repository and read what it prints as UTF-8, whatever the code page of the computer."""
+    return runner(command, cwd=cwd, capture_output=True, text=True, encoding="utf-8", errors="replace", env={**os.environ, "PYTHONIOENCODING": "utf-8"})
+
+
 def check_repositories(repos: list[Path], *, python: str = sys.executable, runner: Runner = subprocess.run) -> list[Line]:
     """Each repository's own CI validation (tools/ci_validate.py)."""
     lines = []
@@ -158,7 +164,7 @@ def check_repositories(repos: list[Path], *, python: str = sys.executable, runne
         if not (repo / ".git").exists():
             lines.append(Line("repositories", repo.name, SKIP, "not a git checkout (the documentation boundary check reads git)"))
             continue
-        done = runner([python, "tools/ci_validate.py"], cwd=str(repo), capture_output=True, text=True)
+        done = _capture(runner, [python, "tools/ci_validate.py"], str(repo))
         token = next((line.strip() for line in reversed((done.stdout or "").splitlines()) if "CI_VALIDATION=" in line), "")
         lines.append(Line("repositories", repo.name, PASS if done.returncode == 0 else FAIL, token or f"exit code {done.returncode}"))
     return lines
@@ -214,7 +220,7 @@ def check_firmware(workspace: Path, *, python: str = sys.executable, runner: Run
     flasher, web = workspace / "URTC-FLASHER", workspace / "URTC-WEB-STUDIO"
     lines = []
     if (flasher / "tools" / "sync_firmware.py").is_file():
-        done = runner([python, "tools/sync_firmware.py", "--check"], cwd=str(flasher), capture_output=True, text=True)
+        done = _capture(runner, [python, "tools/sync_firmware.py", "--check"], str(flasher))
         text = ((done.stdout or "") + (done.stderr or "")).strip().splitlines()
         lines.append(Line("firmware", "URTC-FLASHER firmware/", PASS if done.returncode == 0 else FAIL, text[-1] if text else f"exit code {done.returncode}"))
     else:
@@ -269,7 +275,7 @@ def check_own(repo: Path, *, python: str = sys.executable, runner: Runner = subp
                      ("docs: claim hygiene", ["tools/check_claims.py", "--require-siblings"])]
     lines = []
     for name, command in commands:
-        done = runner([python, *command], cwd=str(repo), capture_output=True, text=True)
+        done = _capture(runner, [python, *command], str(repo))
         out = ((done.stdout or "") + (done.stderr or "")).strip().splitlines()
         token = next((line.strip() for line in reversed(out) if re.search(r"[A-Z_]+=(PASS|FAIL|SKIP|WRITTEN)", line)), "")
         lines.append(Line("docs", name, PASS if done.returncode == 0 else FAIL, token or f"exit code {done.returncode}"))

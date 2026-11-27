@@ -12,13 +12,13 @@
     "URTC-COMMON": {
       "hardware": "simulated",
       "tests": {
-        "count": 3080
+        "count": 3081
       }
     },
     "URTC-DEVTOOLS": {
       "hardware": "not_applicable",
       "tests": {
-        "count": 158,
+        "count": 163,
         "command": "python -m unittest discover -s tests"
       }
     },
@@ -31,7 +31,7 @@
     "URTC-FLASHER": {
       "hardware": "simulated",
       "tests": {
-        "count": 983,
+        "count": 1008,
         "command": "python -m pytest tests -q"
       }
     },
@@ -74,7 +74,7 @@
       "hardware": "simulated",
       "target": "browser",
       "tests": {
-        "count": 1841,
+        "count": 1856,
         "command": "npm test"
       }
     }

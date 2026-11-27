@@ -4,6 +4,12 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The nightly run fails when the compatibility table is left behind:** it and `tools/check_all.sh` run `compat_table.py --check --siblings` of URTC-COMMON over the whole family.
+
+- **The template of the host test runner is the current one:** coverage is the union of the lines the suites run.
+
+- **The test counts and the catalogue follow the repositories.**
+
 - **The test count of URTC-UPDATER follows its new tests.**
 
 ## [0.1.9] - Test counts follow the repositories and the tools read other programs as UTF-8

@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The test counts of the table follow the repositories:** URTC-GATEWAY has 292 tests and URTC-TESTER 1184.
+
 - **The test counts of the table follow the repositories:** URTC-SMART-RACK has 792 checks and the tests of URTC are 320.
 
 - **The test counter and the doctor read what other programs print as UTF-8:** on a Windows computer they used the code page, so a name or a message with a character it does not have left the output empty or stopped the program being checked, and the doctor could not print such a line on a redirected output. Checked by tests that stand in for that code page. The testing text of the README states the real count, and a test holds it.

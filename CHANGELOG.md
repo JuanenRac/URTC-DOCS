@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- The firmware has 88 C host suites in the summary data (it said 87).
+
 - **The capability matrix and the threat model say which key signs the published images:** they still said the official images were signed with the development key.
 
 ## [0.2.0] - Signature statements from the key files, stricter claim checks and nightly comparison of the compatibility table

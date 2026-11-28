@@ -6,7 +6,7 @@
       "tests": {
         "count": 322,
         "command": "python -m unittest discover -s tests",
-        "also_c_suites": 87
+        "also_c_suites": 88
       }
     },
     "URTC-COMMON": {

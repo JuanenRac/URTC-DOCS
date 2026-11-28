@@ -12,7 +12,7 @@
     "src/F303-master/firmware_common.h": "0.5.2.0"
    },
    "tests_present": true,
-   "unreleased_entries": 5
+   "unreleased_entries": 7
   },
   "URTC-COMMON": {
    "changelog_head": "0.3.2",
@@ -26,7 +26,7 @@
     "pyproject.toml": "0.3.2"
    },
    "tests_present": true,
-   "unreleased_entries": 3
+   "unreleased_entries": 4
   },
   "URTC-DEVTOOLS": {
    "changelog_head": "0.0.9",
@@ -54,7 +54,7 @@
     "pyproject.toml": "0.2.0"
    },
    "tests_present": true,
-   "unreleased_entries": 0
+   "unreleased_entries": 1
   },
   "URTC-FLASHER": {
    "changelog_head": "0.6.1",
@@ -68,7 +68,7 @@
     "flasher_config.py": "0.6.1"
    },
    "tests_present": true,
-   "unreleased_entries": 0
+   "unreleased_entries": 1
   },
   "URTC-GATEWAY": {
    "changelog_head": "0.1.1",
@@ -110,7 +110,7 @@
     "tester_config.py": "0.5.9"
    },
    "tests_present": true,
-   "unreleased_entries": 2
+   "unreleased_entries": 3
   },
   "URTC-UPDATER": {
    "changelog_head": "0.3.4",
@@ -124,7 +124,7 @@
     "pyproject.toml": "0.3.4"
    },
    "tests_present": true,
-   "unreleased_entries": 1
+   "unreleased_entries": 2
   },
   "URTC-VISION-TOOL": {
    "changelog_head": "0.2.3",
@@ -152,7 +152,7 @@
     "package.json": "0.5.5"
    },
    "tests_present": true,
-   "unreleased_entries": 1
+   "unreleased_entries": 3
   }
  }
 }

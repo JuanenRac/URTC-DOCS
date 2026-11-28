@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The capability matrix and the threat model say which key signs the published images:** they still said the official images were signed with the development key.
+
 ## [0.2.0] - Signature statements from the key files, stricter claim checks and nightly comparison of the compatibility table
 
 - **A repository expected to carry the lock of the shared tools and without it fails the nightly check:** until now it was only counted; `check_repo_tools.py --allow-missing-lock` keeps the old behaviour for a repository that is being added.

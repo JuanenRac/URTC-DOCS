@@ -6,7 +6,7 @@
       "tests": {
         "count": 322,
         "command": "python -m unittest discover -s tests",
-        "also_c_suites": 82
+        "also_c_suites": 87
       }
     },
     "URTC-COMMON": {
@@ -31,7 +31,7 @@
     "URTC-FLASHER": {
       "hardware": "simulated",
       "tests": {
-        "count": 1012,
+        "count": 1017,
         "command": "python -m pytest tests -q"
       }
     },
